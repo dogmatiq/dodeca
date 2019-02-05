@@ -13,14 +13,14 @@ import (
 // base-64 encoded string and consume it using an io.ReadCloser.
 func Example_base64_as_reader() {
 	// Setup the environment such that the EXAMPLE variable contains the
-	// configuration value as a hexadecimal string, and the EXAMPLE_VALSRC
+	// configuration value as a hexadecimal string, and the EXAMPLE__DATASOURCE
 	// specifies the source type as "string:base64".
 	//
 	// Outside of an example these environment variables would be set in the
 	// operating system shell, and the path would refer to a real configuration
 	// file.
 	os.Setenv("EXAMPLE", base64.StdEncoding.EncodeToString([]byte("<the configuration value>")))
-	os.Setenv("EXAMPLE_VALSRC", "string:base64")
+	os.Setenv("EXAMPLE__DATASOURCE", "string:base64")
 
 	// Get the configuration value from the Environment bucket.
 	value := config.Environment.Get("EXAMPLE")
@@ -49,14 +49,14 @@ func Example_base64_as_reader() {
 // the string's content.
 func Example_base64_as_path() {
 	// Setup the environment such that the EXAMPLE variable contains the
-	// configuration value as a hexadecimal string, and the EXAMPLE_VALSRC
+	// configuration value as a hexadecimal string, and the EXAMPLE__DATASOURCE
 	// specifies the source type as "string:base64".
 	//
 	// Outside of an example these environment variables would be set in the
 	// operating system shell, and the path would refer to a real configuration
 	// file.
 	os.Setenv("EXAMPLE", base64.StdEncoding.EncodeToString([]byte("<the configuration value>")))
-	os.Setenv("EXAMPLE_VALSRC", "string:base64")
+	os.Setenv("EXAMPLE__DATASOURCE", "string:base64")
 
 	// Get the configuration value from the Environment bucket.
 	value := config.Environment.Get("EXAMPLE")
@@ -87,14 +87,14 @@ func Example_base64_as_path() {
 // base-64 encoded string and consume it as string.
 func Example_base64_as_string() {
 	// Setup the environment such that the EXAMPLE variable contains the
-	// configuration value as a hexadecimal string, and the EXAMPLE_VALSRC
+	// configuration value as a hexadecimal string, and the EXAMPLE__DATASOURCE
 	// specifies the source type as "string:base64".
 	//
 	// Outside of an example these environment variables would be set in the
 	// operating system shell, and the path would refer to a real configuration
 	// file.
 	os.Setenv("EXAMPLE", base64.StdEncoding.EncodeToString([]byte("<the configuration value>")))
-	os.Setenv("EXAMPLE_VALSRC", "string:base64")
+	os.Setenv("EXAMPLE__DATASOURCE", "string:base64")
 
 	// Get the configuration value from the Environment bucket.
 	value := config.Environment.Get("EXAMPLE")
@@ -115,14 +115,14 @@ func Example_base64_as_string() {
 // base-64 encoded string and consume it as a byte-slice.
 func Example_base64_as_bytes() {
 	// Setup the environment such that the EXAMPLE variable contains the
-	// configuration value as a hexadecimal string, and the EXAMPLE_VALSRC
+	// configuration value as a hexadecimal string, and the EXAMPLE__DATASOURCE
 	// specifies the source type as "string:base64".
 	//
 	// Outside of an example these environment variables would be set in the
 	// operating system shell, and the path would refer to a real configuration
 	// file.
 	os.Setenv("EXAMPLE", base64.StdEncoding.EncodeToString([]byte("<the configuration value>")))
-	os.Setenv("EXAMPLE_VALSRC", "string:base64")
+	os.Setenv("EXAMPLE__DATASOURCE", "string:base64")
 
 	// Get the configuration value from the Environment bucket.
 	value := config.Environment.Get("EXAMPLE")

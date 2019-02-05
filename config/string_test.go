@@ -12,17 +12,17 @@ import (
 // and consume it using an io.ReadCloser.
 func Example_string_as_reader() {
 	// Setup the environment such that the EXAMPLE variable contains the
-	// configuration value as a string, and the EXAMPLE_VALSRC specifies the
-	// source type as "string:plain".
+	// configuration value as a string, and the EXAMPLE__DATASOURCE specifies
+	// the source type as "string:plain".
 	//
-	// This is the default source type. EXAMPLE_VALSRC can be left undefined and
-	// the behavior would be the same.
+	// This is the default source type. EXAMPLE__DATASOURCE can be left
+	// undefined and the behavior would be the same.
 	//
 	// Outside of an example these environment variables would be set in the
 	// operating system shell, and the path would refer to a real configuration
 	// file.
 	os.Setenv("EXAMPLE", "<the configuration value>")
-	os.Setenv("EXAMPLE_VALSRC", "string:plain")
+	os.Setenv("EXAMPLE__DATASOURCE", "string:plain")
 
 	// Get the configuration value from the Environment bucket.
 	value := config.Environment.Get("EXAMPLE")
@@ -50,17 +50,17 @@ func Example_string_as_reader() {
 // and consume it as a path to a temporary file containing the string's content.
 func Example_string_as_path() {
 	// Setup the environment such that the EXAMPLE variable contains the
-	// configuration value as a string, and the EXAMPLE_VALSRC specifies the
-	// source type as "string:plain".
+	// configuration value as a string, and the EXAMPLE__DATASOURCE specifies
+	// the source type as "string:plain".
 	//
-	// This is the default source type. EXAMPLE_VALSRC can be left undefined and
-	// the behavior would be the same.
+	// This is the default source type. EXAMPLE__DATASOURCE can be left
+	// undefined and the behavior would be the same.
 	//
 	// Outside of an example these environment variables would be set in the
 	// operating system shell, and the path would refer to a real configuration
 	// file.
 	os.Setenv("EXAMPLE", "<the configuration value>")
-	os.Setenv("EXAMPLE_VALSRC", "string:plain")
+	os.Setenv("EXAMPLE__DATASOURCE", "string:plain")
 
 	// Get the configuration value from the Environment bucket.
 	value := config.Environment.Get("EXAMPLE")
@@ -91,17 +91,17 @@ func Example_string_as_path() {
 // and consume it as string.
 func Example_string_as_string() {
 	// Setup the environment such that the EXAMPLE variable contains the
-	// configuration value as a string, and the EXAMPLE_VALSRC specifies the
-	// source type as "string:plain".
+	// configuration value as a string, and the EXAMPLE__DATASOURCE specifies
+	// the source type as "string:plain".
 	//
-	// This is the default source type. EXAMPLE_VALSRC can be left undefined and
-	// the behavior would be the same.
+	// This is the default source type. EXAMPLE__DATASOURCE can be left
+	// undefined and the behavior would be the same.
 	//
 	// Outside of an example these environment variables would be set in the
 	// operating system shell, and the path would refer to a real configuration
 	// file.
 	os.Setenv("EXAMPLE", "<the configuration value>")
-	os.Setenv("EXAMPLE_VALSRC", "string:plain")
+	os.Setenv("EXAMPLE__DATASOURCE", "string:plain")
 
 	// Get the configuration value from the Environment bucket.
 	value := config.Environment.Get("EXAMPLE")
@@ -122,17 +122,17 @@ func Example_string_as_string() {
 // and consume it as a byte-slice.
 func Example_string_as_bytes() {
 	// Setup the environment such that the EXAMPLE variable contains the
-	// configuration value as a string, and the EXAMPLE_VALSRC specifies the
-	// source type as "string:plain".
+	// configuration value as a string, and the EXAMPLE__DATASOURCE specifies
+	// the source type as "string:plain".
 	//
-	// This is the default source type. EXAMPLE_VALSRC can be left undefined and
-	// the behavior would be the same.
+	// This is the default source type. EXAMPLE__DATASOURCE can be left
+	// undefined and the behavior would be the same.
 	//
 	// Outside of an example these environment variables would be set in the
 	// operating system shell, and the path would refer to a real configuration
 	// file.
 	os.Setenv("EXAMPLE", "<the configuration value>")
-	os.Setenv("EXAMPLE_VALSRC", "string:plain")
+	os.Setenv("EXAMPLE__DATASOURCE", "string:plain")
 
 	// Get the configuration value from the Environment bucket.
 	value := config.Environment.Get("EXAMPLE")

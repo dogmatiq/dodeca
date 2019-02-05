@@ -43,10 +43,10 @@ how the configuration as **specified**.
 
 #### Specifying configuration
 
-For any given environment variable `K`, the environment variable `K_VALSRC`
+For any given environment variable `K`, the environment variable `K__DATASOURCE`
 indicates how the content of `K` should be interpreted.
 
-If `K_VALSRC` is:
+If `K__DATASOURCE` is:
 
 - empty, undefined or the value `string:plain`, then the content of `K` is treated as a standard environment variable
 - the value `string:hex`, then the content of `K` is treated as a binary value, encoded as a hexadecimal string
