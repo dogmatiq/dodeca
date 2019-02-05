@@ -10,7 +10,7 @@ import (
 
 // This example demonstrates how to specify a configuration value as a file and
 // consume it using an io.ReadCloser.
-func Example_file_as_reader() {
+func ExampleValue_file_as_reader() {
 	// Setup the environment such that the EXAMPLE variable contains the path to
 	// a configuration file, and the EXAMPLE__DATASOURCE specifies the source
 	// type as "file".
@@ -45,7 +45,7 @@ func Example_file_as_reader() {
 
 // This example demonstrates how to specify a configuration value as a file and
 // consume it as a path to that file.
-func Example_file_as_path() {
+func ExampleValue_file_as_path() {
 	// Setup the environment such that the EXAMPLE variable contains the path to
 	// a configuration file, and the EXAMPLE__DATASOURCE specifies the source
 	// type as "file".
@@ -78,7 +78,7 @@ func Example_file_as_path() {
 
 // This example demonstrates how to specify a configuration value as a file and
 // consume it as string.
-func Example_file_as_string() {
+func ExampleValue_file_as_string() {
 	// Setup the environment such that the EXAMPLE variable contains the path to
 	// a configuration file, and the EXAMPLE__DATASOURCE specifies the source
 	// type as "file".
@@ -106,7 +106,7 @@ func Example_file_as_string() {
 
 // This example demonstrates how to specify a configuration value as a file and
 // consume it as a byte-slice.
-func Example_file_as_bytes() {
+func ExampleValue_file_as_bytes() {
 	// Setup the environment such that the EXAMPLE variable contains the path to
 	// a configuration file, and the EXAMPLE__DATASOURCE specifies the source
 	// type as "file".
