@@ -53,7 +53,9 @@ func (t *tempfile) decRef() error {
 
 // create writes a temporary file containing the content of the string to be
 // used by Path().
-func (t *tempfile) create(fn func(io.Writer) error) error {
+func (t *tempfile) create(
+	fn func(io.Writer) error,
+) error {
 	f, err := ioutil.TempFile("", "")
 	if err != nil {
 		return err

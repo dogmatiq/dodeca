@@ -6,7 +6,7 @@
 [![GoDoc](https://godoc.org/github.com/dogmatiq/dodeca?status.svg)](https://godoc.org/github.com/dogmatiq/dodeca)
 [![Go Report Card](https://goreportcard.com/badge/github.com/dogmatiq/dodeca)](https://goreportcard.com/report/github.com/dogmatiq/dodeca)
 
-Dodeca provides utilities for develoeprs of [12-Factor](http://12factor.net) applications.
+Dodeca provides utilities for developers of [12-Factor](http://12factor.net) applications.
 
 ## Logging
 
