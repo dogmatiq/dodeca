@@ -10,7 +10,14 @@ Dodeca provides utilities for developers of [12-Factor](http://12factor.net) app
 
 ## Logging
 
-    <TODO>
+The `logging` package provides a very simple logging interface.
+
+The [12 Factor](https://12factor.net/logs) methodology states that all
+application logs should be written to STDOUT, and as such this is the default
+behavior of the `logging` package.
+
+Additionally, the logger discriminates between application messages and debug
+messages, as per [Dave Cheney's post about logging](https://dave.cheney.net/2015/11/05/lets-talk-about-logging).
 
 ## Configuration
 
