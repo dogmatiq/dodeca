@@ -10,7 +10,7 @@ import (
 
 // This example demonstrates how to specify a configuration value as a string
 // and consume it using an io.ReadCloser.
-func ExampleValue_string_as_reader() {
+func ExampleValue_stringAsReader() {
 	// Setup the environment such that the EXAMPLE variable contains the
 	// configuration value as a string, and the EXAMPLE__DATASOURCE specifies
 	// the source type as "string:plain".
@@ -48,7 +48,7 @@ func ExampleValue_string_as_reader() {
 
 // This example demonstrates how to specify a configuration value as a string
 // and consume it as a path to a temporary file containing the string's content.
-func ExampleValue_string_as_path() {
+func ExampleValue_stringAsPath() {
 	// Setup the environment such that the EXAMPLE variable contains the
 	// configuration value as a string, and the EXAMPLE__DATASOURCE specifies
 	// the source type as "string:plain".
@@ -89,7 +89,7 @@ func ExampleValue_string_as_path() {
 
 // This example demonstrates how to specify a configuration value as a string
 // and consume it as string.
-func ExampleValue_string_as_string() {
+func ExampleValue_stringAsString() {
 	// Setup the environment such that the EXAMPLE variable contains the
 	// configuration value as a string, and the EXAMPLE__DATASOURCE specifies
 	// the source type as "string:plain".
@@ -120,7 +120,7 @@ func ExampleValue_string_as_string() {
 
 // This example demonstrates how to specify a configuration value as a string
 // and consume it as a byte-slice.
-func ExampleValue_string_as_bytes() {
+func ExampleValue_stringAsBytes() {
 	// Setup the environment such that the EXAMPLE variable contains the
 	// configuration value as a string, and the EXAMPLE__DATASOURCE specifies
 	// the source type as "string:plain".
