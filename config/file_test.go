@@ -22,7 +22,7 @@ func Example_file_as_reader() {
 	os.Setenv("EXAMPLE__DATASOURCE", "file")
 
 	// Get the configuration value from the Environment bucket.
-	value := config.Environment.Get("EXAMPLE")
+	value := config.Environment().Get("EXAMPLE")
 
 	// Consume the value as an io.ReadCloser.
 	r, err := value.AsReader()
@@ -57,7 +57,7 @@ func Example_file_as_path() {
 	os.Setenv("EXAMPLE__DATASOURCE", "file")
 
 	// Get the configuration value from the Environment bucket.
-	value := config.Environment.Get("EXAMPLE")
+	value := config.Environment().Get("EXAMPLE")
 
 	// Obtain the path to the configuration file.
 	//
@@ -90,7 +90,7 @@ func Example_file_as_string() {
 	os.Setenv("EXAMPLE__DATASOURCE", "file")
 
 	// Get the configuration value from the Environment bucket.
-	value := config.Environment.Get("EXAMPLE")
+	value := config.Environment().Get("EXAMPLE")
 
 	// Get the configuration value as a string.
 	str, err := value.AsString()
@@ -118,7 +118,7 @@ func Example_file_as_bytes() {
 	os.Setenv("EXAMPLE__DATASOURCE", "file")
 
 	// Get the configuration value from the Environment bucket.
-	value := config.Environment.Get("EXAMPLE")
+	value := config.Environment().Get("EXAMPLE")
 
 	// Get the configuration value as a byte-slice.
 	buf, err := value.AsBytes()

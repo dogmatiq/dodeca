@@ -8,26 +8,21 @@ import (
 	"strings"
 )
 
-// Environment is a Bucket that produces configuration values from the operating
-// system's environment variables.
+// Environment returns a Bucket that produces configuration values from the
+// operating system's environment variables.
 //
 // For any given environment variable K, the environment variable K__DATASOURCE
 // indicates how the content of K should be interpreted.
 //
 // If K__DATASOURCE is:
 //
-// - empty, undefined or the value "string:plain", then the content of K is
-// treated as a standard environment variable
-//
-// - the value "string:hex", then the content of K is treated as a binary value,
-// encoded as a hexadecimal string
-//
-// - the value "string:base64", then the content of K is treated as a binary
-// value, encoded as a standard base-64 string
-//
-// - the value "file", then the content of K is treated as a path to a file
-// containing the value
-var Environment Bucket = environment{}
+// - empty, undefined or the value "string:plain", then K is a regular variable
+// - the value "string:hex", then K contains a binary value with hexadecimal encoding
+// - the value "string:base64", then K contains a binary value with base-64 encoding
+// - the value "file", then K contains a path to a file containing the value
+func Environment() Bucket {
+	return environment{}
+}
 
 // GetEnv returns the value associated with the environment variable named k.
 //
@@ -35,9 +30,9 @@ var Environment Bucket = environment{}
 // legacy codebases.
 //
 // In new codebases it is preferable to accept a Bucket as a dependency. The
-// Environment bucket can be used to satisfy this dependency.
+// bucket returned by Environment() can be used to satisfy this dependency.
 func GetEnv(k string) string {
-	s, _ := Environment.Get(k).AsString()
+	s, _ := Environment().Get(k).AsString()
 	return s
 }
 

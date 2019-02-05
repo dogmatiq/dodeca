@@ -48,10 +48,10 @@ indicates how the content of `K` should be interpreted.
 
 If `K__DATASOURCE` is:
 
-- empty, undefined or the value `string:plain`, then the content of `K` is treated as a standard environment variable
-- the value `string:hex`, then the content of `K` is treated as a binary value, encoded as a hexadecimal string
-- the value `string:base64`, then the content of `K` is treated as a binary value, encoded as a standard base-64 string
-- the value `file`, then the content of `K` is treated as a path to a file containing the value
+- empty, undefined or the value `string:plain`, then `K` is a regular variable
+- the value `string:hex`, then `K` contains a binary value with hexadecimal encoding
+- the value `string:base64`, then `K` contains a binary value with base-64 encoding
+- the value `file`, then `K` contains a path to a file containing the value
 
 #### Consuming configuration
 
