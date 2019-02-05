@@ -29,6 +29,18 @@ import (
 // containing the value
 var Environment Bucket = environment{}
 
+// GetEnv returns the value associated with the environment variable named k.
+//
+// This function is intended as a "drop-in" replacement for os.Getenv() in
+// legacy codebases.
+//
+// In new codebases it is preferable to accept a Bucket as a dependency. The
+// Environment bucket can be used to satisfy this dependency.
+func GetEnv(k string) string {
+	s, _ := Environment.Get(k).AsString()
+	return s
+}
+
 type environment struct{}
 
 // Get returns the value associated with the given key.
