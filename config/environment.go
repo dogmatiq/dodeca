@@ -16,10 +16,13 @@ import (
 //
 // If K__DATASOURCE is:
 //
-// - empty, undefined or the value "string:plain", then K is a regular variable
-// - the value "string:hex", then K contains a binary value with hexadecimal encoding
-// - the value "string:base64", then K contains a binary value with base-64 encoding
-// - the value "file", then K contains a path to a file containing the value
+// ● empty, undefined or the value "string:plain", then K is a regular variable
+//
+// ● the value "string:hex", then K contains a binary value with hexadecimal encoding
+//
+// ● the value "string:base64", then K contains a binary value with base-64 encoding
+//
+// ● the value "file", then K contains a path to a file containing the value
 func Environment() Bucket {
 	return environment{}
 }
