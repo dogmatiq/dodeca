@@ -11,7 +11,7 @@ import (
 
 // This example demonstrates how to specify a configuration value as a
 // base-64 encoded string and consume it using an io.ReadCloser.
-func ExampleValue_base64AsReader() {
+func ExampleValue_AsReader_specifiedAsBase64() {
 	// Setup the environment such that the EXAMPLE variable contains the
 	// configuration value as a hexadecimal string, and the EXAMPLE__DATASOURCE
 	// specifies the source type as "string:base64".
@@ -47,7 +47,7 @@ func ExampleValue_base64AsReader() {
 // This example demonstrates how to specify a configuration value as a
 // base-64 encoded string and consume it as a path to a temporary file containing
 // the string's content.
-func ExampleValue_base64AsPath() {
+func ExampleValue_AsPath_specifiedAsBase64() {
 	// Setup the environment such that the EXAMPLE variable contains the
 	// configuration value as a hexadecimal string, and the EXAMPLE__DATASOURCE
 	// specifies the source type as "string:base64".
@@ -85,7 +85,7 @@ func ExampleValue_base64AsPath() {
 
 // This example demonstrates how to specify a configuration value as a
 // base-64 encoded string and consume it as string.
-func ExampleValue_base64AsString() {
+func ExampleValue_AsString_specifiedAsBase64() {
 	// Setup the environment such that the EXAMPLE variable contains the
 	// configuration value as a hexadecimal string, and the EXAMPLE__DATASOURCE
 	// specifies the source type as "string:base64".
@@ -113,7 +113,7 @@ func ExampleValue_base64AsString() {
 
 // This example demonstrates how to specify a configuration value as a
 // base-64 encoded string and consume it as a byte-slice.
-func ExampleValue_base64AsBytes() {
+func ExampleValue_AsBytes_specifiedAsBase64() {
 	// Setup the environment such that the EXAMPLE variable contains the
 	// configuration value as a hexadecimal string, and the EXAMPLE__DATASOURCE
 	// specifies the source type as "string:base64".

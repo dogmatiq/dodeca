@@ -11,7 +11,7 @@ import (
 
 // This example demonstrates how to specify a configuration value as a
 // hexadecimal string and consume it using an io.ReadCloser.
-func ExampleValue_hexAsReader() {
+func ExampleValue_AsReader_specifiedAsHex() {
 	// Setup the environment such that the EXAMPLE variable contains the
 	// configuration value as a hexadecimal string, and the EXAMPLE__DATASOURCE
 	// specifies the source type as "string:hex".
@@ -47,7 +47,7 @@ func ExampleValue_hexAsReader() {
 // This example demonstrates how to specify a configuration value as a
 // hexadecimal string and consume it as a path to a temporary file containing
 // the string's content.
-func ExampleValue_hexAsPath() {
+func ExampleValue_AsPath_specifiedAsHex() {
 	// Setup the environment such that the EXAMPLE variable contains the
 	// configuration value as a hexadecimal string, and the EXAMPLE__DATASOURCE
 	// specifies the source type as "string:hex".
@@ -85,7 +85,7 @@ func ExampleValue_hexAsPath() {
 
 // This example demonstrates how to specify a configuration value as a
 // hexadecimal string and consume it as string.
-func ExampleValue_hexAsString() {
+func ExampleValue_AsString_specifiedAsHex() {
 	// Setup the environment such that the EXAMPLE variable contains the
 	// configuration value as a hexadecimal string, and the EXAMPLE__DATASOURCE
 	// specifies the source type as "string:hex".
@@ -113,7 +113,7 @@ func ExampleValue_hexAsString() {
 
 // This example demonstrates how to specify a configuration value as a
 // hexadecimal string and consume it as a byte-slice.
-func ExampleValue_hexAsBytes() {
+func ExampleValue_AsBytes_specifiedAsHex() {
 	// Setup the environment such that the EXAMPLE variable contains the
 	// configuration value as a hexadecimal string, and the EXAMPLE__DATASOURCE
 	// specifies the source type as "string:hex".
