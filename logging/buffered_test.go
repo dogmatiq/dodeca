@@ -163,7 +163,7 @@ var _ = Describe("type BufferedLogger", func() {
 		})
 	})
 
-	Describe("Flush", func() {
+	Describe("FlushTo", func() {
 		dest := &BufferedLogger{
 			CaptureDebug: true,
 		}
