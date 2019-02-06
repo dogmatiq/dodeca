@@ -3,7 +3,7 @@ package logging
 // Log writes an application log message formatted according to a format
 // specifier.
 //
-// It should be ussed for messages that are intended for people responsible for
+// It should be used for messages that are intended for people responsible for
 // operating the application, such as the end-user or operations staff.
 //
 // fmt is the format specifier, as per fmt.Printf(), etc.
@@ -15,7 +15,7 @@ func Log(l Logger, fmt string, v ...interface{}) {
 
 // LogString writes a pre-formatted application log message.
 //
-// It should be ussed for messages that are intended for people responsible for
+// It should be used for messages that are intended for people responsible for
 // operating the application, such as the end-user or operations staff.
 //
 // If l is nil, DefaultLogger is used.
