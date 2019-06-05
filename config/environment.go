@@ -58,7 +58,19 @@ func (environment) Get(k string) Value {
 //
 // If the key is not defined, it returns a value with the content of v.
 func (environment) GetDefault(k string, v string) Value {
-	panic("<ni>")
+	if strings.HasSuffix(k, suffix) {
+		// never return the value of "source type" variables, they are meta-data
+		// about configuration values, not configuration values themselves.
+		return String(v)
+	}
+
+	x := getenv(k)
+
+	if x.IsEmpty() {
+		return String(v)
+	}
+
+	return x
 }
 
 // Each calls fn for each key/value pair in the bucket.
