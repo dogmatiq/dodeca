@@ -24,3 +24,61 @@ func ExampleGetEnv() {
 
 	// Output: {"example_config": true}
 }
+
+func ExampleEnvironment_get() {
+	os.Setenv("FOO", "<foo>")
+
+	v := config.Environment().Get("FOO")
+
+	fmt.Println(v)
+
+	// Output: <foo>
+}
+
+func ExampleEnvironment_getWithUndefinedVariable() {
+	os.Setenv("FOO", "")
+
+	v := config.Environment().Get("FOO")
+
+	fmt.Println(v.IsEmpty())
+
+	// Output: true
+}
+
+func ExampleEnvironment_getDefault() {
+	os.Setenv("FOO", "<foo>")
+
+	v := config.Environment().GetDefault("FOO", "<default>")
+
+	fmt.Println(v)
+
+	// Output: <foo>
+}
+
+func ExampleEnvironment_getDefaultWithUndefinedVariable() {
+	os.Setenv("FOO", "")
+
+	v := config.Environment().GetDefault("FOO", "<default>")
+
+	fmt.Println(v)
+
+	// Output: <default>
+}
+
+func ExampleEnvironment_each() {
+	os.Setenv("FOO", "<foo>")
+	os.Setenv("BAR", "<bar>")
+
+	config.Environment().Each(
+		func(k string, v config.Value) bool {
+			if k == "FOO" || k == "BAR" {
+				fmt.Printf("%s=%s\n", k, v)
+			}
+
+			return true
+		},
+	)
+
+	// Output: FOO=<foo>
+	// BAR=<bar>
+}
