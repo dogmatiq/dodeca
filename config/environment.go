@@ -45,7 +45,7 @@ type environment struct{}
 //
 // If they key is not defined, it returns an empty value.
 func (environment) Get(k string) Value {
-	if strings.HasSuffix(k, suffix) {
+	if isDataSource(k) {
 		// never return the value of "source type" variables, they are meta-data
 		// about configuration values, not configuration values themselves.
 		return Value{}
@@ -58,7 +58,7 @@ func (environment) Get(k string) Value {
 //
 // If the key is not defined, it returns a value with the content of v.
 func (environment) GetDefault(k string, v string) Value {
-	if strings.HasSuffix(k, suffix) {
+	if isDataSource(k) {
 		// never return the value of "source type" variables, they are meta-data
 		// about configuration values, not configuration values themselves.
 		return String(v)
@@ -85,7 +85,7 @@ func (environment) Each(fn EachFunc) bool {
 
 		k := pair[0]
 
-		if strings.HasSuffix(k, suffix) {
+		if isDataSource(k) {
 			continue
 		}
 
@@ -106,6 +106,11 @@ func (environment) Each(fn EachFunc) bool {
 // suffix is the suffix used to identify environment variables that specify the
 // "source type" of the environment variable without this suffix.
 const suffix = "__DATASOURCE"
+
+// isDataSource returns true if k is the name of a data-source variable.
+func isDataSource(k string) bool {
+	return strings.HasSuffix(k, suffix)
+}
 
 const (
 	sourceStringPlain  = "string:plain"
