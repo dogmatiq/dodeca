@@ -1,6 +1,6 @@
 # Dodeca
 
-[![Build Status](http://img.shields.io/travis/com/dogmatiq/dodeca/master.svg)](https://travis-ci.com/dogmatiq/dodeca)
+[![Build Status](https://github.com/dogmatiq/dodeca/workflows/CI/badge.svg)](https://github.com/dogmatiq/dodeca/actions?workflow=CI)
 [![Code Coverage](https://img.shields.io/codecov/c/github/dogmatiq/dodeca/master.svg)](https://codecov.io/github/dogmatiq/dodeca)
 [![Latest Version](https://img.shields.io/github/tag/dogmatiq/dodeca.svg?label=semver)](https://semver.org)
 [![GoDoc](https://godoc.org/github.com/dogmatiq/dodeca?status.svg)](https://godoc.org/github.com/dogmatiq/dodeca)
