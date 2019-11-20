@@ -21,7 +21,7 @@ jobs:
     - name: Make
       run: make ci
     - name: Upload Coverage Reports
-      if: success() && github.event_name != 'pull_request'
+      if: success() && !env.GITHUB_HEAD_REF
       run: |
         test ! -z "$TOKEN"
         bash <(curl -s https://codecov.io/bash) -t "$TOKEN" -B "${{ github.ref }}"
