@@ -1,18 +1,18 @@
 package logging
 
-// CallbackLogger is an implementation of Logger that forwards calls to Log and
-// Debug to a delegate callback. CallbackLogger MUST have LogTarget set.
+// CallbackLogger is an implementation of Logger that forwards log messages to
+// user-supplied callback functions.
 type CallbackLogger struct {
-	// LogTarget is the delegate used for log messages.
-	LogTarget Printf
-	// DebugTarget is the delegate used for debug messages. When this
-	// field isn't set, no debug logging will occur and IsDebug() will
-	// return false
-	DebugTarget Printf
+	// LogTarget is the target for non-debug messages.
+	LogTarget Callback
+
+	// DebugTarget is the target for debug messages.
+	// If it is nil no debug logging will occur and IsDebug() returns false.
+	DebugTarget Callback
 }
 
-// Printf is the function signature for fmt.Printf() and alike functions.
-type Printf func(fmt string, v ...interface{})
+// Callback is the function signature for fmt.Printf() and alike functions.
+type Callback func(fmt string, v ...interface{})
 
 // Log writes an application log message formatted according to a format
 // specifier.
