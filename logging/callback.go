@@ -11,7 +11,8 @@ type CallbackLogger struct {
 	DebugTarget Callback
 }
 
-// Callback is the function signature for fmt.Printf() and alike functions.
+// Callback is the function signature for Printf-style callbacks used by
+// CallbackLogger.
 type Callback func(fmt string, v ...interface{})
 
 // Log writes an application log message formatted according to a format
