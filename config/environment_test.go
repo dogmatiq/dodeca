@@ -40,7 +40,7 @@ func ExampleEnvironment_getWithUndefinedVariable() {
 
 	v := config.Environment().Get("FOO")
 
-	fmt.Println(v.IsEmpty())
+	fmt.Println(v.IsZero())
 
 	// Output: true
 }

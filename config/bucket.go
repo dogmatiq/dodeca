@@ -8,7 +8,7 @@ type EachFunc func(k string, v Value) bool
 type Bucket interface {
 	// Get returns the value associated with the given key.
 	//
-	// If they key is not defined, it returns an empty value.
+	// If they key is not defined, it returns a zero-value.
 	Get(k string) Value
 
 	// GetDefault returns the value associated with the given key.

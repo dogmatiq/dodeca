@@ -1,6 +1,7 @@
 package config
 
 import (
+	"errors"
 	"io"
 	"os"
 )
@@ -10,8 +11,11 @@ type Value struct {
 	src source
 }
 
-// IsEmpty returns true if this value is empty or undefined.
-func (v *Value) IsEmpty() bool {
+// IsZero returns true if this value is the zero-value.
+//
+// This means that the value has no data-source, and not necessarily that the
+// data source will produce an empty value.
+func (v *Value) IsZero() bool {
 	return v.src == nil
 }
 
@@ -50,10 +54,10 @@ func (v Value) AsPath() (string, io.Closer, error) {
 
 // AsString returns the configuration value as a string.
 //
-// If v is the zero-value, it returns an empty string.
+// It returns an error v is the zero-value.
 func (v Value) AsString() (string, error) {
 	if v.src == nil {
-		return "", nil
+		return "", errors.New("can not represent a zero-value as a string")
 	}
 
 	return v.src.AsString()
@@ -64,15 +68,13 @@ func (v Value) AsString() (string, error) {
 // If v is the zero-value, it returns a nil slice.
 func (v Value) AsBytes() ([]byte, error) {
 	if v.src == nil {
-		return nil, nil
+		return nil, errors.New("can not represent a zero-value as a byte-slice")
 	}
 
 	return v.src.AsBytes()
 }
 
 // String returns the value as a string, or panics if unable to do so.
-//
-// If v is the zero-value, it returns an empty string.
 func (v Value) String() string {
 	s, err := v.AsString()
 	if err != nil {
@@ -80,4 +82,14 @@ func (v Value) String() string {
 	}
 
 	return s
+}
+
+// Bytes returns the value as a byte-slice, or panics if unable to do so.
+func (v Value) Bytes() []byte {
+	b, err := v.AsBytes()
+	if err != nil {
+		panic(err)
+	}
+
+	return b
 }
