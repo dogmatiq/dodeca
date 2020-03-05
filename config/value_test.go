@@ -1,13 +1,14 @@
 package config_test
 
 import (
+	"bytes"
 	"os"
 	"testing"
 
 	. "github.com/dogmatiq/dodeca/config"
 )
 
-func TestValue_AsReader_withEmptyValue(t *testing.T) {
+func TestValue_AsReader_withZeroValue(t *testing.T) {
 	_, err := Value{}.AsReader()
 
 	if !os.IsNotExist(err) {
@@ -15,7 +16,7 @@ func TestValue_AsReader_withEmptyValue(t *testing.T) {
 	}
 }
 
-func TestValue_AsPath_withEmptyValue(t *testing.T) {
+func TestValue_AsPath_withZeroValue(t *testing.T) {
 	_, _, err := Value{}.AsPath()
 
 	if !os.IsNotExist(err) {
@@ -23,26 +24,68 @@ func TestValue_AsPath_withEmptyValue(t *testing.T) {
 	}
 }
 
-func TestValue_AsString_withEmptyValue(t *testing.T) {
-	v, err := Value{}.AsString()
+func TestValue_AsString_withZeroValue(t *testing.T) {
+	_, err := Value{}.AsString()
 
-	if err != nil {
-		t.Fatal("unexpected error", err)
-	}
-
-	if v != "" {
-		t.Fatal("unexpected value", v)
+	if err == nil || err.Error() != "can not represent a zero-value as a string" {
+		t.Fatal("unexpected error, got:", err)
 	}
 }
 
-func TestValue_AsBytes_withEmptyValue(t *testing.T) {
-	v, err := Value{}.AsBytes()
+func TestValue_AsBytes_withZeroValue(t *testing.T) {
+	_, err := Value{}.AsBytes()
 
-	if err != nil {
-		t.Fatal("unexpected error", err)
+	if err == nil || err.Error() != "can not represent a zero-value as a byte-slice" {
+		t.Fatal("unexpected error, got:", err)
 	}
+}
 
-	if len(v) != 0 {
-		t.Fatal("unexpected value", v)
+func TestValue_String(t *testing.T) {
+	v := String("<value>").String()
+
+	if v != "<value>" {
+		t.Fatalf("unexpected value: %s", v)
 	}
+}
+
+func TestValue_String_withZeroValue(t *testing.T) {
+	defer func() {
+		p := recover()
+
+		switch e := p.(type) {
+		case error:
+			if e.Error() != "can not represent a zero-value as a string" {
+				t.Fatalf("expected panic did not occur, got: %s", p)
+			}
+		default:
+			t.Fatal("expected panic did not occur")
+		}
+	}()
+
+	_ = Value{}.String()
+}
+
+func TestValue_Bytes(t *testing.T) {
+	v := String("<value>").Bytes()
+
+	if !bytes.Equal(v, []byte("<value>")) {
+		t.Fatalf("unexpected value: %s", v)
+	}
+}
+
+func TestValue_Bytes_withZeroValue(t *testing.T) {
+	defer func() {
+		p := recover()
+
+		switch e := p.(type) {
+		case error:
+			if e.Error() != "can not represent a zero-value as a byte-slice" {
+				t.Fatalf("expected panic did not occur, got: %s", p)
+			}
+		default:
+			t.Fatal("expected panic did not occur")
+		}
+	}()
+
+	_ = Value{}.Bytes()
 }

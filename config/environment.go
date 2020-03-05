@@ -43,7 +43,7 @@ type environment struct{}
 
 // Get returns the value associated with the given key.
 //
-// If they key is not defined, it returns an empty value.
+// If they key is not defined, it returns a zero-value.
 func (environment) Get(k string) Value {
 	if isDataSource(k) {
 		// never return the value of "source type" variables, they are meta-data
@@ -66,7 +66,7 @@ func (environment) GetDefault(k string, v string) Value {
 
 	x := getenv(k)
 
-	if x.IsEmpty() {
+	if x.IsZero() {
 		return String(v)
 	}
 
