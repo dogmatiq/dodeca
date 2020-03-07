@@ -22,7 +22,6 @@ type writer struct {
 // Each line-feed-terminated line in the data passed to Write() is logged as
 // a separate message. Any unterminated line is buffered until a line-feed is
 // encountered in a future call to Write(), or the writer is closed.
-//
 func NewWriter(l Logger) io.WriteCloser {
 	return &writer{l: l, f: LogString}
 }
@@ -33,7 +32,6 @@ func NewWriter(l Logger) io.WriteCloser {
 // Each line-feed-terminated line in the data passed to Write() is logged as
 // a separate message. Any unterminated line is buffered until a line-feed is
 // encountered in a future call to Write(), or the writer is closed.
-//
 func NewDebugWriter(l Logger) io.WriteCloser {
 	return &writer{l: l, f: DebugString}
 }
