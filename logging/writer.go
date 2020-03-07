@@ -19,18 +19,10 @@ type writer struct {
 // NewWriter returns an io.WriteCloser that writes content to the given
 // logger.
 //
-// The string passed to Write() is sliced by end-of-line (EOL) characters and
-// each substring in between the EOL characters is written as a separate log
-// message.
+// Each line-feed-terminated line in the data passed to Write() is logged as
+// a separate message. Any unterminated line is buffered until a line-feed is
+// encountered in a future call to Write(), or the writer is closed.
 //
-// If the entire string or its last section does not terminate with an EOL
-// character, it is buffered inside the writer. The writer keeps buffering the
-// string until it detects an EOL character and produces a log message with the
-// buffered string content before the EOL character.
-//
-// When Close() is called the writer checks if there is any remaining buffered
-// string content available and, if there is, the writer flushes the remaining
-// content as a message to the Logger.
 func NewWriter(l Logger) io.WriteCloser {
 	return &writer{l: l, f: LogString}
 }
@@ -38,18 +30,10 @@ func NewWriter(l Logger) io.WriteCloser {
 // NewDebugWriter returns an io.Writer that writes content to the given
 // logger as debug messages.
 //
-// The string passed to Write() is sliced by end-of-line (EOL) characters and
-// each substring in between the EOL characters is written as a separate log
-// message.
+// Each line-feed-terminated line in the data passed to Write() is logged as
+// a separate message. Any unterminated line is buffered until a line-feed is
+// encountered in a future call to Write(), or the writer is closed.
 //
-// If the entire string or its last section does not terminate with an EOL
-// character, it is buffered inside the writer. The writer keeps buffering the
-// string until it detects an EOL character and produces a log message with the
-// buffered string content before the EOL character.
-//
-// When Close() is called the writer checks if there is any remaining buffered
-// string content available and, if there is, the writer flushes the remaining
-// content as a message to the Logger.
 func NewDebugWriter(l Logger) io.WriteCloser {
 	return &writer{l: l, f: DebugString}
 }
