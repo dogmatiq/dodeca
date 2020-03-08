@@ -9,6 +9,12 @@ The format is based on [Keep a Changelog], and this project adheres to
 [Keep a Changelog]: https://keepachangelog.com/en/1.0.0/
 [Semantic Versioning]: https://semver.org/spec/v2.0.0.html
 
+## [0.2.1] - 2020-03-08
+
+### Fixed
+
+- `NewWriter()` and `NewDebugWriter()` now split log lines correctly
+
 ## [0.2.0] - 2020-03-05
 
 ### Added
@@ -43,6 +49,7 @@ The format is based on [Keep a Changelog], and this project adheres to
 [0.1.1]: https://github.com/dogmatiq/dogma/releases/tag/v0.1.1
 [0.1.2]: https://github.com/dogmatiq/dogma/releases/tag/v0.1.2
 [0.2.0]: https://github.com/dogmatiq/dogma/releases/tag/v0.2.0
+[0.2.1]: https://github.com/dogmatiq/dogma/releases/tag/v0.2.1
 
 <!-- version template
 ## [0.0.1] - YYYY-MM-DD
