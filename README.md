@@ -3,7 +3,7 @@
 [![Build Status](https://github.com/dogmatiq/dodeca/workflows/CI/badge.svg)](https://github.com/dogmatiq/dodeca/actions?workflow=CI)
 [![Code Coverage](https://img.shields.io/codecov/c/github/dogmatiq/dodeca/master.svg)](https://codecov.io/github/dogmatiq/dodeca)
 [![Latest Version](https://img.shields.io/github/tag/dogmatiq/dodeca.svg?label=semver)](https://semver.org)
-[![GoDoc](https://godoc.org/github.com/dogmatiq/dodeca?status.svg)](https://godoc.org/github.com/dogmatiq/dodeca)
+[![Documentation](https://img.shields.io/badge/go.dev-reference-007d9c)](https://pkg.go.dev/github.com/dogmatiq/dodeca)
 [![Go Report Card](https://goreportcard.com/badge/github.com/dogmatiq/dodeca)](https://goreportcard.com/report/github.com/dogmatiq/dodeca)
 
 Dodeca provides utilities for developers of [12-Factor](http://12factor.net) applications.
