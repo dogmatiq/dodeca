@@ -2,6 +2,8 @@ package logging
 
 // Demote returns a logger that forwards all messages to the target logger as
 // debug messages. Thus, it "demotes" non-debug messages to the debug level.
+//
+// If the target is nil, DefaultLogger is used.
 func Demote(target Logger) Logger {
 	return demoter{target}
 }
@@ -61,7 +63,7 @@ func (l demoter) DebugString(s string) {
 // necessary before executing expensive code that is only used to obtain debug
 // information.
 func (l demoter) IsDebug() bool {
-	return l.Target.IsDebug()
+	return IsDebug(l.Target)
 }
 
 // UnwrapLogger returns the logger wrapped by this logger.

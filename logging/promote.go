@@ -3,6 +3,8 @@ package logging
 // Promote returns a Logger that forwards all messages to a target logger as
 // non-debug messages. Thus, it "promotes" debug messages to the non-debug
 // level.
+//
+// If the target is nil, DefaultLogger is used.
 func Promote(target Logger) Logger {
 	return promoter{target}
 }
