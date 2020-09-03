@@ -4,13 +4,13 @@ package logging
 type DiscardLogger struct{}
 
 // Log is a no-op.
-func (DiscardLogger) Log(fmt string, v ...interface{}) {}
+func (DiscardLogger) Log(f string, v ...interface{}) {}
 
 // LogString is a no-op.
 func (DiscardLogger) LogString(s string) {}
 
 // Debug is a no-op.
-func (DiscardLogger) Debug(fmt string, v ...interface{}) {}
+func (DiscardLogger) Debug(f string, v ...interface{}) {}
 
 // DebugString is a no-op.
 func (DiscardLogger) DebugString(s string) {}

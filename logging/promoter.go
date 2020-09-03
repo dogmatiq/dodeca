@@ -14,9 +14,9 @@ type Promoter struct {
 // It should be used for messages that are intended for people responsible
 // for operating the application, such as the end-user or operations staff.
 //
-// fmt is the format specifier, as per fmt.Printf(), etc.
-func (l *Promoter) Log(fmt string, v ...interface{}) {
-	Log(l.Target, fmt, v...)
+// f is the format specifier, as per fmt.Printf(), etc.
+func (l *Promoter) Log(f string, v ...interface{}) {
+	Log(l.Target, f, v...)
 }
 
 // LogString writes a pre-formatted application log message.
@@ -35,9 +35,9 @@ func (l *Promoter) LogString(s string) {
 // It should be used for messages that are intended for the software
 // developers that maintain the application.
 //
-// fmt is the format specifier, as per fmt.Printf(), etc.
-func (l *Promoter) Debug(fmt string, v ...interface{}) {
-	l.Log(fmt, v...)
+// f is the format specifier, as per fmt.Printf(), etc.
+func (l *Promoter) Debug(f string, v ...interface{}) {
+	l.Log(f, v...)
 }
 
 // DebugString writes a pre-formatted debug log message.

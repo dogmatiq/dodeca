@@ -24,9 +24,9 @@ type StandardLogger struct {
 // It should be used for messages that are intended for people responsible for
 // operating the application, such as the end-user or operations staff.
 //
-// fmt is the format specifier, as per fmt.Printf(), etc.
-func (l *StandardLogger) Log(fmt string, v ...interface{}) {
-	l.target().Printf(fmt, v...)
+// f is the format specifier, as per fmt.Printf(), etc.
+func (l *StandardLogger) Log(f string, v ...interface{}) {
+	l.target().Printf(f, v...)
 }
 
 // LogString writes a pre-formatted application log message.
@@ -44,10 +44,10 @@ func (l *StandardLogger) LogString(s string) {
 // It should be used for messages that are intended for the software developers
 // that maintain the application.
 //
-// fmt is the format specifier, as per fmt.Printf(), etc.
-func (l *StandardLogger) Debug(fmt string, v ...interface{}) {
+// f is the format specifier, as per fmt.Printf(), etc.
+func (l *StandardLogger) Debug(f string, v ...interface{}) {
 	if l.CaptureDebug {
-		l.target().Printf(fmt, v...)
+		l.target().Printf(f, v...)
 	}
 }
 

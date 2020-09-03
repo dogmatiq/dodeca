@@ -6,11 +6,11 @@ package logging
 // It should be used for messages that are intended for people responsible for
 // operating the application, such as the end-user or operations staff.
 //
-// fmt is the format specifier, as per fmt.Printf(), etc.
+// f is the format specifier, as per fmt.Printf(), etc.
 //
 // If l is nil, DefaultLogger is used.
-func Log(l Logger, fmt string, v ...interface{}) {
-	getLogger(l).Log(fmt, v...)
+func Log(l Logger, f string, v ...interface{}) {
+	getLogger(l).Log(f, v...)
 }
 
 // LogString writes a pre-formatted application log message.
@@ -31,11 +31,11 @@ func LogString(l Logger, s string) {
 // It should be used for messages that are intended for the software developers
 // that maintain the application.
 //
-// fmt is the format specifier, as per fmt.Printf(), etc.
+// f is the format specifier, as per fmt.Printf(), etc.
 //
 // If l is nil, DefaultLogger is used.
-func Debug(l Logger, fmt string, v ...interface{}) {
-	getLogger(l).Debug(fmt, v...)
+func Debug(l Logger, f string, v ...interface{}) {
+	getLogger(l).Debug(f, v...)
 }
 
 // DebugString writes a pre-formatted debug log message.

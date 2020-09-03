@@ -1,7 +1,7 @@
 package logging
 
 import (
-	fmtpkg "fmt"
+	"fmt"
 	"sync"
 )
 
@@ -21,10 +21,10 @@ type BufferedLogger struct {
 // It should be used for messages that are intended for people responsible
 // for operating the application, such as the end-user or operations staff.
 //
-// fmt is the format specifier, as per fmt.Printf(), etc.
-func (l *BufferedLogger) Log(fmt string, v ...interface{}) {
+// f is the format specifier, as per fmt.Printf(), etc.
+func (l *BufferedLogger) Log(f string, v ...interface{}) {
 	l.LogString(
-		fmtpkg.Sprintf(fmt, v...),
+		fmt.Sprintf(f, v...),
 	)
 }
 
@@ -50,11 +50,11 @@ func (l *BufferedLogger) LogString(s string) {
 // It should be used for messages that are intended for the software
 // developers that maintain the application.
 //
-// fmt is the format specifier, as per fmt.Printf(), etc.
-func (l *BufferedLogger) Debug(fmt string, v ...interface{}) {
+// f is the format specifier, as per fmt.Printf(), etc.
+func (l *BufferedLogger) Debug(f string, v ...interface{}) {
 	if l.CaptureDebug {
 		l.DebugString(
-			fmtpkg.Sprintf(fmt, v...),
+			fmt.Sprintf(f, v...),
 		)
 	}
 }

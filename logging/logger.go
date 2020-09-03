@@ -19,8 +19,8 @@ type Logger interface {
 	// It should be used for messages that are intended for people responsible for
 	// operating the application, such as the end-user or operations staff.
 	//
-	// fmt is the format specifier, as per fmt.Printf(), etc.
-	Log(fmt string, v ...interface{})
+	// f is the format specifier, as per fmt.Printf(), etc.
+	Log(f string, v ...interface{})
 
 	// LogString writes a pre-formatted application log message.
 	//
@@ -36,8 +36,8 @@ type Logger interface {
 	// It should be used for messages that are intended for the software developers
 	// that maintain the application.
 	//
-	// fmt is the format specifier, as per fmt.Printf(), etc.
-	Debug(fmt string, v ...interface{})
+	// f is the format specifier, as per fmt.Printf(), etc.
+	Debug(f string, v ...interface{})
 
 	// DebugString writes a pre-formatted debug log message.
 	//

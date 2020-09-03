@@ -14,9 +14,9 @@ type Demoter struct {
 // It should be used for messages that are intended for people responsible
 // for operating the application, such as the end-user or operations staff.
 //
-// fmt is the format specifier, as per fmt.Printf(), etc.
-func (l *Demoter) Log(fmt string, v ...interface{}) {
-	l.Debug(fmt, v...)
+// f is the format specifier, as per fmt.Printf(), etc.
+func (l *Demoter) Log(f string, v ...interface{}) {
+	l.Debug(f, v...)
 }
 
 // LogString writes a pre-formatted application log message.
@@ -35,9 +35,9 @@ func (l *Demoter) LogString(s string) {
 // It should be used for messages that are intended for the software
 // developers that maintain the application.
 //
-// fmt is the format specifier, as per fmt.Printf(), etc.
-func (l *Demoter) Debug(fmt string, v ...interface{}) {
-	Debug(l.Target, fmt, v...)
+// f is the format specifier, as per fmt.Printf(), etc.
+func (l *Demoter) Debug(f string, v ...interface{}) {
+	Debug(l.Target, f, v...)
 }
 
 // DebugString writes a pre-formatted debug log message.

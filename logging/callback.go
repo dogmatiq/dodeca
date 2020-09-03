@@ -13,7 +13,7 @@ type CallbackLogger struct {
 
 // Callback is the function signature for Printf-style callbacks used by
 // CallbackLogger.
-type Callback func(fmt string, v ...interface{})
+type Callback func(f string, v ...interface{})
 
 // Log writes an application log message formatted according to a format
 // specifier.
@@ -21,9 +21,9 @@ type Callback func(fmt string, v ...interface{})
 // It should be used for messages that are intended for people responsible for
 // operating the application, such as the end-user or operations staff.
 //
-// fmt is the format specifier, as per fmt.Printf(), etc.
-func (l *CallbackLogger) Log(fmt string, v ...interface{}) {
-	l.LogTarget(fmt, v...)
+// f is the format specifier, as per fmt.Printf(), etc.
+func (l *CallbackLogger) Log(f string, v ...interface{}) {
+	l.LogTarget(f, v...)
 }
 
 // LogString writes a pre-formatted application log message.
@@ -41,10 +41,10 @@ func (l *CallbackLogger) LogString(s string) {
 // It should be used for messages that are intended for the software developers
 // that maintain the application.
 //
-// fmt is the format specifier, as per fmt.Printf(), etc.
-func (l *CallbackLogger) Debug(fmt string, v ...interface{}) {
+// f is the format specifier, as per fmt.Printf(), etc.
+func (l *CallbackLogger) Debug(f string, v ...interface{}) {
 	if l.DebugTarget != nil {
-		l.DebugTarget(fmt, v...)
+		l.DebugTarget(f, v...)
 	}
 }
 
