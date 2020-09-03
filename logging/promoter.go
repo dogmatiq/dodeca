@@ -27,7 +27,8 @@ func (l *Promoter) LogString(s string) {
 	LogString(l.Target, s)
 }
 
-// Debug writes a debug log message formatted according to a format specifier.
+// Debug writes an APPLICATION (non-debug) log message formatted according to a
+// format specifier.
 //
 // If IsDebug() returns false, no logging is performed.
 //
@@ -39,7 +40,7 @@ func (l *Promoter) Debug(f string, v ...interface{}) {
 	l.Log(f, v...)
 }
 
-// DebugString writes a pre-formatted debug log message.
+// DebugString writes a pre-formatted APPLICATION (non-debug) log message.
 //
 // If IsDebug() returns false, no logging is performed.
 //
@@ -50,6 +51,9 @@ func (l *Promoter) DebugString(s string) {
 }
 
 // IsDebug returns true if this logger will perform debug logging.
+//
+// Because debug messages are "promoted" to the non-debug level, this
+// implementation always returns true.
 //
 // Generally the application should just call Debug() or DebugString() without
 // calling IsDebug(), however it can be used to check if debug logging is

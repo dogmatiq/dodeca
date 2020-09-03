@@ -8,8 +8,7 @@ type Demoter struct {
 	Target Logger
 }
 
-// Log writes an application log message formatted according to a format
-// specifier.
+// Log writes a DEBUG log message formatted according to a format specifier.
 //
 // It should be used for messages that are intended for people responsible for
 // operating the application, such as the end-user or operations staff.
@@ -19,7 +18,7 @@ func (l *Demoter) Log(f string, v ...interface{}) {
 	l.Debug(f, v...)
 }
 
-// LogString writes a pre-formatted application log message.
+// LogString writes a pre-formatted DEBUG log message.
 //
 // It should be used for messages that are intended for people responsible for
 // operating the application, such as the end-user or operations staff.
