@@ -55,3 +55,12 @@ type Logger interface {
 	// obtain debug information.
 	IsDebug() bool
 }
+
+// getLogger returns l, or DefaultLogger if l is nil.
+func getLogger(l Logger) Logger {
+	if l != nil {
+		return l
+	}
+
+	return DefaultLogger
+}

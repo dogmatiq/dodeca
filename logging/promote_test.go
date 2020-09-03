@@ -68,4 +68,11 @@ var _ = Describe("func Promote()", func() {
 			Expect(logger.IsDebug()).To(BeTrue())
 		})
 	})
+
+	Describe("func UnwrapLogger()", func() {
+		It("returns the target", func() {
+			l := Unwrap(logger)
+			Expect(l).To(BeIdenticalTo(target))
+		})
+	})
 })

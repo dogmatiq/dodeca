@@ -69,3 +69,13 @@ func (l promoter) DebugString(s string) {
 func (l promoter) IsDebug() bool {
 	return true
 }
+
+// UnwrapLogger returns the logger wrapped by this logger.
+//
+// If ok is true it means that this logger is wrapping another logger, even
+// if that logger is nil, indicating that DefaultLogger should be used.
+//
+// If ok is false it means that this logger is not wrapping another logger.
+func (l promoter) UnwrapLogger() (Logger, bool) {
+	return l.Target, true
+}

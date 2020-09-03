@@ -63,3 +63,13 @@ func (l demoter) DebugString(s string) {
 func (l demoter) IsDebug() bool {
 	return l.Target.IsDebug()
 }
+
+// UnwrapLogger returns the logger wrapped by this logger.
+//
+// If ok is true it means that this logger is wrapping another logger, even
+// if that logger is nil, indicating that DefaultLogger should be used.
+//
+// If ok is false it means that this logger is not wrapping another logger.
+func (l demoter) UnwrapLogger() (Logger, bool) {
+	return l.Target, true
+}

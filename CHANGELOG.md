@@ -15,6 +15,7 @@ The format is based on [Keep a Changelog], and this project adheres to
 
 - Add `Promote()`, which returns logger that promotes all messages to non-debug level
 - Add `Demote()`, which returns logger that demotes all messages to debug level
+- Add `Wrapper` and `Unwrap()`
 
 ## [0.2.1] - 2020-03-08
 

@@ -60,12 +60,3 @@ func DebugString(l Logger, s string) {
 func IsDebug(l Logger) bool {
 	return getLogger(l).IsDebug()
 }
-
-// getLogger returns l, or DefaultLogger if l is nil.
-func getLogger(l Logger) Logger {
-	if l != nil {
-		return l
-	}
-
-	return DefaultLogger
-}

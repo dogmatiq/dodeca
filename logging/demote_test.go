@@ -74,4 +74,11 @@ var _ = Describe("func Demote()", func() {
 			Expect(logger.IsDebug()).To(BeFalse())
 		})
 	})
+
+	Describe("func UnwrapLogger()", func() {
+		It("returns the target", func() {
+			l := Unwrap(logger)
+			Expect(l).To(BeIdenticalTo(target))
+		})
+	})
 })
