@@ -6,68 +6,74 @@ import (
 	. "github.com/onsi/gomega"
 )
 
-var _ = Describe("type Promoter", func() {
+var _ = Describe("type Demoter", func() {
 	var (
 		target *BufferedLogger
-		logger *Promoter
+		logger *Demoter
 	)
 
 	BeforeEach(func() {
-		target = &BufferedLogger{}
+		target = &BufferedLogger{
+			CaptureDebug: true,
+		}
 
-		logger = &Promoter{
+		logger = &Demoter{
 			Target: target,
 		}
 	})
 
 	Describe("func Log()", func() {
-		It("forwards to the target", func() {
+		It("forwards a debug message to the target", func() {
 			logger.Log("message <%s>", "arg")
 
 			Expect(target.Messages()).To(ConsistOf(BufferedLogMessage{
 				Message: "message <arg>",
-				IsDebug: false,
+				IsDebug: true,
 			}))
 		})
 	})
 
 	Describe("func LogString()", func() {
-		It("forwards to the target", func() {
+		It("forwards a debug message to the target", func() {
 			logger.LogString("<message>")
 
 			Expect(target.Messages()).To(ConsistOf(BufferedLogMessage{
 				Message: "<message>",
-				IsDebug: false,
+				IsDebug: true,
 			}))
 		})
 	})
 
 	Describe("func Debug()", func() {
-		It("forwards a non-debug message to the target", func() {
+		It("forwards to the target", func() {
 			logger.Debug("message <%s>", "arg")
 
 			Expect(target.Messages()).To(ConsistOf(BufferedLogMessage{
 				Message: "message <arg>",
-				IsDebug: false,
+				IsDebug: true,
 			}))
 		})
 	})
 
 	Describe("func DebugString()", func() {
-		It("forwards a non-debug message to the target", func() {
+		It("forwards to the target", func() {
 			logger.DebugString("<message>")
 
 			Expect(target.Messages()).To(ConsistOf(BufferedLogMessage{
 				Message: "<message>",
-				IsDebug: false,
+				IsDebug: true,
 			}))
 		})
 	})
 
 	Describe("func IsDebug()", func() {
-		It("returns true even if the target does not capture debug messages", func() {
-			target.CaptureDebug = false
+		It("returns true if the target captures debug messages", func() {
 			Expect(logger.IsDebug()).To(BeTrue())
+		})
+
+		It("returns false if the target does not capture debug messages", func() {
+			target.CaptureDebug = false
+			Expect(logger.IsDebug()).To(BeFalse())
 		})
 	})
 })
