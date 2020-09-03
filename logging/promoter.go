@@ -1,8 +1,10 @@
 package logging
 
-// Promoter is an implementation of Logger that forwards all messages to
-// a target logger as NON-DEBUG messages.
+// Promoter is an implementation of Logger that forwards all messages to a
+// target logger as non-debug messages. Thus, it "promotes" debug messages to
+// the non-debug level.
 type Promoter struct {
+	// Target is the logger to which messages are forwarded.
 	Target Logger
 }
 
