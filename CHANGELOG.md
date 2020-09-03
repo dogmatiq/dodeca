@@ -9,6 +9,13 @@ The format is based on [Keep a Changelog], and this project adheres to
 [Keep a Changelog]: https://keepachangelog.com/en/1.0.0/
 [Semantic Versioning]: https://semver.org/spec/v2.0.0.html
 
+## [Unreleased]
+
+### Added
+
+- Add `Promoter`, a logger that promotes all messages to non-debug level
+- Add `Demoter`, a logger that demotes all messages to debug level
+
 ## [0.2.1] - 2020-03-08
 
 ### Fixed
