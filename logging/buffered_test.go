@@ -20,7 +20,7 @@ var _ = Describe("type BufferedLogger", func() {
 			logger.CaptureDebug = true
 		})
 
-		Describe("func Log", func() {
+		Describe("func Log()", func() {
 			It("stores a formatted message", func() {
 				logger.Log("message <%s>", "arg")
 
@@ -31,7 +31,7 @@ var _ = Describe("type BufferedLogger", func() {
 			})
 		})
 
-		Describe("func LogString", func() {
+		Describe("func LogString()", func() {
 			It("stores a message", func() {
 				logger.LogString("<message>")
 
@@ -51,7 +51,7 @@ var _ = Describe("type BufferedLogger", func() {
 			})
 		})
 
-		Describe("func Debug", func() {
+		Describe("func Debug()", func() {
 			It("stores a formatted message", func() {
 				logger.Debug("message <%s>", "arg")
 
@@ -62,7 +62,7 @@ var _ = Describe("type BufferedLogger", func() {
 			})
 		})
 
-		Describe("func DebugString", func() {
+		Describe("func DebugString()", func() {
 			It("stores a message", func() {
 				logger.DebugString("<message>")
 
@@ -82,7 +82,7 @@ var _ = Describe("type BufferedLogger", func() {
 			})
 		})
 
-		Describe("func IsDebug", func() {
+		Describe("func IsDebug()", func() {
 			It("returns true", func() {
 				Expect(logger.IsDebug()).To(BeTrue())
 			})
@@ -90,7 +90,7 @@ var _ = Describe("type BufferedLogger", func() {
 	})
 
 	When("debug logging is disabled", func() {
-		Describe("func Log", func() {
+		Describe("func Log()", func() {
 			It("stores a formatted message", func() {
 				logger.Log("message <%s>", "arg")
 
@@ -101,7 +101,7 @@ var _ = Describe("type BufferedLogger", func() {
 			})
 		})
 
-		Describe("func LogString", func() {
+		Describe("func LogString()", func() {
 			It("stores a message", func() {
 				logger.LogString("<message>")
 
@@ -121,7 +121,7 @@ var _ = Describe("type BufferedLogger", func() {
 			})
 		})
 
-		Describe("func Debug", func() {
+		Describe("func Debug()", func() {
 			It("does not produce any output", func() {
 				logger.Debug("message <%s>", "arg")
 
@@ -129,7 +129,7 @@ var _ = Describe("type BufferedLogger", func() {
 			})
 		})
 
-		Describe("func DebugString", func() {
+		Describe("func DebugString()", func() {
 			It("does not produce any output", func() {
 				logger.DebugString("<message>")
 
@@ -137,7 +137,7 @@ var _ = Describe("type BufferedLogger", func() {
 			})
 		})
 
-		Describe("func IsDebug", func() {
+		Describe("func IsDebug()", func() {
 			It("returns false", func() {
 				Expect(logger.IsDebug()).To(BeFalse())
 			})

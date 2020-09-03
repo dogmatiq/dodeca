@@ -7,7 +7,7 @@ import (
 )
 
 var _ = Describe("type DiscardLogger", func() {
-	Describe("func IsDebug", func() {
+	Describe("func IsDebug()", func() {
 		It("returns false", func() {
 			Expect(DiscardLogger{}.IsDebug()).To(BeFalse())
 		})

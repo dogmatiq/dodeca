@@ -29,7 +29,7 @@ var _ = Describe("type CallbackLogger", func() {
 			logger.DebugTarget = target.Printf
 		})
 
-		Describe("func Log", func() {
+		Describe("func Log()", func() {
 			It("writes a formatted message to the target", func() {
 				logger.Log("message <%s>", "arg")
 
@@ -37,7 +37,7 @@ var _ = Describe("type CallbackLogger", func() {
 			})
 		})
 
-		Describe("func LogString", func() {
+		Describe("func LogString()", func() {
 			It("writes a message to the target", func() {
 				logger.LogString("<message>")
 
@@ -51,7 +51,7 @@ var _ = Describe("type CallbackLogger", func() {
 			})
 		})
 
-		Describe("func Debug", func() {
+		Describe("func Debug()", func() {
 			It("writes a formatted message to the target", func() {
 				logger.Debug("message <%s>", "arg")
 
@@ -59,7 +59,7 @@ var _ = Describe("type CallbackLogger", func() {
 			})
 		})
 
-		Describe("func DebugString", func() {
+		Describe("func DebugString()", func() {
 			It("writes a message to the target", func() {
 				logger.DebugString("<message>")
 
@@ -73,7 +73,7 @@ var _ = Describe("type CallbackLogger", func() {
 			})
 		})
 
-		Describe("func IsDebug", func() {
+		Describe("func IsDebug()", func() {
 			It("returns true", func() {
 				Expect(logger.IsDebug()).To(BeTrue())
 			})
@@ -81,7 +81,7 @@ var _ = Describe("type CallbackLogger", func() {
 	})
 
 	When("debug logging is disabled", func() {
-		Describe("func Log", func() {
+		Describe("func Log()", func() {
 			It("writes a formatted message to the target", func() {
 				logger.Log("message <%s>", "arg")
 
@@ -89,7 +89,7 @@ var _ = Describe("type CallbackLogger", func() {
 			})
 		})
 
-		Describe("func LogString", func() {
+		Describe("func LogString()", func() {
 			It("writes a message to the target", func() {
 				logger.LogString("<message>")
 
@@ -97,7 +97,7 @@ var _ = Describe("type CallbackLogger", func() {
 			})
 		})
 
-		Describe("func Debug", func() {
+		Describe("func Debug()", func() {
 			It("does not produce any output", func() {
 				logger.Debug("message <%s>", "arg")
 
@@ -105,7 +105,7 @@ var _ = Describe("type CallbackLogger", func() {
 			})
 		})
 
-		Describe("func DebugString", func() {
+		Describe("func DebugString()", func() {
 			It("does not produce any output", func() {
 				logger.DebugString("<message>")
 
@@ -113,7 +113,7 @@ var _ = Describe("type CallbackLogger", func() {
 			})
 		})
 
-		Describe("func IsDebug", func() {
+		Describe("func IsDebug()", func() {
 			It("returns false", func() {
 				Expect(logger.IsDebug()).To(BeFalse())
 			})

@@ -27,7 +27,7 @@ var _ = Describe("Logging Functions", func() {
 			DefaultLogger = originalDefault
 		})
 
-		Describe("func Log", func() {
+		Describe("func Log()", func() {
 			It("forwards to the default logger", func() {
 				Log(nil, "message <%s>", "arg")
 
@@ -38,7 +38,7 @@ var _ = Describe("Logging Functions", func() {
 			})
 		})
 
-		Describe("func LogString", func() {
+		Describe("func LogString()", func() {
 			It("forwards to the default logger", func() {
 				LogString(nil, "<message>")
 
@@ -49,7 +49,7 @@ var _ = Describe("Logging Functions", func() {
 			})
 		})
 
-		Describe("func Debug", func() {
+		Describe("func Debug()", func() {
 			It("forwards to the default logger", func() {
 				Debug(nil, "message <%s>", "arg")
 
@@ -60,7 +60,7 @@ var _ = Describe("Logging Functions", func() {
 			})
 		})
 
-		Describe("func DebugString", func() {
+		Describe("func DebugString()", func() {
 			It("forwards to the default logger", func() {
 				DebugString(nil, "<message>")
 
@@ -71,7 +71,7 @@ var _ = Describe("Logging Functions", func() {
 			})
 		})
 
-		Describe("func IsDebug", func() {
+		Describe("func IsDebug()", func() {
 			It("forwards to the default logger", func() {
 				Expect(IsDebug(nil)).To(BeTrue())
 				logger.CaptureDebug = false
@@ -81,7 +81,7 @@ var _ = Describe("Logging Functions", func() {
 	})
 
 	When("passed a non-nil logger", func() {
-		Describe("func Log", func() {
+		Describe("func Log()", func() {
 			It("forwards to the given logger", func() {
 				Log(&logger, "message <%s>", "arg")
 
@@ -92,7 +92,7 @@ var _ = Describe("Logging Functions", func() {
 			})
 		})
 
-		Describe("func LogString", func() {
+		Describe("func LogString()", func() {
 			It("forwards to the given logger", func() {
 				LogString(&logger, "<message>")
 
@@ -103,7 +103,7 @@ var _ = Describe("Logging Functions", func() {
 			})
 		})
 
-		Describe("func Debug", func() {
+		Describe("func Debug()", func() {
 			It("forwards to the given logger", func() {
 				Debug(&logger, "message <%s>", "arg")
 
@@ -114,7 +114,7 @@ var _ = Describe("Logging Functions", func() {
 			})
 		})
 
-		Describe("func DebugString", func() {
+		Describe("func DebugString()", func() {
 			It("forwards to the given logger", func() {
 				DebugString(&logger, "<message>")
 
@@ -125,7 +125,7 @@ var _ = Describe("Logging Functions", func() {
 			})
 		})
 
-		Describe("func IsDebug", func() {
+		Describe("func IsDebug()", func() {
 			It("forwards to the given logger", func() {
 				Expect(IsDebug(&logger)).To(BeTrue())
 				logger.CaptureDebug = false
