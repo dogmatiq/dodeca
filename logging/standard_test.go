@@ -24,7 +24,7 @@ var _ = Describe("type StandardLogger", func() {
 		}
 	})
 
-	Context("when debug logging is enabled", func() {
+	When("debug logging is enabled", func() {
 		BeforeEach(func() {
 			logger.CaptureDebug = true
 		})
@@ -80,7 +80,7 @@ var _ = Describe("type StandardLogger", func() {
 		})
 	})
 
-	Context("when debug logging is disabled", func() {
+	When("debug logging is disabled", func() {
 		Describe("func Log", func() {
 			It("writes a formatted message to the target", func() {
 				logger.Log("message <%s>", "arg")

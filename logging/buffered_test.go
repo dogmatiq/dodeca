@@ -15,7 +15,7 @@ var _ = Describe("type BufferedLogger", func() {
 		logger = &BufferedLogger{}
 	})
 
-	Context("when debug logging is enabled", func() {
+	When("debug logging is enabled", func() {
 		BeforeEach(func() {
 			logger.CaptureDebug = true
 		})
@@ -89,7 +89,7 @@ var _ = Describe("type BufferedLogger", func() {
 		})
 	})
 
-	Context("when debug logging is disabled", func() {
+	When("debug logging is disabled", func() {
 		Describe("func Log", func() {
 			It("stores a formatted message", func() {
 				logger.Log("message <%s>", "arg")

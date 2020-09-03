@@ -17,7 +17,7 @@ var _ = Describe("Logging Functions", func() {
 		logger.Reset()
 	})
 
-	Context("when passed a nil logger", func() {
+	When("passed a nil logger", func() {
 		BeforeSuite(func() {
 			originalDefault = DefaultLogger
 			DefaultLogger = &logger
@@ -80,7 +80,7 @@ var _ = Describe("Logging Functions", func() {
 		})
 	})
 
-	Context("when passed a non-nil logger", func() {
+	When("passed a non-nil logger", func() {
 		Describe("func Log", func() {
 			It("forwards to the given logger", func() {
 				Log(&logger, "message <%s>", "arg")
