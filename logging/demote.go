@@ -1,9 +1,15 @@
 package logging
 
-// Demoter is an implementation of Logger that forwards all messages to a target
+// Demote returns a logger that forwards all messages to the target logger as
+// debug messages. Thus, it "demotes" non-debug messages to the debug level.
+func Demote(target Logger) Logger {
+	return demoter{target}
+}
+
+// demoter is an implementation of Logger that forwards all messages to a target
 // logger as debug messages. Thus, it "demotes" non-debug messages to the debug
 // level.
-type Demoter struct {
+type demoter struct {
 	// Target is the logger to which messages are forwarded.
 	Target Logger
 }
@@ -14,7 +20,7 @@ type Demoter struct {
 // operating the application, such as the end-user or operations staff.
 //
 // f is the format specifier, as per fmt.Printf(), etc.
-func (l *Demoter) Log(f string, v ...interface{}) {
+func (l demoter) Log(f string, v ...interface{}) {
 	l.Debug(f, v...)
 }
 
@@ -22,7 +28,7 @@ func (l *Demoter) Log(f string, v ...interface{}) {
 //
 // It should be used for messages that are intended for people responsible for
 // operating the application, such as the end-user or operations staff.
-func (l *Demoter) LogString(s string) {
+func (l demoter) LogString(s string) {
 	l.DebugString(s)
 }
 
@@ -34,7 +40,7 @@ func (l *Demoter) LogString(s string) {
 // that maintain the application.
 //
 // f is the format specifier, as per fmt.Printf(), etc.
-func (l *Demoter) Debug(f string, v ...interface{}) {
+func (l demoter) Debug(f string, v ...interface{}) {
 	Debug(l.Target, f, v...)
 }
 
@@ -44,7 +50,7 @@ func (l *Demoter) Debug(f string, v ...interface{}) {
 //
 // It should be used for messages that are intended for the software developers
 // that maintain the application.
-func (l *Demoter) DebugString(s string) {
+func (l demoter) DebugString(s string) {
 	DebugString(l.Target, s)
 }
 
@@ -54,6 +60,6 @@ func (l *Demoter) DebugString(s string) {
 // calling IsDebug(), however it can be used to check if debug logging is
 // necessary before executing expensive code that is only used to obtain debug
 // information.
-func (l *Demoter) IsDebug() bool {
+func (l demoter) IsDebug() bool {
 	return l.Target.IsDebug()
 }

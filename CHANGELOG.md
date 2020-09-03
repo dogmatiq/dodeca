@@ -13,8 +13,8 @@ The format is based on [Keep a Changelog], and this project adheres to
 
 ### Added
 
-- Add `Promoter`, a logger that promotes all messages to non-debug level
-- Add `Demoter`, a logger that demotes all messages to debug level
+- Add `Promote()`, which returns logger that promotes all messages to non-debug level
+- Add `Demote()`, which returns logger that demotes all messages to debug level
 
 ## [0.2.1] - 2020-03-08
 

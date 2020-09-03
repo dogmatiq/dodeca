@@ -6,18 +6,16 @@ import (
 	. "github.com/onsi/gomega"
 )
 
-var _ = Describe("type Promoter", func() {
+var _ = Describe("func Promote()", func() {
 	var (
 		target *BufferedLogger
-		logger *Promoter
+		logger Logger
 	)
 
 	BeforeEach(func() {
 		target = &BufferedLogger{}
 
-		logger = &Promoter{
-			Target: target,
-		}
+		logger = Promote(target)
 	})
 
 	Describe("func Log()", func() {

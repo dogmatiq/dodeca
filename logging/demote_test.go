@@ -6,10 +6,10 @@ import (
 	. "github.com/onsi/gomega"
 )
 
-var _ = Describe("type Demoter", func() {
+var _ = Describe("func Demote()", func() {
 	var (
 		target *BufferedLogger
-		logger *Demoter
+		logger Logger
 	)
 
 	BeforeEach(func() {
@@ -17,9 +17,7 @@ var _ = Describe("type Demoter", func() {
 			CaptureDebug: true,
 		}
 
-		logger = &Demoter{
-			Target: target,
-		}
+		logger = Demote(target)
 	})
 
 	Describe("func Log()", func() {
