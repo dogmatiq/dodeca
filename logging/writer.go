@@ -16,21 +16,20 @@ type writer struct {
 	buf strings.Builder
 }
 
-// NewWriter returns an io.WriteCloser that writes content to the given
-// logger.
+// NewWriter returns an io.WriteCloser that writes content to the given logger.
 //
-// Each line-feed-terminated line in the data passed to Write() is logged as
-// a separate message. Any unterminated line is buffered until a line-feed is
+// Each line-feed-terminated line in the data passed to Write() is logged as a
+// separate message. Any unterminated line is buffered until a line-feed is
 // encountered in a future call to Write(), or the writer is closed.
 func NewWriter(l Logger) io.WriteCloser {
 	return &writer{l: l, f: LogString}
 }
 
-// NewDebugWriter returns an io.Writer that writes content to the given
-// logger as debug messages.
+// NewDebugWriter returns an io.Writer that writes content to the given logger
+// as debug messages.
 //
-// Each line-feed-terminated line in the data passed to Write() is logged as
-// a separate message. Any unterminated line is buffered until a line-feed is
+// Each line-feed-terminated line in the data passed to Write() is logged as a
+// separate message. Any unterminated line is buffered until a line-feed is
 // encountered in a future call to Write(), or the writer is closed.
 func NewDebugWriter(l Logger) io.WriteCloser {
 	return &writer{l: l, f: DebugString}

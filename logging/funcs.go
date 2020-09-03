@@ -23,8 +23,7 @@ func LogString(l Logger, s string) {
 	getLogger(l).LogString(s)
 }
 
-// Debug writes a debug log message formatted according to a format
-// specifier.
+// Debug writes a debug log message formatted according to a format specifier.
 //
 // If IsDebug() returns false, no logging is performed.
 //

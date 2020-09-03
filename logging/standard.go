@@ -8,13 +8,13 @@ import (
 // StandardLogger is an implementation of Logger that uses Go's standard logger
 // package.
 type StandardLogger struct {
-	// Target is the standard Go logger used to write messages. If it is nil, logs
-	// are sent to STDOUT as per the 12-factor logging recomendations. Note that
-	// this differs to Go's default logger, which writes to STDERR.
+	// Target is the standard Go logger used to write messages. If it is nil,
+	// logs are sent to STDOUT as per the 12-factor logging recomendations. Note
+	// that this differs to Go's default logger, which writes to STDERR.
 	Target *log.Logger
 
-	// CaptureDebug controls whether debug messages should be written to the target
-	// logger.
+	// CaptureDebug controls whether debug messages should be written to the
+	// target logger.
 	CaptureDebug bool
 }
 

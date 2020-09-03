@@ -18,8 +18,8 @@ type BufferedLogger struct {
 // Log writes an application log message formatted according to a format
 // specifier.
 //
-// It should be used for messages that are intended for people responsible
-// for operating the application, such as the end-user or operations staff.
+// It should be used for messages that are intended for people responsible for
+// operating the application, such as the end-user or operations staff.
 //
 // f is the format specifier, as per fmt.Printf(), etc.
 func (l *BufferedLogger) Log(f string, v ...interface{}) {
@@ -30,8 +30,8 @@ func (l *BufferedLogger) Log(f string, v ...interface{}) {
 
 // LogString writes a pre-formatted application log message.
 //
-// It should be used for messages that are intended for people responsible
-// for operating the application, such as the end-user or operations staff.
+// It should be used for messages that are intended for people responsible for
+// operating the application, such as the end-user or operations staff.
 func (l *BufferedLogger) LogString(s string) {
 	l.m.Lock()
 	defer l.m.Unlock()
@@ -42,13 +42,12 @@ func (l *BufferedLogger) LogString(s string) {
 	)
 }
 
-// Debug writes a debug log message formatted according to a format
-// specifier.
+// Debug writes a debug log message formatted according to a format specifier.
 //
 // If IsDebug() returns false, no logging is performed.
 //
-// It should be used for messages that are intended for the software
-// developers that maintain the application.
+// It should be used for messages that are intended for the software developers
+// that maintain the application.
 //
 // f is the format specifier, as per fmt.Printf(), etc.
 func (l *BufferedLogger) Debug(f string, v ...interface{}) {
@@ -63,8 +62,8 @@ func (l *BufferedLogger) Debug(f string, v ...interface{}) {
 //
 // If IsDebug() returns false, no logging is performed.
 //
-// It should be used for messages that are intended for the software
-// developers that maintain the application.
+// It should be used for messages that are intended for the software developers
+// that maintain the application.
 func (l *BufferedLogger) DebugString(s string) {
 	if l.CaptureDebug {
 		l.m.Lock()
@@ -79,10 +78,10 @@ func (l *BufferedLogger) DebugString(s string) {
 
 // IsDebug returns true if this logger will perform debug logging.
 //
-// Generally the application should just call Debug() or DebugString()
-// without calling IsDebug(), however it can be used to check if debug
-// logging is necessary before executing expensive code that is only used to
-// obtain debug information.
+// Generally the application should just call Debug() or DebugString() without
+// calling IsDebug(), however it can be used to check if debug logging is
+// necessary before executing expensive code that is only used to obtain debug
+// information.
 func (l *BufferedLogger) IsDebug() bool {
 	return l.CaptureDebug
 }
