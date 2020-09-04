@@ -13,9 +13,10 @@ The format is based on [Keep a Changelog], and this project adheres to
 
 ### Added
 
-- Add `Promote()`, which returns logger that promotes all messages to non-debug level
-- Add `Demote()`, which returns logger that demotes all messages to debug level
-- Add `Wrapper` and `Unwrap()`
+- Add `Prefix()`, which returns a logger that prepends a static prefix to all messages
+- Add `Promote()`, which returns a logger that promotes all messages to non-debug level
+- Add `Demote()`, which returns a logger that demotes all messages to debug level
+- Add `Wrapper` and `Unwrap()` for inspecting loggers that wrap other loggers
 
 ## [0.2.1] - 2020-03-08
 
