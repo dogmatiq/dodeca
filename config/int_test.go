@@ -117,6 +117,14 @@ var _ = Describe("func MustGetInt()", func() {
 		Expect(ok).To(BeTrue())
 	})
 
+	It("returns a negative integer value", func() {
+		b := Map{"<key>": String("-123")}
+
+		v, ok := MustGetInt(b, "<key>")
+		Expect(v).To(BeEquivalentTo(-123))
+		Expect(ok).To(BeTrue())
+	})
+
 	It("sets ok to false if the key is not defined", func() {
 		b := Map{}
 
@@ -155,6 +163,13 @@ var _ = Describe("func MustGetIntDefault()", func() {
 
 		v := MustGetIntDefault(b, "<key>", -10)
 		Expect(v).To(BeEquivalentTo(123))
+	})
+
+	It("returns a negative integer value", func() {
+		b := Map{"<key>": String("-123")}
+
+		v := MustGetIntDefault(b, "<key>", -10)
+		Expect(v).To(BeEquivalentTo(-123))
 	})
 
 	It("returns the default value if the key is not defined", func() {
