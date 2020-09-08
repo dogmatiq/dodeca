@@ -83,7 +83,7 @@ var _ = Describe("func GetBoolT()", func() {
 		boolTableEntries...,
 	)
 
-	It("returns true if the value is not defined", func() {
+	It("returns true if the key is not defined", func() {
 		b := Map{}
 
 		v, err := GetBoolT(b, "<key>")
@@ -129,7 +129,7 @@ var _ = Describe("func GetBoolF()", func() {
 		boolTableEntries...,
 	)
 
-	It("returns false if the value is not defined", func() {
+	It("returns false if the key is not defined", func() {
 		b := Map{}
 
 		v, err := GetBoolF(b, "<key>")
@@ -175,7 +175,7 @@ var _ = Describe("func GetBoolDefault()", func() {
 		boolTableEntries...,
 	)
 
-	It("returns the default value if the value is not defined", func() {
+	It("returns the default value if the key is not defined", func() {
 		b := Map{}
 
 		v, err := GetBoolDefault(b, "<key>", true)
@@ -267,7 +267,7 @@ var _ = Describe("func MustGetBoolT()", func() {
 		boolTableEntries...,
 	)
 
-	It("returns true if the value is not defined", func() {
+	It("returns true if the key is not defined", func() {
 		b := Map{}
 
 		v := MustGetBoolT(b, "<key>")
@@ -309,7 +309,7 @@ var _ = Describe("func MustGetBoolF()", func() {
 		boolTableEntries...,
 	)
 
-	It("returns false if the value is not defined", func() {
+	It("returns false if the key is not defined", func() {
 		b := Map{}
 
 		v := MustGetBoolF(b, "<key>")
@@ -351,7 +351,7 @@ var _ = Describe("func MustGetBoolDefault()", func() {
 		boolTableEntries...,
 	)
 
-	It("returns the default value if the value is not defined", func() {
+	It("returns the default value if the key is not defined", func() {
 		b := Map{}
 
 		v := MustGetBoolDefault(b, "<key>", true)
