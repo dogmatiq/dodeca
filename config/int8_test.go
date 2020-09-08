@@ -10,11 +10,11 @@ import (
 	. "github.com/onsi/gomega"
 )
 
-var _ = Describe("func GetInt64()", func() {
+var _ = Describe("func GetInt8()", func() {
 	It("returns the integer value", func() {
 		b := Map{"<key>": String("123")}
 
-		v, ok, err := GetInt64(b, "<key>")
+		v, ok, err := GetInt8(b, "<key>")
 		Expect(err).ShouldNot(HaveOccurred())
 		Expect(v).To(BeEquivalentTo(123))
 		Expect(ok).To(BeTrue())
@@ -23,7 +23,7 @@ var _ = Describe("func GetInt64()", func() {
 	It("sets ok to false if the key is not defined", func() {
 		b := Map{}
 
-		_, ok, err := GetInt64(b, "<key>")
+		_, ok, err := GetInt8(b, "<key>")
 		Expect(err).ShouldNot(HaveOccurred())
 		Expect(ok).To(BeFalse())
 	})
@@ -31,15 +31,15 @@ var _ = Describe("func GetInt64()", func() {
 	It("returns an error if the value can not be parsed", func() {
 		b := Map{"<key>": String("<invalid>")}
 
-		_, _, err := GetInt64(b, "<key>")
-		Expect(err).To(MatchError(`<key> is not a valid signed 64-bit integer: strconv.ParseInt: parsing "<invalid>": invalid syntax`))
+		_, _, err := GetInt8(b, "<key>")
+		Expect(err).To(MatchError(`<key> is not a valid signed 8-bit integer: strconv.ParseInt: parsing "<invalid>": invalid syntax`))
 	})
 })
 
-func ExampleGetInt64() {
+func ExampleGetInt8() {
 	os.Setenv("FOO", "123")
 
-	v, ok, err := config.GetInt64(config.Environment(), "FOO")
+	v, ok, err := config.GetInt8(config.Environment(), "FOO")
 	if err != nil {
 		panic(err)
 	}
@@ -53,11 +53,11 @@ func ExampleGetInt64() {
 	// Output: the value is 123!
 }
 
-var _ = Describe("func GetInt64Default()", func() {
+var _ = Describe("func GetInt8Default()", func() {
 	It("returns the integer value", func() {
 		b := Map{"<key>": String("123")}
 
-		v, err := GetInt64Default(b, "<key>", -10)
+		v, err := GetInt8Default(b, "<key>", -10)
 		Expect(err).ShouldNot(HaveOccurred())
 		Expect(v).To(BeEquivalentTo(123))
 	})
@@ -65,7 +65,7 @@ var _ = Describe("func GetInt64Default()", func() {
 	It("returns the default value if the key is not defined", func() {
 		b := Map{}
 
-		v, err := GetInt64Default(b, "<key>", -10)
+		v, err := GetInt8Default(b, "<key>", -10)
 		Expect(err).ShouldNot(HaveOccurred())
 		Expect(v).To(BeEquivalentTo(-10))
 	})
@@ -73,15 +73,15 @@ var _ = Describe("func GetInt64Default()", func() {
 	It("returns an error if the value can not be parsed", func() {
 		b := Map{"<key>": String("<invalid>")}
 
-		_, err := GetInt64Default(b, "<key>", -10)
-		Expect(err).To(MatchError(`<key> is not a valid signed 64-bit integer: strconv.ParseInt: parsing "<invalid>": invalid syntax`))
+		_, err := GetInt8Default(b, "<key>", -10)
+		Expect(err).To(MatchError(`<key> is not a valid signed 8-bit integer: strconv.ParseInt: parsing "<invalid>": invalid syntax`))
 	})
 })
 
-func ExampleGetInt64Default() {
+func ExampleGetInt8Default() {
 	os.Setenv("FOO", "123")
 
-	v, err := config.GetInt64Default(config.Environment(), "FOO", -10)
+	v, err := config.GetInt8Default(config.Environment(), "FOO", -10)
 	if err != nil {
 		panic(err)
 	}
@@ -91,11 +91,11 @@ func ExampleGetInt64Default() {
 	// Output: the value is 123!
 }
 
-var _ = Describe("func MustGetInt64()", func() {
+var _ = Describe("func MustGetInt8()", func() {
 	It("returns the integer value", func() {
 		b := Map{"<key>": String("123")}
 
-		v, ok := MustGetInt64(b, "<key>")
+		v, ok := MustGetInt8(b, "<key>")
 		Expect(v).To(BeEquivalentTo(123))
 		Expect(ok).To(BeTrue())
 	})
@@ -103,7 +103,7 @@ var _ = Describe("func MustGetInt64()", func() {
 	It("sets ok to false if the key is not defined", func() {
 		b := Map{}
 
-		_, ok := MustGetInt64(b, "<key>")
+		_, ok := MustGetInt8(b, "<key>")
 		Expect(ok).To(BeFalse())
 	})
 
@@ -111,17 +111,17 @@ var _ = Describe("func MustGetInt64()", func() {
 		b := Map{"<key>": String("<invalid>")}
 
 		Expect(func() {
-			MustGetInt64(b, "<key>")
+			MustGetInt8(b, "<key>")
 		}).To(PanicWith(
-			MatchError(`<key> is not a valid signed 64-bit integer: strconv.ParseInt: parsing "<invalid>": invalid syntax`),
+			MatchError(`<key> is not a valid signed 8-bit integer: strconv.ParseInt: parsing "<invalid>": invalid syntax`),
 		))
 	})
 })
 
-func ExampleMustGetInt64() {
+func ExampleMustGetInt8() {
 	os.Setenv("FOO", "123")
 
-	v, ok := config.MustGetInt64(config.Environment(), "FOO")
+	v, ok := config.MustGetInt8(config.Environment(), "FOO")
 
 	if !ok {
 		fmt.Println("key is not defined!")
@@ -132,18 +132,18 @@ func ExampleMustGetInt64() {
 	// Output: the value is 123!
 }
 
-var _ = Describe("func MustGetInt64Default()", func() {
+var _ = Describe("func MustGetInt8Default()", func() {
 	It("returns the integer value", func() {
 		b := Map{"<key>": String("123")}
 
-		v := MustGetInt64Default(b, "<key>", -10)
+		v := MustGetInt8Default(b, "<key>", -10)
 		Expect(v).To(BeEquivalentTo(123))
 	})
 
 	It("returns the default value if the key is not defined", func() {
 		b := Map{}
 
-		v := MustGetInt64Default(b, "<key>", -10)
+		v := MustGetInt8Default(b, "<key>", -10)
 		Expect(v).To(BeEquivalentTo(-10))
 	})
 
@@ -151,17 +151,17 @@ var _ = Describe("func MustGetInt64Default()", func() {
 		b := Map{"<key>": String("<invalid>")}
 
 		Expect(func() {
-			MustGetInt64Default(b, "<key>", -10)
+			MustGetInt8Default(b, "<key>", -10)
 		}).To(PanicWith(
-			MatchError(`<key> is not a valid signed 64-bit integer: strconv.ParseInt: parsing "<invalid>": invalid syntax`),
+			MatchError(`<key> is not a valid signed 8-bit integer: strconv.ParseInt: parsing "<invalid>": invalid syntax`),
 		))
 	})
 })
 
-func ExampleMustGetInt64Default() {
+func ExampleMustGetInt8Default() {
 	os.Setenv("FOO", "123")
 
-	v := config.MustGetInt64Default(config.Environment(), "FOO", -10)
+	v := config.MustGetInt8Default(config.Environment(), "FOO", -10)
 
 	fmt.Printf("the value is %d!\n", v)
 
