@@ -22,6 +22,11 @@ var _ = Describe("type Map", func() {
 			v := bucket.Get("<key-1>")
 			Expect(v).To(Equal(String("<value-1>")))
 		})
+
+		It("returns the zero-value if the key is undefined", func() {
+			v := bucket.Get("<undefined>")
+			Expect(v.IsZero()).To(BeTrue())
+		})
 	})
 
 	Describe("func GetDefault()", func() {
