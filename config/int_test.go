@@ -52,3 +52,44 @@ func ExampleGetInt64() {
 
 	// Output: the value is 123!
 }
+
+var _ = Describe("func MustGetInt64()", func() {
+	It("returns the integer value", func() {
+		b := Map{"<key>": String("123")}
+
+		v, ok := MustGetInt64(b, "<key>")
+		Expect(v).To(BeEquivalentTo(123))
+		Expect(ok).To(BeTrue())
+	})
+
+	It("sets ok to false if the key is not defined", func() {
+		b := Map{}
+
+		_, ok := MustGetInt64(b, "<key>")
+		Expect(ok).To(BeFalse())
+	})
+
+	It("panics if the value can not be parsed", func() {
+		b := Map{"<key>": String("<invalid>")}
+
+		Expect(func() {
+			MustGetInt64(b, "<key>")
+		}).To(PanicWith(
+			MatchError(`<key> is not a valid signed 64-bit integer: strconv.ParseInt: parsing "<invalid>": invalid syntax`),
+		))
+	})
+})
+
+func ExampleMustGetInt64() {
+	os.Setenv("FOO", "123")
+
+	v, ok := config.MustGetInt64(config.Environment(), "FOO")
+
+	if !ok {
+		fmt.Println("key is not defined!")
+	} else {
+		fmt.Printf("the value is %d!\n", v)
+	}
+
+	// Output: the value is 123!
+}

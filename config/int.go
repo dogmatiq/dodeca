@@ -34,3 +34,17 @@ func GetInt64(b Bucket, k string) (v int64, ok bool, err error) {
 
 	return v, true, nil
 }
+
+// MustGetInt64 returns the int64 representation of the value associated with k.
+//
+// If k is undefined, ok is false.
+//
+// It panics if k is defined but its value can not be parsed as an int64.
+func MustGetInt64(b Bucket, k string) (v int64, ok bool) {
+	v, ok, err := GetInt64(b, k)
+	if err != nil {
+		panic(err)
+	}
+
+	return v, ok
+}
