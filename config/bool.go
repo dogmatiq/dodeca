@@ -67,8 +67,8 @@ func GetBoolF(b Bucket, k string) (bool, error) {
 	return GetBoolDefault(b, k, false)
 }
 
-// GetBoolDefault returns boolean representation of the value associated with k,
-// or the default value v if k is undefined.
+// GetBoolDefault returns the boolean representation of the value associated
+// with k, or the default value v if k is undefined.
 //
 // If the value is "true", "yes" or "on", it returns true.
 //
@@ -132,7 +132,7 @@ func MustGetBoolF(b Bucket, k string) bool {
 	return MustGetBoolDefault(b, k, false)
 }
 
-// MustGetBoolDefault returns boolean representation of the value associated
+// MustGetBoolDefault returns the boolean representation of the value associated
 // with k, or the default value v if k is undefined.
 //
 // If the value is "true", "yes" or "on", it returns true.
