@@ -66,3 +66,15 @@ func MustGetInt64(b Bucket, k string) (v int64, ok bool) {
 
 	return v, ok
 }
+
+// MustGetInt64Default returns the int64 representation of the value associated
+// with k, or the default value v if k is undefined.
+//
+// It panics if k is defined but its value can not be parsed as an int64.
+func MustGetInt64Default(b Bucket, k string, v int64) int64 {
+	if x, ok := MustGetInt64(b, k); ok {
+		return x
+	}
+
+	return v
+}
