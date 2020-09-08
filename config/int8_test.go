@@ -11,12 +11,21 @@ import (
 )
 
 var _ = Describe("func GetInt8()", func() {
-	It("returns the integer value", func() {
+	It("returns a positive integer value", func() {
 		b := Map{"<key>": String("123")}
 
 		v, ok, err := GetInt8(b, "<key>")
 		Expect(err).ShouldNot(HaveOccurred())
 		Expect(v).To(BeEquivalentTo(123))
+		Expect(ok).To(BeTrue())
+	})
+
+	It("returns a negative integer value", func() {
+		b := Map{"<key>": String("-123")}
+
+		v, ok, err := GetInt8(b, "<key>")
+		Expect(err).ShouldNot(HaveOccurred())
+		Expect(v).To(BeEquivalentTo(-123))
 		Expect(ok).To(BeTrue())
 	})
 
@@ -54,12 +63,20 @@ func ExampleGetInt8() {
 }
 
 var _ = Describe("func GetInt8Default()", func() {
-	It("returns the integer value", func() {
+	It("returns a positive integer value", func() {
 		b := Map{"<key>": String("123")}
 
 		v, err := GetInt8Default(b, "<key>", -10)
 		Expect(err).ShouldNot(HaveOccurred())
 		Expect(v).To(BeEquivalentTo(123))
+	})
+
+	It("returns a negative integer value", func() {
+		b := Map{"<key>": String("-123")}
+
+		v, ok := MustGetInt8(b, "<key>")
+		Expect(v).To(BeEquivalentTo(-123))
+		Expect(ok).To(BeTrue())
 	})
 
 	It("returns the default value if the key is not defined", func() {
@@ -92,7 +109,7 @@ func ExampleGetInt8Default() {
 }
 
 var _ = Describe("func MustGetInt8()", func() {
-	It("returns the integer value", func() {
+	It("returns a positive integer value", func() {
 		b := Map{"<key>": String("123")}
 
 		v, ok := MustGetInt8(b, "<key>")
@@ -133,7 +150,7 @@ func ExampleMustGetInt8() {
 }
 
 var _ = Describe("func MustGetInt8Default()", func() {
-	It("returns the integer value", func() {
+	It("returns a positive integer value", func() {
 		b := Map{"<key>": String("123")}
 
 		v := MustGetInt8Default(b, "<key>", -10)

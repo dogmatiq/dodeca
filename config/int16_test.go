@@ -11,12 +11,21 @@ import (
 )
 
 var _ = Describe("func GetInt16()", func() {
-	It("returns the integer value", func() {
+	It("returns a positive integer value", func() {
 		b := Map{"<key>": String("123")}
 
 		v, ok, err := GetInt16(b, "<key>")
 		Expect(err).ShouldNot(HaveOccurred())
 		Expect(v).To(BeEquivalentTo(123))
+		Expect(ok).To(BeTrue())
+	})
+
+	It("returns a negative integer value", func() {
+		b := Map{"<key>": String("-123")}
+
+		v, ok, err := GetInt16(b, "<key>")
+		Expect(err).ShouldNot(HaveOccurred())
+		Expect(v).To(BeEquivalentTo(-123))
 		Expect(ok).To(BeTrue())
 	})
 
@@ -54,12 +63,20 @@ func ExampleGetInt16() {
 }
 
 var _ = Describe("func GetInt16Default()", func() {
-	It("returns the integer value", func() {
+	It("returns a positive integer value", func() {
 		b := Map{"<key>": String("123")}
 
 		v, err := GetInt16Default(b, "<key>", -10)
 		Expect(err).ShouldNot(HaveOccurred())
 		Expect(v).To(BeEquivalentTo(123))
+	})
+
+	It("returns a negative integer value", func() {
+		b := Map{"<key>": String("-123")}
+
+		v, err := GetInt16Default(b, "<key>", -10)
+		Expect(err).ShouldNot(HaveOccurred())
+		Expect(v).To(BeEquivalentTo(-123))
 	})
 
 	It("returns the default value if the key is not defined", func() {
@@ -92,7 +109,7 @@ func ExampleGetInt16Default() {
 }
 
 var _ = Describe("func MustGetInt16()", func() {
-	It("returns the integer value", func() {
+	It("returns a positive integer value", func() {
 		b := Map{"<key>": String("123")}
 
 		v, ok := MustGetInt16(b, "<key>")
@@ -133,7 +150,7 @@ func ExampleMustGetInt16() {
 }
 
 var _ = Describe("func MustGetInt16Default()", func() {
-	It("returns the integer value", func() {
+	It("returns a positive integer value", func() {
 		b := Map{"<key>": String("123")}
 
 		v := MustGetInt16Default(b, "<key>", -10)

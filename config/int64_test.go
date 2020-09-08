@@ -11,12 +11,21 @@ import (
 )
 
 var _ = Describe("func GetInt64()", func() {
-	It("returns the integer value", func() {
+	It("returns a positive integer value", func() {
 		b := Map{"<key>": String("123")}
 
 		v, ok, err := GetInt64(b, "<key>")
 		Expect(err).ShouldNot(HaveOccurred())
 		Expect(v).To(BeEquivalentTo(123))
+		Expect(ok).To(BeTrue())
+	})
+
+	It("returns a negative integer value", func() {
+		b := Map{"<key>": String("-123")}
+
+		v, ok, err := GetInt64(b, "<key>")
+		Expect(err).ShouldNot(HaveOccurred())
+		Expect(v).To(BeEquivalentTo(-123))
 		Expect(ok).To(BeTrue())
 	})
 
@@ -54,12 +63,20 @@ func ExampleGetInt64() {
 }
 
 var _ = Describe("func GetInt64Default()", func() {
-	It("returns the integer value", func() {
+	It("returns a positive integer value", func() {
 		b := Map{"<key>": String("123")}
 
 		v, err := GetInt64Default(b, "<key>", -10)
 		Expect(err).ShouldNot(HaveOccurred())
 		Expect(v).To(BeEquivalentTo(123))
+	})
+
+	It("returns a negative integer value", func() {
+		b := Map{"<key>": String("-123")}
+
+		v, err := GetInt64Default(b, "<key>", -10)
+		Expect(err).ShouldNot(HaveOccurred())
+		Expect(v).To(BeEquivalentTo(-123))
 	})
 
 	It("returns the default value if the key is not defined", func() {
@@ -92,7 +109,7 @@ func ExampleGetInt64Default() {
 }
 
 var _ = Describe("func MustGetInt64()", func() {
-	It("returns the integer value", func() {
+	It("returns a positive integer value", func() {
 		b := Map{"<key>": String("123")}
 
 		v, ok := MustGetInt64(b, "<key>")
@@ -133,7 +150,7 @@ func ExampleMustGetInt64() {
 }
 
 var _ = Describe("func MustGetInt64Default()", func() {
-	It("returns the integer value", func() {
+	It("returns a positive integer value", func() {
 		b := Map{"<key>": String("123")}
 
 		v := MustGetInt64Default(b, "<key>", -10)
