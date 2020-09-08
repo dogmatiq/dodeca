@@ -14,7 +14,8 @@ The format is based on [Keep a Changelog], and this project adheres to
 ### Added
 
 - Add `Map`, an in-memory implementation of `Bucket`
-- Add `GetBoolXXX()` functions for reading boolean configuration values
+- Add `GetBool()` and its variants for reading `bool` configuration values
+- Add `GetInt64()` and its variants for reading `int64` configuration values
 
 ## [0.2.2] - 2020-09-04
 
