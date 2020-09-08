@@ -39,6 +39,8 @@ func GetEnv(k string) string {
 	return s
 }
 
+// environment is an implementation of Bucket that sources values from
+// environment variables.
 type environment struct{}
 
 // Get returns the value associated with the given key.
