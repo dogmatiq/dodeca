@@ -6,6 +6,9 @@ import (
 	"os"
 
 	"github.com/dogmatiq/dodeca/config"
+	. "github.com/dogmatiq/dodeca/config"
+	. "github.com/onsi/ginkgo"
+	. "github.com/onsi/gomega"
 )
 
 // This example demonstrates how to specify a configuration value as a string
@@ -147,4 +150,57 @@ func ExampleValue_AsBytes_specifiedAsString() {
 	fmt.Println(string(buf))
 
 	// Output: <the configuration value>
+}
+
+var _ = Describe("func AsString()", func() {
+	It("returns a string value", func() {
+		b := Map{"<key>": String("<value>")}
+
+		v := AsString(b, "<key>")
+		Expect(v).To(Equal("<value>"))
+	})
+
+	It("panics if the key is not defined", func() {
+		b := Map{}
+
+		Expect(func() {
+			AsString(b, "<key>")
+		}).To(PanicWith(`<key> is not defined`))
+	})
+})
+
+func ExampleAsString() {
+	os.Setenv("FOO", "<value>")
+
+	v := config.AsString(config.Environment(), "FOO")
+
+	fmt.Printf("the value is %s!\n", v)
+
+	// Output: the value is <value>!
+}
+
+var _ = Describe("func AsStringDefault()", func() {
+	It("returns a string value", func() {
+		b := Map{"<key>": String("<value>")}
+
+		v := AsStringDefault(b, "<key>", "<default>")
+		Expect(v).To(Equal("<value>"))
+	})
+
+	It("returns the default value key is not defined", func() {
+		b := Map{}
+
+		v := AsStringDefault(b, "<key>", "<default>")
+		Expect(v).To(Equal("<default>"))
+	})
+})
+
+func ExampleAsStringDefault() {
+	os.Setenv("FOO", "")
+
+	v := config.AsStringDefault(config.Environment(), "FOO", "<default>")
+
+	fmt.Printf("the value is %s!\n", v)
+
+	// Output: the value is <default>!
 }
