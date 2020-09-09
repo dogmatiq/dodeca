@@ -96,16 +96,16 @@ var _ = Describe("func GetIntDefault()", func() {
 })
 
 func ExampleGetIntDefault() {
-	os.Setenv("FOO", "123")
+	os.Setenv("FOO", "")
 
-	v, err := config.GetIntDefault(config.Environment(), "FOO", -10)
+	v, err := config.GetIntDefault(config.Environment(), "FOO", -456)
 	if err != nil {
 		panic(err)
 	}
 
 	fmt.Printf("the value is %d!\n", v)
 
-	// Output: the value is 123!
+	// Output: the value is -456!
 }
 
 var _ = Describe("func MustGetInt()", func() {
