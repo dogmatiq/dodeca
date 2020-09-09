@@ -4,8 +4,8 @@ package config
 //
 // If k is undefined, ok is false and err is nil.
 //
-// If k is defined but its value can not be parsed as an int8, err is a
-// non-nil error describing the invalid value.
+// If k is defined but its value can not be parsed as an int8, err is a non-nil
+// error describing the invalid value.
 func GetInt8(b Bucket, k string) (v int8, ok bool, err error) {
 	v64, ok, err := getInt(b, k, 8)
 	return int8(v64), ok, err

@@ -4,8 +4,8 @@ package config
 //
 // If k is undefined, ok is false and err is nil.
 //
-// If k is defined but its value can not be parsed as an int64, err is a
-// non-nil error describing the invalid value.
+// If k is defined but its value can not be parsed as an int64, err is a non-nil
+// error describing the invalid value.
 func GetInt64(b Bucket, k string) (v int64, ok bool, err error) {
 	return getInt(b, k, 64)
 }

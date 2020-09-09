@@ -4,8 +4,8 @@ package config
 //
 // If k is undefined, ok is false and err is nil.
 //
-// If k is defined but its value can not be parsed as an int16, err is a
-// non-nil error describing the invalid value.
+// If k is defined but its value can not be parsed as an int16, err is a non-nil
+// error describing the invalid value.
 func GetInt16(b Bucket, k string) (v int16, ok bool, err error) {
 	v64, ok, err := getInt(b, k, 16)
 	return int16(v64), ok, err
