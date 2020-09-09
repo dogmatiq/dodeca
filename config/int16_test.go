@@ -1,10 +1,6 @@
 package config_test
 
 import (
-	"fmt"
-	"os"
-
-	"github.com/dogmatiq/dodeca/config"
 	. "github.com/dogmatiq/dodeca/config"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
@@ -45,23 +41,6 @@ var _ = Describe("func GetInt16()", func() {
 	})
 })
 
-func ExampleGetInt16() {
-	os.Setenv("FOO", "123")
-
-	v, ok, err := config.GetInt16(config.Environment(), "FOO")
-	if err != nil {
-		panic(err)
-	}
-
-	if !ok {
-		fmt.Println("key is not defined!")
-	} else {
-		fmt.Printf("the value is %d!\n", v)
-	}
-
-	// Output: the value is 123!
-}
-
 var _ = Describe("func GetInt16Default()", func() {
 	It("returns a positive integer value", func() {
 		b := Map{"<key>": String("123")}
@@ -94,19 +73,6 @@ var _ = Describe("func GetInt16Default()", func() {
 		Expect(err).To(MatchError(`<key> is not a valid signed 16-bit integer: strconv.ParseInt: parsing "<invalid>": invalid syntax`))
 	})
 })
-
-func ExampleGetInt16Default() {
-	os.Setenv("FOO", "123")
-
-	v, err := config.GetInt16Default(config.Environment(), "FOO", -10)
-	if err != nil {
-		panic(err)
-	}
-
-	fmt.Printf("the value is %d!\n", v)
-
-	// Output: the value is 123!
-}
 
 var _ = Describe("func MustGetInt16()", func() {
 	It("returns a positive integer value", func() {
@@ -143,20 +109,6 @@ var _ = Describe("func MustGetInt16()", func() {
 	})
 })
 
-func ExampleMustGetInt16() {
-	os.Setenv("FOO", "123")
-
-	v, ok := config.MustGetInt16(config.Environment(), "FOO")
-
-	if !ok {
-		fmt.Println("key is not defined!")
-	} else {
-		fmt.Printf("the value is %d!\n", v)
-	}
-
-	// Output: the value is 123!
-}
-
 var _ = Describe("func MustGetInt16Default()", func() {
 	It("returns a positive integer value", func() {
 		b := Map{"<key>": String("123")}
@@ -189,13 +141,3 @@ var _ = Describe("func MustGetInt16Default()", func() {
 		))
 	})
 })
-
-func ExampleMustGetInt16Default() {
-	os.Setenv("FOO", "123")
-
-	v := config.MustGetInt16Default(config.Environment(), "FOO", -10)
-
-	fmt.Printf("the value is %d!\n", v)
-
-	// Output: the value is 123!
-}

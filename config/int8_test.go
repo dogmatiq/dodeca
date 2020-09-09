@@ -1,10 +1,6 @@
 package config_test
 
 import (
-	"fmt"
-	"os"
-
-	"github.com/dogmatiq/dodeca/config"
 	. "github.com/dogmatiq/dodeca/config"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
@@ -45,23 +41,6 @@ var _ = Describe("func GetInt8()", func() {
 	})
 })
 
-func ExampleGetInt8() {
-	os.Setenv("FOO", "123")
-
-	v, ok, err := config.GetInt8(config.Environment(), "FOO")
-	if err != nil {
-		panic(err)
-	}
-
-	if !ok {
-		fmt.Println("key is not defined!")
-	} else {
-		fmt.Printf("the value is %d!\n", v)
-	}
-
-	// Output: the value is 123!
-}
-
 var _ = Describe("func GetInt8Default()", func() {
 	It("returns a positive integer value", func() {
 		b := Map{"<key>": String("123")}
@@ -94,19 +73,6 @@ var _ = Describe("func GetInt8Default()", func() {
 		Expect(err).To(MatchError(`<key> is not a valid signed 8-bit integer: strconv.ParseInt: parsing "<invalid>": invalid syntax`))
 	})
 })
-
-func ExampleGetInt8Default() {
-	os.Setenv("FOO", "123")
-
-	v, err := config.GetInt8Default(config.Environment(), "FOO", -10)
-	if err != nil {
-		panic(err)
-	}
-
-	fmt.Printf("the value is %d!\n", v)
-
-	// Output: the value is 123!
-}
 
 var _ = Describe("func MustGetInt8()", func() {
 	It("returns a positive integer value", func() {
@@ -143,20 +109,6 @@ var _ = Describe("func MustGetInt8()", func() {
 	})
 })
 
-func ExampleMustGetInt8() {
-	os.Setenv("FOO", "123")
-
-	v, ok := config.MustGetInt8(config.Environment(), "FOO")
-
-	if !ok {
-		fmt.Println("key is not defined!")
-	} else {
-		fmt.Printf("the value is %d!\n", v)
-	}
-
-	// Output: the value is 123!
-}
-
 var _ = Describe("func MustGetInt8Default()", func() {
 	It("returns a positive integer value", func() {
 		b := Map{"<key>": String("123")}
@@ -189,13 +141,3 @@ var _ = Describe("func MustGetInt8Default()", func() {
 		))
 	})
 })
-
-func ExampleMustGetInt8Default() {
-	os.Setenv("FOO", "123")
-
-	v := config.MustGetInt8Default(config.Environment(), "FOO", -10)
-
-	fmt.Printf("the value is %d!\n", v)
-
-	// Output: the value is 123!
-}
