@@ -6,29 +6,29 @@ import (
 	. "github.com/onsi/gomega"
 )
 
-var _ = Describe("func GetFloat64()", func() {
+var _ = Describe("func GetFloat32()", func() {
 	It("returns a positive float value", func() {
 		b := Map{"<key>": String("123.45")}
 
-		v, ok, err := GetFloat64(b, "<key>")
+		v, ok, err := GetFloat32(b, "<key>")
 		Expect(err).ShouldNot(HaveOccurred())
-		Expect(v).To(BeEquivalentTo(123.45))
+		Expect(v).To(BeNumerically("~", float32(123.45)))
 		Expect(ok).To(BeTrue())
 	})
 
 	It("returns a negative float value", func() {
 		b := Map{"<key>": String("-123.45")}
 
-		v, ok, err := GetFloat64(b, "<key>")
+		v, ok, err := GetFloat32(b, "<key>")
 		Expect(err).ShouldNot(HaveOccurred())
-		Expect(v).To(BeEquivalentTo(-123.45))
+		Expect(v).To(BeNumerically("~", float32(-123.45)))
 		Expect(ok).To(BeTrue())
 	})
 
 	It("sets ok to false if the key is not defined", func() {
 		b := Map{}
 
-		_, ok, err := GetFloat64(b, "<key>")
+		_, ok, err := GetFloat32(b, "<key>")
 		Expect(err).ShouldNot(HaveOccurred())
 		Expect(ok).To(BeFalse())
 	})
@@ -36,65 +36,65 @@ var _ = Describe("func GetFloat64()", func() {
 	It("returns an error if the value can not be parsed", func() {
 		b := Map{"<key>": String("<invalid>")}
 
-		_, _, err := GetFloat64(b, "<key>")
-		Expect(err).To(MatchError(`<key> is not a valid 64-bit float: strconv.ParseFloat: parsing "<invalid>": invalid syntax`))
+		_, _, err := GetFloat32(b, "<key>")
+		Expect(err).To(MatchError(`<key> is not a valid 32-bit float: strconv.ParseFloat: parsing "<invalid>": invalid syntax`))
 	})
 })
 
-var _ = Describe("func GetFloat64Default()", func() {
+var _ = Describe("func GetFloat32Default()", func() {
 	It("returns a positive float value", func() {
 		b := Map{"<key>": String("123.45")}
 
-		v, err := GetFloat64Default(b, "<key>", 456.78)
+		v, err := GetFloat32Default(b, "<key>", 456.78)
 		Expect(err).ShouldNot(HaveOccurred())
-		Expect(v).To(BeEquivalentTo(123.45))
+		Expect(v).To(BeNumerically("~", float32(123.45)))
 	})
 
 	It("returns a negative float value", func() {
 		b := Map{"<key>": String("-123.45")}
 
-		v, err := GetFloat64Default(b, "<key>", 456.78)
+		v, err := GetFloat32Default(b, "<key>", 456.78)
 		Expect(err).ShouldNot(HaveOccurred())
-		Expect(v).To(BeEquivalentTo(-123.45))
+		Expect(v).To(BeNumerically("~", float32(-123.45)))
 	})
 
 	It("returns the default value if the key is not defined", func() {
 		b := Map{}
 
-		v, err := GetFloat64Default(b, "<key>", 456.78)
+		v, err := GetFloat32Default(b, "<key>", 456.78)
 		Expect(err).ShouldNot(HaveOccurred())
-		Expect(v).To(BeEquivalentTo(456.78))
+		Expect(v).To(BeNumerically("~", float32(456.78)))
 	})
 
 	It("returns an error if the value can not be parsed", func() {
 		b := Map{"<key>": String("<invalid>")}
 
-		_, err := GetFloat64Default(b, "<key>", 456.78)
-		Expect(err).To(MatchError(`<key> is not a valid 64-bit float: strconv.ParseFloat: parsing "<invalid>": invalid syntax`))
+		_, err := GetFloat32Default(b, "<key>", 456.78)
+		Expect(err).To(MatchError(`<key> is not a valid 32-bit float: strconv.ParseFloat: parsing "<invalid>": invalid syntax`))
 	})
 })
 
-var _ = Describe("func MustGetFloat64()", func() {
+var _ = Describe("func MustGetFloat32()", func() {
 	It("returns a positive float value", func() {
 		b := Map{"<key>": String("123.45")}
 
-		v, ok := MustGetFloat64(b, "<key>")
-		Expect(v).To(BeEquivalentTo(123))
+		v, ok := MustGetFloat32(b, "<key>")
+		Expect(v).To(BeNumerically("~", float32(123.45)))
 		Expect(ok).To(BeTrue())
 	})
 
 	It("returns a negative float value", func() {
 		b := Map{"<key>": String("-123.45")}
 
-		v, ok := MustGetFloat64(b, "<key>")
-		Expect(v).To(BeEquivalentTo(-123))
+		v, ok := MustGetFloat32(b, "<key>")
+		Expect(v).To(BeNumerically("~", float32(-123.45)))
 		Expect(ok).To(BeTrue())
 	})
 
 	It("sets ok to false if the key is not defined", func() {
 		b := Map{}
 
-		_, ok := MustGetFloat64(b, "<key>")
+		_, ok := MustGetFloat32(b, "<key>")
 		Expect(ok).To(BeFalse())
 	})
 
@@ -102,42 +102,42 @@ var _ = Describe("func MustGetFloat64()", func() {
 		b := Map{"<key>": String("<invalid>")}
 
 		Expect(func() {
-			MustGetFloat64(b, "<key>")
+			MustGetFloat32(b, "<key>")
 		}).To(PanicWith(
-			MatchError(`<key> is not a valid 64-bit float: strconv.ParseFloat: parsing "<invalid>": invalid syntax`),
+			MatchError(`<key> is not a valid 32-bit float: strconv.ParseFloat: parsing "<invalid>": invalid syntax`),
 		))
 	})
 })
 
-var _ = Describe("func MustGetFloat64Default()", func() {
+var _ = Describe("func MustGetFloat32Default()", func() {
 	It("returns a positive float value", func() {
 		b := Map{"<key>": String("123.45")}
 
-		v := MustGetFloat64Default(b, "<key>", 456.78)
-		Expect(v).To(BeEquivalentTo(123))
+		v := MustGetFloat32Default(b, "<key>", 456.78)
+		Expect(v).To(BeNumerically("~", float32(123.45)))
 	})
 
 	It("returns a negative float value", func() {
 		b := Map{"<key>": String("-123.45")}
 
-		v := MustGetFloat64Default(b, "<key>", 456.78)
-		Expect(v).To(BeEquivalentTo(-123))
+		v := MustGetFloat32Default(b, "<key>", 456.78)
+		Expect(v).To(BeNumerically("~", float32(-123.45)))
 	})
 
 	It("returns the default value if the key is not defined", func() {
 		b := Map{}
 
-		v := MustGetFloat64Default(b, "<key>", 456.78)
-		Expect(v).To(BeEquivalentTo(456.78))
+		v := MustGetFloat32Default(b, "<key>", 456.78)
+		Expect(v).To(BeNumerically("~", float32(456.78)))
 	})
 
 	It("panics if the value can not be parsed", func() {
 		b := Map{"<key>": String("<invalid>")}
 
 		Expect(func() {
-			MustGetFloat64Default(b, "<key>", 456.78)
+			MustGetFloat32Default(b, "<key>", 456.78)
 		}).To(PanicWith(
-			MatchError(`<key> is not a valid 64-bit float: strconv.ParseFloat: parsing "<invalid>": invalid syntax`),
+			MatchError(`<key> is not a valid 32-bit float: strconv.ParseFloat: parsing "<invalid>": invalid syntax`),
 		))
 	})
 })
