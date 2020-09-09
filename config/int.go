@@ -12,27 +12,8 @@ import (
 // If k is defined but its value can not be parsed as an int, err is a
 // non-nil error describing the invalid value.
 func GetInt(b Bucket, k string) (v int, ok bool, err error) {
-	x := b.Get(k)
-
-	if x.IsZero() {
-		return 0, false, nil
-	}
-
-	s, err := x.AsString()
-	if err != nil {
-		return 0, false, err
-	}
-
-	v64, err := strconv.ParseInt(s, 10, 0)
-	if err != nil {
-		return 0, false, fmt.Errorf(
-			`%s is not a valid signed integer: %w`,
-			k,
-			err,
-		)
-	}
-
-	return int(v64), true, nil
+	v64, ok, err := getInt(b, k, 0)
+	return int(v64), ok, err
 }
 
 // GetIntDefault returns the int representation of the value associated with
@@ -77,4 +58,39 @@ func MustGetIntDefault(b Bucket, k string, v int) int {
 	}
 
 	return v
+}
+
+// getInt returns the signed integer representation of the value associated with
+// k.
+func getInt(b Bucket, k string, bitSize int) (int64, bool, error) {
+	x := b.Get(k)
+
+	if x.IsZero() {
+		return 0, false, nil
+	}
+
+	s, err := x.AsString()
+	if err != nil {
+		return 0, false, err
+	}
+
+	v, err := strconv.ParseInt(s, 10, bitSize)
+	if err != nil {
+		if bitSize == 0 {
+			return 0, false, fmt.Errorf(
+				`%s is not a valid signed integer: %w`,
+				k,
+				err,
+			)
+		}
+
+		return 0, false, fmt.Errorf(
+			`%s is not a valid signed %d-bit integer: %w`,
+			k,
+			bitSize,
+			err,
+		)
+	}
+
+	return v, true, nil
 }

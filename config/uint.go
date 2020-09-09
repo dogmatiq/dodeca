@@ -12,27 +12,8 @@ import (
 // If k is defined but its value can not be parsed as an uint, err is a
 // non-nil error describing the invalid value.
 func GetUint(b Bucket, k string) (v uint, ok bool, err error) {
-	x := b.Get(k)
-
-	if x.IsZero() {
-		return 0, false, nil
-	}
-
-	s, err := x.AsString()
-	if err != nil {
-		return 0, false, err
-	}
-
-	v64, err := strconv.ParseUint(s, 10, 0)
-	if err != nil {
-		return 0, false, fmt.Errorf(
-			`%s is not a valid unsigned integer: %w`,
-			k,
-			err,
-		)
-	}
-
-	return uint(v64), true, nil
+	v64, ok, err := getUint(b, k, 0)
+	return uint(v64), ok, err
 }
 
 // GetUintDefault returns the uint representation of the value associated
@@ -78,4 +59,39 @@ func MustGetUintDefault(b Bucket, k string, v uint) uint {
 	}
 
 	return v
+}
+
+// getUint returns the unsigned integer representation of the value associated
+// with k.
+func getUint(b Bucket, k string, bitSize int) (uint64, bool, error) {
+	x := b.Get(k)
+
+	if x.IsZero() {
+		return 0, false, nil
+	}
+
+	s, err := x.AsString()
+	if err != nil {
+		return 0, false, err
+	}
+
+	v, err := strconv.ParseUint(s, 10, bitSize)
+	if err != nil {
+		if bitSize == 0 {
+			return 0, false, fmt.Errorf(
+				`%s is not a valid unsigned integer: %w`,
+				k,
+				err,
+			)
+		}
+
+		return 0, false, fmt.Errorf(
+			`%s is not a valid unsigned %d-bit integer: %w`,
+			k,
+			bitSize,
+			err,
+		)
+	}
+
+	return v, true, err
 }

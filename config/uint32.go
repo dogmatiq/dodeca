@@ -1,10 +1,5 @@
 package config
 
-import (
-	"fmt"
-	"strconv"
-)
-
 // GetUint32 returns the uint32 representation of the value associated with k.
 //
 // If k is undefined, ok is false and err is nil.
@@ -12,27 +7,8 @@ import (
 // If k is defined but its value can not be parsed as an uint32, err is a
 // non-nil error describing the invalid value.
 func GetUint32(b Bucket, k string) (v uint32, ok bool, err error) {
-	x := b.Get(k)
-
-	if x.IsZero() {
-		return 0, false, nil
-	}
-
-	s, err := x.AsString()
-	if err != nil {
-		return 0, false, err
-	}
-
-	v64, err := strconv.ParseUint(s, 10, 32)
-	if err != nil {
-		return 0, false, fmt.Errorf(
-			`%s is not a valid unsigned 32-bit integer: %w`,
-			k,
-			err,
-		)
-	}
-
-	return uint32(v64), true, nil
+	v64, ok, err := getUint(b, k, 32)
+	return uint32(v64), ok, err
 }
 
 // GetUint32Default returns the uint32 representation of the value associated
