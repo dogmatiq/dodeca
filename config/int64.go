@@ -4,7 +4,7 @@ package config
 //
 // If k is undefined, ok is false and err is nil.
 //
-// If k is defined but its value can not be parsed as an int64, err is a non-nil
+// If k is defined but its value cannot be parsed as an int64, err is a non-nil
 // error describing the invalid value.
 func GetInt64(b Bucket, k string) (v int64, ok bool, err error) {
 	return getInt(b, k, 64)
@@ -13,7 +13,7 @@ func GetInt64(b Bucket, k string) (v int64, ok bool, err error) {
 // GetInt64Default returns the int64 representation of the value associated with
 // k, or the default value v if k is undefined.
 //
-// If k is defined but its value can not be parsed as an int64, it returns an
+// If k is defined but its value cannot be parsed as an int64, it returns an
 // error describing the invalid value.
 func GetInt64Default(b Bucket, k string, v int64) (int64, error) {
 	x, ok, err := GetInt64(b, k)
@@ -32,7 +32,7 @@ func GetInt64Default(b Bucket, k string, v int64) (int64, error) {
 //
 // If k is undefined, ok is false.
 //
-// It panics if k is defined but its value can not be parsed as an int64.
+// It panics if k is defined but its value cannot be parsed as an int64.
 func MustGetInt64(b Bucket, k string) (v int64, ok bool) {
 	v, ok, err := GetInt64(b, k)
 	if err != nil {
@@ -45,7 +45,7 @@ func MustGetInt64(b Bucket, k string) (v int64, ok bool) {
 // MustGetInt64Default returns the int64 representation of the value associated
 // with k, or the default value v if k is undefined.
 //
-// It panics if k is defined but its value can not be parsed as an int64.
+// It panics if k is defined but its value cannot be parsed as an int64.
 func MustGetInt64Default(b Bucket, k string, v int64) int64 {
 	if x, ok := MustGetInt64(b, k); ok {
 		return x

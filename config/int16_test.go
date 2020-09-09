@@ -33,7 +33,7 @@ var _ = Describe("func GetInt16()", func() {
 		Expect(ok).To(BeFalse())
 	})
 
-	It("returns an error if the value can not be parsed", func() {
+	It("returns an error if the value cannot be parsed", func() {
 		b := Map{"<key>": String("<invalid>")}
 
 		_, _, err := GetInt16(b, "<key>")
@@ -66,7 +66,7 @@ var _ = Describe("func GetInt16Default()", func() {
 		Expect(v).To(BeEquivalentTo(-10))
 	})
 
-	It("returns an error if the value can not be parsed", func() {
+	It("returns an error if the value cannot be parsed", func() {
 		b := Map{"<key>": String("<invalid>")}
 
 		_, err := GetInt16Default(b, "<key>", -10)
@@ -98,7 +98,7 @@ var _ = Describe("func MustGetInt16()", func() {
 		Expect(ok).To(BeFalse())
 	})
 
-	It("panics if the value can not be parsed", func() {
+	It("panics if the value cannot be parsed", func() {
 		b := Map{"<key>": String("<invalid>")}
 
 		Expect(func() {
@@ -131,7 +131,7 @@ var _ = Describe("func MustGetInt16Default()", func() {
 		Expect(v).To(BeEquivalentTo(-10))
 	})
 
-	It("panics if the value can not be parsed", func() {
+	It("panics if the value cannot be parsed", func() {
 		b := Map{"<key>": String("<invalid>")}
 
 		Expect(func() {

@@ -4,7 +4,7 @@ package config
 //
 // If k is undefined, ok is false and err is nil.
 //
-// If k is defined but its value can not be parsed as an int16, err is a non-nil
+// If k is defined but its value cannot be parsed as an int16, err is a non-nil
 // error describing the invalid value.
 func GetInt16(b Bucket, k string) (v int16, ok bool, err error) {
 	v64, ok, err := getInt(b, k, 16)
@@ -14,7 +14,7 @@ func GetInt16(b Bucket, k string) (v int16, ok bool, err error) {
 // GetInt16Default returns the int16 representation of the value associated with
 // k, or the default value v if k is undefined.
 //
-// If k is defined but its value can not be parsed as an int16, it returns an
+// If k is defined but its value cannot be parsed as an int16, it returns an
 // error describing the invalid value.
 func GetInt16Default(b Bucket, k string, v int16) (int16, error) {
 	x, ok, err := GetInt16(b, k)
@@ -33,7 +33,7 @@ func GetInt16Default(b Bucket, k string, v int16) (int16, error) {
 //
 // If k is undefined, ok is false.
 //
-// It panics if k is defined but its value can not be parsed as an int16.
+// It panics if k is defined but its value cannot be parsed as an int16.
 func MustGetInt16(b Bucket, k string) (v int16, ok bool) {
 	v, ok, err := GetInt16(b, k)
 	if err != nil {
@@ -46,7 +46,7 @@ func MustGetInt16(b Bucket, k string) (v int16, ok bool) {
 // MustGetInt16Default returns the int16 representation of the value associated
 // with k, or the default value v if k is undefined.
 //
-// It panics if k is defined but its value can not be parsed as an int16.
+// It panics if k is defined but its value cannot be parsed as an int16.
 func MustGetInt16Default(b Bucket, k string, v int16) int16 {
 	if x, ok := MustGetInt16(b, k); ok {
 		return x

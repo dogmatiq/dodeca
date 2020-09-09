@@ -4,7 +4,7 @@ package config
 //
 // If k is undefined, ok is false and err is nil.
 //
-// If k is defined but its value can not be parsed as an int32, err is a non-nil
+// If k is defined but its value cannot be parsed as an int32, err is a non-nil
 // error describing the invalid value.
 func GetInt32(b Bucket, k string) (v int32, ok bool, err error) {
 	v64, ok, err := getInt(b, k, 32)
@@ -14,7 +14,7 @@ func GetInt32(b Bucket, k string) (v int32, ok bool, err error) {
 // GetInt32Default returns the int32 representation of the value associated with
 // k, or the default value v if k is undefined.
 //
-// If k is defined but its value can not be parsed as an int32, it returns an
+// If k is defined but its value cannot be parsed as an int32, it returns an
 // error describing the invalid value.
 func GetInt32Default(b Bucket, k string, v int32) (int32, error) {
 	x, ok, err := GetInt32(b, k)
@@ -33,7 +33,7 @@ func GetInt32Default(b Bucket, k string, v int32) (int32, error) {
 //
 // If k is undefined, ok is false.
 //
-// It panics if k is defined but its value can not be parsed as an int32.
+// It panics if k is defined but its value cannot be parsed as an int32.
 func MustGetInt32(b Bucket, k string) (v int32, ok bool) {
 	v, ok, err := GetInt32(b, k)
 	if err != nil {
@@ -46,7 +46,7 @@ func MustGetInt32(b Bucket, k string) (v int32, ok bool) {
 // MustGetInt32Default returns the int32 representation of the value associated
 // with k, or the default value v if k is undefined.
 //
-// It panics if k is defined but its value can not be parsed as an int32.
+// It panics if k is defined but its value cannot be parsed as an int32.
 func MustGetInt32Default(b Bucket, k string, v int32) int32 {
 	if x, ok := MustGetInt32(b, k); ok {
 		return x

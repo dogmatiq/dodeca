@@ -57,7 +57,7 @@ func (v Value) AsPath() (string, io.Closer, error) {
 // It returns an error v is the zero-value.
 func (v Value) AsString() (string, error) {
 	if v.src == nil {
-		return "", errors.New("can not represent a zero-value as a string")
+		return "", errors.New("cannot represent a zero-value as a string")
 	}
 
 	return v.src.AsString()
@@ -68,7 +68,7 @@ func (v Value) AsString() (string, error) {
 // If v is the zero-value, it returns a nil slice.
 func (v Value) AsBytes() ([]byte, error) {
 	if v.src == nil {
-		return nil, errors.New("can not represent a zero-value as a byte-slice")
+		return nil, errors.New("cannot represent a zero-value as a byte-slice")
 	}
 
 	return v.src.AsBytes()

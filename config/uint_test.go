@@ -28,7 +28,7 @@ var _ = Describe("func GetUint()", func() {
 		Expect(ok).To(BeFalse())
 	})
 
-	It("returns an error if the value can not be parsed", func() {
+	It("returns an error if the value cannot be parsed", func() {
 		b := Map{"<key>": String("<invalid>")}
 
 		_, _, err := GetUint(b, "<key>")
@@ -77,7 +77,7 @@ var _ = Describe("func GetUintDefault()", func() {
 		Expect(v).To(BeEquivalentTo(10))
 	})
 
-	It("returns an error if the value can not be parsed", func() {
+	It("returns an error if the value cannot be parsed", func() {
 		b := Map{"<key>": String("<invalid>")}
 
 		_, err := GetUintDefault(b, "<key>", 10)
@@ -121,7 +121,7 @@ var _ = Describe("func MustGetUint()", func() {
 		Expect(ok).To(BeFalse())
 	})
 
-	It("panics if the value can not be parsed", func() {
+	It("panics if the value cannot be parsed", func() {
 		b := Map{"<key>": String("<invalid>")}
 
 		Expect(func() {
@@ -171,7 +171,7 @@ var _ = Describe("func MustGetUintDefault()", func() {
 		Expect(v).To(BeEquivalentTo(10))
 	})
 
-	It("panics if the value can not be parsed", func() {
+	It("panics if the value cannot be parsed", func() {
 		b := Map{"<key>": String("<invalid>")}
 
 		Expect(func() {

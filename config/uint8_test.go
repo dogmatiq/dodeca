@@ -24,7 +24,7 @@ var _ = Describe("func GetUint8()", func() {
 		Expect(ok).To(BeFalse())
 	})
 
-	It("returns an error if the value can not be parsed", func() {
+	It("returns an error if the value cannot be parsed", func() {
 		b := Map{"<key>": String("<invalid>")}
 
 		_, _, err := GetUint8(b, "<key>")
@@ -56,7 +56,7 @@ var _ = Describe("func GetUint8Default()", func() {
 		Expect(v).To(BeEquivalentTo(10))
 	})
 
-	It("returns an error if the value can not be parsed", func() {
+	It("returns an error if the value cannot be parsed", func() {
 		b := Map{"<key>": String("<invalid>")}
 
 		_, err := GetUint8Default(b, "<key>", 10)
@@ -87,7 +87,7 @@ var _ = Describe("func MustGetUint8()", func() {
 		Expect(ok).To(BeFalse())
 	})
 
-	It("panics if the value can not be parsed", func() {
+	It("panics if the value cannot be parsed", func() {
 		b := Map{"<key>": String("<invalid>")}
 
 		Expect(func() {
@@ -123,7 +123,7 @@ var _ = Describe("func MustGetUint8Default()", func() {
 		Expect(v).To(BeEquivalentTo(10))
 	})
 
-	It("panics if the value can not be parsed", func() {
+	It("panics if the value cannot be parsed", func() {
 		b := Map{"<key>": String("<invalid>")}
 
 		Expect(func() {

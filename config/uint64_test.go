@@ -24,7 +24,7 @@ var _ = Describe("func GetUint64()", func() {
 		Expect(ok).To(BeFalse())
 	})
 
-	It("returns an error if the value can not be parsed", func() {
+	It("returns an error if the value cannot be parsed", func() {
 		b := Map{"<key>": String("<invalid>")}
 
 		_, _, err := GetUint64(b, "<key>")
@@ -56,7 +56,7 @@ var _ = Describe("func GetUint64Default()", func() {
 		Expect(v).To(BeEquivalentTo(10))
 	})
 
-	It("returns an error if the value can not be parsed", func() {
+	It("returns an error if the value cannot be parsed", func() {
 		b := Map{"<key>": String("<invalid>")}
 
 		_, err := GetUint64Default(b, "<key>", 10)
@@ -87,7 +87,7 @@ var _ = Describe("func MustGetUint64()", func() {
 		Expect(ok).To(BeFalse())
 	})
 
-	It("panics if the value can not be parsed", func() {
+	It("panics if the value cannot be parsed", func() {
 		b := Map{"<key>": String("<invalid>")}
 
 		Expect(func() {
@@ -123,7 +123,7 @@ var _ = Describe("func MustGetUint64Default()", func() {
 		Expect(v).To(BeEquivalentTo(10))
 	})
 
-	It("panics if the value can not be parsed", func() {
+	It("panics if the value cannot be parsed", func() {
 		b := Map{"<key>": String("<invalid>")}
 
 		Expect(func() {

@@ -9,7 +9,7 @@ import (
 //
 // If k is undefined, ok is false and err is nil.
 //
-// If k is defined but its value can not be parsed as an uint, err is a non-nil
+// If k is defined but its value cannot be parsed as an uint, err is a non-nil
 // error describing the invalid value.
 func GetUint(b Bucket, k string) (v uint, ok bool, err error) {
 	v64, ok, err := getUint(b, k, 0)
@@ -19,7 +19,7 @@ func GetUint(b Bucket, k string) (v uint, ok bool, err error) {
 // GetUintDefault returns the uint representation of the value associated with
 // k, or the default value v if k is undefined.
 //
-// If k is defined but its value can not be parsed as an uint, it returns an
+// If k is defined but its value cannot be parsed as an uint, it returns an
 // error describing the invalid value.
 func GetUintDefault(b Bucket, k string, v uint) (uint, error) {
 	x, ok, err := GetUint(b, k)
@@ -38,7 +38,7 @@ func GetUintDefault(b Bucket, k string, v uint) (uint, error) {
 //
 // If k is undefined, ok is false.
 //
-// It panics if k is defined but its value can not be parsed as an uint.
+// It panics if k is defined but its value cannot be parsed as an uint.
 func MustGetUint(b Bucket, k string) (v uint, ok bool) {
 	v, ok, err := GetUint(b, k)
 	if err != nil {
@@ -51,7 +51,7 @@ func MustGetUint(b Bucket, k string) (v uint, ok bool) {
 // MustGetUintDefault returns the uint representation of the value associated
 // with k, or the default value v if k is undefined.
 //
-// It panics if k is defined but its value can not be parsed as an uint.
+// It panics if k is defined but its value cannot be parsed as an uint.
 func MustGetUintDefault(b Bucket, k string, v uint) uint {
 	if x, ok := MustGetUint(b, k); ok {
 		return x

@@ -9,7 +9,7 @@ import (
 //
 // If k is undefined, ok is false and err is nil.
 //
-// If k is defined but its value can not be parsed as an int, err is a non-nil
+// If k is defined but its value cannot be parsed as an int, err is a non-nil
 // error describing the invalid value.
 func GetInt(b Bucket, k string) (v int, ok bool, err error) {
 	v64, ok, err := getInt(b, k, 0)
@@ -19,7 +19,7 @@ func GetInt(b Bucket, k string) (v int, ok bool, err error) {
 // GetIntDefault returns the int representation of the value associated with k,
 // or the default value v if k is undefined.
 //
-// If k is defined but its value can not be parsed as an int, it returns an
+// If k is defined but its value cannot be parsed as an int, it returns an
 // error describing the invalid value.
 func GetIntDefault(b Bucket, k string, v int) (int, error) {
 	x, ok, err := GetInt(b, k)
@@ -38,7 +38,7 @@ func GetIntDefault(b Bucket, k string, v int) (int, error) {
 //
 // If k is undefined, ok is false.
 //
-// It panics if k is defined but its value can not be parsed as an int.
+// It panics if k is defined but its value cannot be parsed as an int.
 func MustGetInt(b Bucket, k string) (v int, ok bool) {
 	v, ok, err := GetInt(b, k)
 	if err != nil {
@@ -51,7 +51,7 @@ func MustGetInt(b Bucket, k string) (v int, ok bool) {
 // MustGetIntDefault returns the int representation of the value associated with
 // k, or the default value v if k is undefined.
 //
-// It panics if k is defined but its value can not be parsed as an int.
+// It panics if k is defined but its value cannot be parsed as an int.
 func MustGetIntDefault(b Bucket, k string, v int) int {
 	if x, ok := MustGetInt(b, k); ok {
 		return x

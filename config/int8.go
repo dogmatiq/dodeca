@@ -4,7 +4,7 @@ package config
 //
 // If k is undefined, ok is false and err is nil.
 //
-// If k is defined but its value can not be parsed as an int8, err is a non-nil
+// If k is defined but its value cannot be parsed as an int8, err is a non-nil
 // error describing the invalid value.
 func GetInt8(b Bucket, k string) (v int8, ok bool, err error) {
 	v64, ok, err := getInt(b, k, 8)
@@ -14,7 +14,7 @@ func GetInt8(b Bucket, k string) (v int8, ok bool, err error) {
 // GetInt8Default returns the int8 representation of the value associated with
 // k, or the default value v if k is undefined.
 //
-// If k is defined but its value can not be parsed as an int8, it returns an
+// If k is defined but its value cannot be parsed as an int8, it returns an
 // error describing the invalid value.
 func GetInt8Default(b Bucket, k string, v int8) (int8, error) {
 	x, ok, err := GetInt8(b, k)
@@ -33,7 +33,7 @@ func GetInt8Default(b Bucket, k string, v int8) (int8, error) {
 //
 // If k is undefined, ok is false.
 //
-// It panics if k is defined but its value can not be parsed as an int8.
+// It panics if k is defined but its value cannot be parsed as an int8.
 func MustGetInt8(b Bucket, k string) (v int8, ok bool) {
 	v, ok, err := GetInt8(b, k)
 	if err != nil {
@@ -46,7 +46,7 @@ func MustGetInt8(b Bucket, k string) (v int8, ok bool) {
 // MustGetInt8Default returns the int8 representation of the value associated
 // with k, or the default value v if k is undefined.
 //
-// It panics if k is defined but its value can not be parsed as an int8.
+// It panics if k is defined but its value cannot be parsed as an int8.
 func MustGetInt8Default(b Bucket, k string, v int8) int8 {
 	if x, ok := MustGetInt8(b, k); ok {
 		return x
