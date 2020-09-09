@@ -12,12 +12,21 @@ import (
 )
 
 var _ = Describe("func GetDuration()", func() {
-	It("returns a duration value", func() {
+	It("returns a positive duration value", func() {
 		b := Map{"<key>": String("123ms")}
 
 		v, ok, err := GetDuration(b, "<key>")
 		Expect(err).ShouldNot(HaveOccurred())
 		Expect(v).To(Equal(123 * time.Millisecond))
+		Expect(ok).To(BeTrue())
+	})
+
+	It("returns a negative duration value", func() {
+		b := Map{"<key>": String("-123ms")}
+
+		v, ok, err := GetDuration(b, "<key>")
+		Expect(err).ShouldNot(HaveOccurred())
+		Expect(v).To(Equal(-123 * time.Millisecond))
 		Expect(ok).To(BeTrue())
 	})
 
@@ -55,12 +64,20 @@ func ExampleGetDuration() {
 }
 
 var _ = Describe("func GetDurationDefault()", func() {
-	It("returns a duration value", func() {
+	It("returns a positive duration value", func() {
 		b := Map{"<key>": String("123ms")}
 
 		v, err := GetDurationDefault(b, "<key>", 456*time.Millisecond)
 		Expect(err).ShouldNot(HaveOccurred())
 		Expect(v).To(Equal(123 * time.Millisecond))
+	})
+
+	It("returns a negative duration value", func() {
+		b := Map{"<key>": String("-123ms")}
+
+		v, err := GetDurationDefault(b, "<key>", 456*time.Millisecond)
+		Expect(err).ShouldNot(HaveOccurred())
+		Expect(v).To(Equal(-123 * time.Millisecond))
 	})
 
 	It("returns the default value if the key is not defined", func() {
@@ -93,11 +110,19 @@ func ExampleGetDurationDefault() {
 }
 
 var _ = Describe("func MustGetDuration()", func() {
-	It("returns a duration value", func() {
+	It("returns a positive duration value", func() {
 		b := Map{"<key>": String("123ms")}
 
 		v, ok := MustGetDuration(b, "<key>")
 		Expect(v).To(Equal(123 * time.Millisecond))
+		Expect(ok).To(BeTrue())
+	})
+
+	It("returns a negative duration value", func() {
+		b := Map{"<key>": String("-123ms")}
+
+		v, ok := MustGetDuration(b, "<key>")
+		Expect(v).To(Equal(-123 * time.Millisecond))
 		Expect(ok).To(BeTrue())
 	})
 
@@ -134,11 +159,18 @@ func ExampleMustGetDuration() {
 }
 
 var _ = Describe("func MustGetDurationDefault()", func() {
-	It("returns a duration value", func() {
+	It("returns a positive duration value", func() {
 		b := Map{"<key>": String("123ms")}
 
 		v := MustGetDurationDefault(b, "<key>", 456*time.Millisecond)
 		Expect(v).To(Equal(123 * time.Millisecond))
+	})
+
+	It("returns a negative duration value", func() {
+		b := Map{"<key>": String("-123ms")}
+
+		v := MustGetDurationDefault(b, "<key>", 456*time.Millisecond)
+		Expect(v).To(Equal(-123 * time.Millisecond))
 	})
 
 	It("returns the default value if the key is not defined", func() {
