@@ -27,7 +27,7 @@ func TestValue_AsPath_withZeroValue(t *testing.T) {
 func TestValue_AsString_withZeroValue(t *testing.T) {
 	_, err := Value{}.AsString()
 
-	if err == nil || err.Error() != "can not represent a zero-value as a string" {
+	if err == nil || err.Error() != "cannot represent a zero-value as a string" {
 		t.Fatal("unexpected error, got:", err)
 	}
 }
@@ -35,7 +35,7 @@ func TestValue_AsString_withZeroValue(t *testing.T) {
 func TestValue_AsBytes_withZeroValue(t *testing.T) {
 	_, err := Value{}.AsBytes()
 
-	if err == nil || err.Error() != "can not represent a zero-value as a byte-slice" {
+	if err == nil || err.Error() != "cannot represent a zero-value as a byte-slice" {
 		t.Fatal("unexpected error, got:", err)
 	}
 }
@@ -54,7 +54,7 @@ func TestValue_String_withZeroValue(t *testing.T) {
 
 		switch e := p.(type) {
 		case error:
-			if e.Error() != "can not represent a zero-value as a string" {
+			if e.Error() != "cannot represent a zero-value as a string" {
 				t.Fatalf("expected panic did not occur, got: %s", p)
 			}
 		default:
@@ -79,7 +79,7 @@ func TestValue_Bytes_withZeroValue(t *testing.T) {
 
 		switch e := p.(type) {
 		case error:
-			if e.Error() != "can not represent a zero-value as a byte-slice" {
+			if e.Error() != "cannot represent a zero-value as a byte-slice" {
 				t.Fatalf("expected panic did not occur, got: %s", p)
 			}
 		default:
