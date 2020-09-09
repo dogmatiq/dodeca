@@ -76,7 +76,7 @@ func asString(b Bucket, k string) (string, bool) {
 
 	s, err := x.AsString()
 	if err != nil {
-		panic(fmt.Sprintf("%s can not be converted to string: %s", k, err))
+		panic(fmt.Sprintf("%s can not be converted to a string: %s", k, err))
 	}
 
 	return s, true
