@@ -17,6 +17,7 @@ The format is based on [Keep a Changelog], and this project adheres to
 - Add `GetBool()` and its variants for reading boolean configuration values
 - Add `GetInt()` and its variants for reading integer configuration values
 - Add `GetFloat[32|64]()` and their variants for reading floating-point configuration values
+- Add `GetDuration()` and its variants for reading time duration configuration values
 
 ## [0.2.2] - 2020-09-04
 
