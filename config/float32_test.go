@@ -1,6 +1,10 @@
 package config_test
 
 import (
+	"fmt"
+	"os"
+
+	"github.com/dogmatiq/dodeca/config"
 	. "github.com/dogmatiq/dodeca/config"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
@@ -41,6 +45,23 @@ var _ = Describe("func GetFloat32()", func() {
 	})
 })
 
+func ExampleGetFloat32() {
+	os.Setenv("FOO", "1.5")
+
+	v, ok, err := config.GetFloat32(config.Environment(), "FOO")
+	if err != nil {
+		panic(err)
+	}
+
+	if !ok {
+		fmt.Println("key is not defined!")
+	} else {
+		fmt.Printf("the value is %f!\n", v)
+	}
+
+	// Output: the value is 1.500000!
+}
+
 var _ = Describe("func GetFloat32Default()", func() {
 	It("returns a positive float value", func() {
 		b := Map{"<key>": String("123.45")}
@@ -73,6 +94,19 @@ var _ = Describe("func GetFloat32Default()", func() {
 		Expect(err).To(MatchError(`<key> is not a valid 32-bit float: strconv.ParseFloat: parsing "<invalid>": invalid syntax`))
 	})
 })
+
+func ExampleGetFloat32Default() {
+	os.Setenv("FOO", "")
+
+	v, err := config.GetFloat32Default(config.Environment(), "FOO", 4.5)
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Printf("the value is %f!\n", v)
+
+	// Output: the value is 4.500000!
+}
 
 var _ = Describe("func MustGetFloat32()", func() {
 	It("returns a positive float value", func() {
@@ -109,6 +143,20 @@ var _ = Describe("func MustGetFloat32()", func() {
 	})
 })
 
+func ExampleMustGetFloat32() {
+	os.Setenv("FOO", "1.5")
+
+	v, ok := config.MustGetFloat32(config.Environment(), "FOO")
+
+	if !ok {
+		fmt.Println("key is not defined!")
+	} else {
+		fmt.Printf("the value is %f!\n", v)
+	}
+
+	// Output: the value is 1.500000!
+}
+
 var _ = Describe("func MustGetFloat32Default()", func() {
 	It("returns a positive float value", func() {
 		b := Map{"<key>": String("123.45")}
@@ -141,3 +189,13 @@ var _ = Describe("func MustGetFloat32Default()", func() {
 		))
 	})
 })
+
+func ExampleMustGetFloat32Default() {
+	os.Setenv("FOO", "")
+
+	v := config.MustGetFloat32Default(config.Environment(), "FOO", 4.5)
+
+	fmt.Printf("the value is %f!\n", v)
+
+	// Output: the value is 4.500000!
+}
