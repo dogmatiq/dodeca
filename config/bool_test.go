@@ -192,7 +192,7 @@ var _ = Describe("func GetBoolDefault()", func() {
 })
 
 func ExampleGetBoolDefault() {
-	os.Setenv("FOO", "false")
+	os.Setenv("FOO", "")
 
 	v, err := config.GetBoolDefault(config.Environment(), "FOO", true)
 	if err != nil {
@@ -205,7 +205,7 @@ func ExampleGetBoolDefault() {
 		fmt.Println("false!")
 	}
 
-	// Output: false!
+	// Output: true!
 }
 
 var _ = Describe("func MustGetBool()", func() {
@@ -370,7 +370,7 @@ var _ = Describe("func MustGetBoolDefault()", func() {
 })
 
 func ExampleMustGetBoolDefault() {
-	os.Setenv("FOO", "false")
+	os.Setenv("FOO", "")
 
 	if config.MustGetBoolDefault(config.Environment(), "FOO", true) {
 		fmt.Println("true!")
@@ -378,5 +378,5 @@ func ExampleMustGetBoolDefault() {
 		fmt.Println("false!")
 	}
 
-	// Output: false!
+	// Output: true!
 }
