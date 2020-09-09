@@ -193,11 +193,11 @@ var _ = Describe("func MustGetUintDefault()", func() {
 })
 
 func ExampleMustGetUintDefault() {
-	os.Setenv("FOO", "123")
+	os.Setenv("FOO", "")
 
-	v := config.MustGetUintDefault(config.Environment(), "FOO", 10)
+	v := config.MustGetUintDefault(config.Environment(), "FOO", 456)
 
 	fmt.Printf("the value is %d!\n", v)
 
-	// Output: the value is 123!
+	// Output: the value is 456!
 }
