@@ -1,10 +1,6 @@
 package config_test
 
 import (
-	"fmt"
-	"os"
-
-	"github.com/dogmatiq/dodeca/config"
 	. "github.com/dogmatiq/dodeca/config"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
@@ -43,23 +39,6 @@ var _ = Describe("func GetUint64()", func() {
 	})
 })
 
-func ExampleGetUint64() {
-	os.Setenv("FOO", "123")
-
-	v, ok, err := config.GetUint64(config.Environment(), "FOO")
-	if err != nil {
-		panic(err)
-	}
-
-	if !ok {
-		fmt.Println("key is not defined!")
-	} else {
-		fmt.Printf("the value is %d!\n", v)
-	}
-
-	// Output: the value is 123!
-}
-
 var _ = Describe("func GetUint64Default()", func() {
 	It("returns a positive integer value", func() {
 		b := Map{"<key>": String("123")}
@@ -91,19 +70,6 @@ var _ = Describe("func GetUint64Default()", func() {
 		Expect(err).To(MatchError(`<key> is not a valid unsigned 64-bit integer: strconv.ParseUint: parsing "-123": invalid syntax`))
 	})
 })
-
-func ExampleGetUint64Default() {
-	os.Setenv("FOO", "123")
-
-	v, err := config.GetUint64Default(config.Environment(), "FOO", 10)
-	if err != nil {
-		panic(err)
-	}
-
-	fmt.Printf("the value is %d!\n", v)
-
-	// Output: the value is 123!
-}
 
 var _ = Describe("func MustGetUint64()", func() {
 	It("returns a positive integer value", func() {
@@ -142,20 +108,6 @@ var _ = Describe("func MustGetUint64()", func() {
 	})
 })
 
-func ExampleMustGetUint64() {
-	os.Setenv("FOO", "123")
-
-	v, ok := config.MustGetUint64(config.Environment(), "FOO")
-
-	if !ok {
-		fmt.Println("key is not defined!")
-	} else {
-		fmt.Printf("the value is %d!\n", v)
-	}
-
-	// Output: the value is 123!
-}
-
 var _ = Describe("func MustGetUint64Default()", func() {
 	It("returns a positive integer value", func() {
 		b := Map{"<key>": String("123")}
@@ -191,13 +143,3 @@ var _ = Describe("func MustGetUint64Default()", func() {
 		))
 	})
 })
-
-func ExampleMustGetUint64Default() {
-	os.Setenv("FOO", "123")
-
-	v := config.MustGetUint64Default(config.Environment(), "FOO", 10)
-
-	fmt.Printf("the value is %d!\n", v)
-
-	// Output: the value is 123!
-}
