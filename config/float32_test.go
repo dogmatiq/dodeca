@@ -33,7 +33,7 @@ var _ = Describe("func GetFloat32()", func() {
 		Expect(ok).To(BeFalse())
 	})
 
-	It("returns an error if the value can not be parsed", func() {
+	It("returns an error if the value cannot be parsed", func() {
 		b := Map{"<key>": String("<invalid>")}
 
 		_, _, err := GetFloat32(b, "<key>")
@@ -66,7 +66,7 @@ var _ = Describe("func GetFloat32Default()", func() {
 		Expect(v).To(BeNumerically("~", float32(456.78)))
 	})
 
-	It("returns an error if the value can not be parsed", func() {
+	It("returns an error if the value cannot be parsed", func() {
 		b := Map{"<key>": String("<invalid>")}
 
 		_, err := GetFloat32Default(b, "<key>", 456.78)
@@ -98,7 +98,7 @@ var _ = Describe("func MustGetFloat32()", func() {
 		Expect(ok).To(BeFalse())
 	})
 
-	It("panics if the value can not be parsed", func() {
+	It("panics if the value cannot be parsed", func() {
 		b := Map{"<key>": String("<invalid>")}
 
 		Expect(func() {
@@ -131,7 +131,7 @@ var _ = Describe("func MustGetFloat32Default()", func() {
 		Expect(v).To(BeNumerically("~", float32(456.78)))
 	})
 
-	It("panics if the value can not be parsed", func() {
+	It("panics if the value cannot be parsed", func() {
 		b := Map{"<key>": String("<invalid>")}
 
 		Expect(func() {

@@ -9,7 +9,7 @@ import (
 //
 // If k is undefined, ok is false and err is nil.
 //
-// If k is defined but its value can not be parsed as a float64, err is a
+// If k is defined but its value cannot be parsed as a float64, err is a
 // non-nil error describing the invalid value.
 func GetFloat64(b Bucket, k string) (v float64, ok bool, err error) {
 	return getFloat(b, k, 64)
@@ -18,7 +18,7 @@ func GetFloat64(b Bucket, k string) (v float64, ok bool, err error) {
 // GetFloat64Default returns the float64 representation of the value associated
 // with k, or the default value v if k is undefined.
 //
-// If k is defined but its value can not be parsed as a float64, it returns an
+// If k is defined but its value cannot be parsed as a float64, it returns an
 // error describing the invalid value.
 func GetFloat64Default(b Bucket, k string, v float64) (float64, error) {
 	x, ok, err := GetFloat64(b, k)
@@ -38,7 +38,7 @@ func GetFloat64Default(b Bucket, k string, v float64) (float64, error) {
 //
 // If k is undefined, ok is false.
 //
-// It panics if k is defined but its value can not be parsed as a float64.
+// It panics if k is defined but its value cannot be parsed as a float64.
 func MustGetFloat64(b Bucket, k string) (v float64, ok bool) {
 	v, ok, err := GetFloat64(b, k)
 	if err != nil {
@@ -51,7 +51,7 @@ func MustGetFloat64(b Bucket, k string) (v float64, ok bool) {
 // MustGetFloat64Default returns the float64 representation of the value
 // associated with k, or the default value v if k is undefined.
 //
-// It panics if k is defined but its value can not be parsed as a float64.
+// It panics if k is defined but its value cannot be parsed as a float64.
 func MustGetFloat64Default(b Bucket, k string, v float64) float64 {
 	if x, ok := MustGetFloat64(b, k); ok {
 		return x
