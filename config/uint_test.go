@@ -1,203 +1,153 @@
 package config_test
 
 import (
-	"fmt"
-	"os"
-
-	"github.com/dogmatiq/dodeca/config"
 	. "github.com/dogmatiq/dodeca/config"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 )
 
-var _ = Describe("func GetUint()", func() {
-	It("returns a positive integer value", func() {
-		b := Map{"<key>": String("123")}
+var _ = Describe("func AsUint()", func() {
+	It("returns a uint value", func() {
+		b := Map{"<key>": String("50")}
 
-		v, ok, err := GetUint(b, "<key>")
-		Expect(err).ShouldNot(HaveOccurred())
-		Expect(v).To(BeEquivalentTo(123))
-		Expect(ok).To(BeTrue())
+		v := AsUint(b, "<key>")
+		Expect(v).To(BeNumerically("==", 50))
 	})
 
-	It("sets ok to false if the key is not defined", func() {
+	It("panics if the key is not defined", func() {
 		b := Map{}
 
-		_, ok, err := GetUint(b, "<key>")
-		Expect(err).ShouldNot(HaveOccurred())
-		Expect(ok).To(BeFalse())
-	})
-
-	It("returns an error if the value cannot be parsed", func() {
-		b := Map{"<key>": String("<invalid>")}
-
-		_, _, err := GetUint(b, "<key>")
-		Expect(err).To(MatchError(`<key> is not a valid unsigned integer: strconv.ParseUint: parsing "<invalid>": invalid syntax`))
-	})
-
-	It("returns an error if the value is negative", func() {
-		b := Map{"<key>": String("-123")}
-
-		_, _, err := GetUint(b, "<key>")
-		Expect(err).To(MatchError(`<key> is not a valid unsigned integer: strconv.ParseUint: parsing "-123": invalid syntax`))
-	})
-})
-
-func ExampleGetUint() {
-	os.Setenv("FOO", "123")
-
-	v, ok, err := config.GetUint(config.Environment(), "FOO")
-	if err != nil {
-		panic(err)
-	}
-
-	if !ok {
-		fmt.Println("key is not defined!")
-	} else {
-		fmt.Printf("the value is %d!\n", v)
-	}
-
-	// Output: the value is 123!
-}
-
-var _ = Describe("func GetUintDefault()", func() {
-	It("returns a positive integer value", func() {
-		b := Map{"<key>": String("123")}
-
-		v, err := GetUintDefault(b, "<key>", 10)
-		Expect(err).ShouldNot(HaveOccurred())
-		Expect(v).To(BeEquivalentTo(123))
-	})
-
-	It("returns the default value if the key is not defined", func() {
-		b := Map{}
-
-		v, err := GetUintDefault(b, "<key>", 10)
-		Expect(err).ShouldNot(HaveOccurred())
-		Expect(v).To(BeEquivalentTo(10))
-	})
-
-	It("returns an error if the value cannot be parsed", func() {
-		b := Map{"<key>": String("<invalid>")}
-
-		_, err := GetUintDefault(b, "<key>", 10)
-		Expect(err).To(MatchError(`<key> is not a valid unsigned integer: strconv.ParseUint: parsing "<invalid>": invalid syntax`))
-	})
-
-	It("returns an error if the value is negative", func() {
-		b := Map{"<key>": String("-123")}
-
-		_, err := GetUintDefault(b, "<key>", 10)
-		Expect(err).To(MatchError(`<key> is not a valid unsigned integer: strconv.ParseUint: parsing "-123": invalid syntax`))
-	})
-})
-
-func ExampleGetUintDefault() {
-	os.Setenv("FOO", "")
-
-	v, err := config.GetUintDefault(config.Environment(), "FOO", 456)
-	if err != nil {
-		panic(err)
-	}
-
-	fmt.Printf("the value is %d!\n", v)
-
-	// Output: the value is 456!
-}
-
-var _ = Describe("func MustGetUint()", func() {
-	It("returns a positive integer value", func() {
-		b := Map{"<key>": String("123")}
-
-		v, ok := MustGetUint(b, "<key>")
-		Expect(v).To(BeEquivalentTo(123))
-		Expect(ok).To(BeTrue())
-	})
-
-	It("sets ok to false if the key is not defined", func() {
-		b := Map{}
-
-		_, ok := MustGetUint(b, "<key>")
-		Expect(ok).To(BeFalse())
+		Expect(func() {
+			AsUint(b, "<key>")
+		}).To(PanicWith(`<key> is not defined`))
 	})
 
 	It("panics if the value cannot be parsed", func() {
 		b := Map{"<key>": String("<invalid>")}
 
 		Expect(func() {
-			MustGetUint(b, "<key>")
-		}).To(PanicWith(
-			MatchError(`<key> is not a valid unsigned integer: strconv.ParseUint: parsing "<invalid>": invalid syntax`),
-		))
-	})
-
-	It("panics if the value is negative", func() {
-		b := Map{"<key>": String("-123")}
-
-		Expect(func() {
-			MustGetUint(b, "<key>")
-		}).To(PanicWith(
-			MatchError(`<key> is not a valid unsigned integer: strconv.ParseUint: parsing "-123": invalid syntax`),
-		))
+			AsUint(b, "<key>")
+		}).To(PanicWith(`expected <key> to be an unsigned integer: strconv.ParseUint: parsing "<invalid>": invalid syntax`))
 	})
 })
 
-func ExampleMustGetUint() {
-	os.Setenv("FOO", "123")
+var _ = Describe("func AsUintDefault()", func() {
+	It("returns a uint value", func() {
+		b := Map{"<key>": String("50")}
 
-	v, ok := config.MustGetUint(config.Environment(), "FOO")
-
-	if !ok {
-		fmt.Println("key is not defined!")
-	} else {
-		fmt.Printf("the value is %d!\n", v)
-	}
-
-	// Output: the value is 123!
-}
-
-var _ = Describe("func MustGetUintDefault()", func() {
-	It("returns a positive integer value", func() {
-		b := Map{"<key>": String("123")}
-
-		v := MustGetUintDefault(b, "<key>", 10)
-		Expect(v).To(BeEquivalentTo(123))
+		v := AsUintDefault(b, "<key>", 50)
+		Expect(v).To(BeNumerically("==", 50))
 	})
 
 	It("returns the default value if the key is not defined", func() {
 		b := Map{}
 
-		v := MustGetUintDefault(b, "<key>", 10)
-		Expect(v).To(BeEquivalentTo(10))
+		v := AsUintDefault(b, "<key>", 50)
+		Expect(v).To(BeNumerically("==", 50))
 	})
 
 	It("panics if the value cannot be parsed", func() {
 		b := Map{"<key>": String("<invalid>")}
 
 		Expect(func() {
-			MustGetUintDefault(b, "<key>", 10)
-		}).To(PanicWith(
-			MatchError(`<key> is not a valid unsigned integer: strconv.ParseUint: parsing "<invalid>": invalid syntax`),
-		))
-	})
-
-	It("panics if the value is negative", func() {
-		b := Map{"<key>": String("-123")}
-
-		Expect(func() {
-			MustGetUintDefault(b, "<key>", 10)
-		}).To(PanicWith(
-			MatchError(`<key> is not a valid unsigned integer: strconv.ParseUint: parsing "-123": invalid syntax`),
-		))
+			AsUintDefault(b, "<key>", 50)
+		}).To(PanicWith(`expected <key> to be an unsigned integer: strconv.ParseUint: parsing "<invalid>": invalid syntax`))
 	})
 })
 
-func ExampleMustGetUintDefault() {
-	os.Setenv("FOO", "")
+var _ = Describe("func AsUintBetween()", func() {
+	It("returns a uint value", func() {
+		b := Map{"<key>": String("50")}
 
-	v := config.MustGetUintDefault(config.Environment(), "FOO", 456)
+		v := AsUintBetween(b, "<key>", 10, 100)
+		Expect(v).To(BeNumerically("==", 50))
+	})
 
-	fmt.Printf("the value is %d!\n", v)
+	It("panics if the key is not defined", func() {
+		b := Map{}
 
-	// Output: the value is 456!
-}
+		Expect(func() {
+			AsUintBetween(b, "<key>", 10, 100)
+		}).To(PanicWith(`<key> is not defined`))
+	})
+
+	It("panics if the value lower than the minimum", func() {
+		b := Map{"<key>": String("5")}
+
+		Expect(func() {
+			AsUintBetween(b, "<key>", 10, 100)
+		}).To(PanicWith(`expected <key> to be between 10 and 100 (inclusive), got 5`))
+	})
+
+	It("panics if the value is greater than the maximum", func() {
+		b := Map{"<key>": String("120")}
+
+		Expect(func() {
+			AsUintBetween(b, "<key>", 10, 100)
+		}).To(PanicWith(`expected <key> to be between 10 and 100 (inclusive), got 120`))
+	})
+
+	It("panics if the value cannot be parsed", func() {
+		b := Map{"<key>": String("<invalid>")}
+
+		Expect(func() {
+			AsUintBetween(b, "<key>", 10, 100)
+		}).To(PanicWith(`expected <key> to be an unsigned integer: strconv.ParseUint: parsing "<invalid>": invalid syntax`))
+	})
+})
+
+var _ = Describe("func AsUintDefaultBetween()", func() {
+	It("returns a uint value", func() {
+		b := Map{"<key>": String("50")}
+
+		v := AsUintDefaultBetween(b, "<key>", 50, 10, 100)
+		Expect(v).To(BeNumerically("==", 50))
+	})
+
+	It("returns the default value if the key is not defined", func() {
+		b := Map{}
+
+		v := AsUintDefaultBetween(b, "<key>", 50, 10, 100)
+		Expect(v).To(BeNumerically("==", 50))
+	})
+
+	It("panics if the value lower than the minimum", func() {
+		b := Map{"<key>": String("5")}
+
+		Expect(func() {
+			AsUintDefaultBetween(b, "<key>", 50, 10, 100)
+		}).To(PanicWith(`expected <key> to be between 10 and 100 (inclusive), got 5`))
+	})
+
+	It("panics if the value is greater than the maximum", func() {
+		b := Map{"<key>": String("120")}
+
+		Expect(func() {
+			AsUintDefaultBetween(b, "<key>", 50, 10, 100)
+		}).To(PanicWith(`expected <key> to be between 10 and 100 (inclusive), got 120`))
+	})
+
+	It("panics if the default lower than the minimum", func() {
+		b := Map{"<key>": String("50")}
+
+		Expect(func() {
+			AsUintDefaultBetween(b, "<key>", 5, 10, 100)
+		}).To(PanicWith(`expected the default value for <key> to be between 10 and 100 (inclusive), got 5`))
+	})
+
+	It("panics if the default is greater than the maximum", func() {
+		b := Map{"<key>": String("120")}
+
+		Expect(func() {
+			AsUintDefaultBetween(b, "<key>", 120, 10, 100)
+		}).To(PanicWith(`expected the default value for <key> to be between 10 and 100 (inclusive), got 120`))
+	})
+
+	It("panics if the value cannot be parsed", func() {
+		b := Map{"<key>": String("<invalid>")}
+
+		Expect(func() {
+			AsUintDefaultBetween(b, "<key>", 50, 10, 100)
+		}).To(PanicWith(`expected <key> to be an unsigned integer: strconv.ParseUint: parsing "<invalid>": invalid syntax`))
+	})
+})

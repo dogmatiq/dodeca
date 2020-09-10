@@ -2,95 +2,237 @@ package config
 
 import (
 	"fmt"
+	"math"
 	"strconv"
 )
 
-// GetUint returns the uint representation of the value associated with k.
-//
-// If k is undefined, ok is false and err is nil.
-//
-// If k is defined but its value cannot be parsed as an uint, err is a non-nil
-// error describing the invalid value.
-func GetUint(b Bucket, k string) (v uint, ok bool, err error) {
-	v64, ok, err := getUint(b, k, 0)
-	return uint(v64), ok, err
+const (
+	// MaxUint is the maximum value that can be expressed using the uint type.
+	MaxUint = 1<<uintBitSize - 1 // 1<<32 - 1 or 1<<64 - 1
+
+	uintBitSize = 32 << (^uint(0) >> 32 & 1) // 32 or 64
+)
+
+// AsUint returns the int representation of the value associated with k or panics
+// if unable to do so.
+func AsUint(b Bucket, k string) uint {
+	return uint(asUint(b, k, 0, 0, MaxUint))
 }
 
-// GetUintDefault returns the uint representation of the value associated with
-// k, or the default value v if k is undefined.
-//
-// If k is defined but its value cannot be parsed as an uint, it returns an
-// error describing the invalid value.
-func GetUintDefault(b Bucket, k string, v uint) (uint, error) {
-	x, ok, err := GetUint(b, k)
-	if err != nil {
-		return 0, err
-	}
-
-	if ok {
-		return x, nil
-	}
-
-	return v, nil
+// AsUintDefault returns the int representation of the value associated with k,
+// or the default value v if k is undefined.
+func AsUintDefault(b Bucket, k string, v uint) uint {
+	return uint(asUintDefault(b, k, 0, uint64(v), 0, MaxUint))
 }
 
-// MustGetUint returns the uint representation of the value associated with k.
+// AsUintBetween returns the int representation of the value associated with k or
+// panics if unable to do so.
 //
-// If k is undefined, ok is false.
-//
-// It panics if k is defined but its value cannot be parsed as an uint.
-func MustGetUint(b Bucket, k string) (v uint, ok bool) {
-	v, ok, err := GetUint(b, k)
-	if err != nil {
-		panic(err)
-	}
-
-	return v, ok
+// It panics if the value is not between min and max (inclusive).
+func AsUintBetween(b Bucket, k string, min, max int) uint {
+	return uint(asUint(b, k, 0, uint64(min), uint64(max)))
 }
 
-// MustGetUintDefault returns the uint representation of the value associated
+// AsUintDefaultBetween returns the int representation of the value associated
 // with k, or the default value v if k is undefined.
 //
-// It panics if k is defined but its value cannot be parsed as an uint.
-func MustGetUintDefault(b Bucket, k string, v uint) uint {
-	if x, ok := MustGetUint(b, k); ok {
-		return x
-	}
-
-	return v
+// It panics if the value is not between min and max (inclusive).
+func AsUintDefaultBetween(b Bucket, k string, v, min, max int) uint {
+	return uint(asUintDefault(b, k, 0, uint64(v), uint64(min), uint64(max)))
 }
 
-// getUint returns the unsigned integer representation of the value associated
-// with k.
-func getUint(b Bucket, k string, bitSize int) (uint64, bool, error) {
+// AsUint8 returns the int8 representation of the value associated with k or
+// panics if unable to do so.
+func AsUint8(b Bucket, k string) uint8 {
+	return uint8(asUint(b, k, 8, 0, math.MaxUint8))
+}
+
+// AsUint8Default returns the int8 representation of the value associated with k,
+// or the default value v if k is undefined.
+func AsUint8Default(b Bucket, k string, v uint8) uint8 {
+	return uint8(asUintDefault(b, k, 8, uint64(v), 0, math.MaxUint8))
+}
+
+// AsUint8Between returns the int8 representation of the value associated with k
+// or panics if unable to do so.
+//
+// It panics if the value is not between min and max (inclusive).
+func AsUint8Between(b Bucket, k string, min, max int8) uint8 {
+	return uint8(asUint(b, k, 8, uint64(min), uint64(max)))
+}
+
+// AsUint8DefaultBetween returns the int8 representation of the value associated with
+// k, or the default value v if k is undefined.
+//
+// It panics if the value is not between min and max (inclusive).
+func AsUint8DefaultBetween(b Bucket, k string, v, min, max int8) uint8 {
+	return uint8(asUintDefault(b, k, 8, uint64(v), uint64(min), uint64(max)))
+}
+
+// AsUint16 returns the int16 representation of the value associated with k or
+// panics if unable to do so.
+func AsUint16(b Bucket, k string) uint16 {
+	return uint16(asUint(b, k, 16, 0, math.MaxUint16))
+}
+
+// AsUint16Default returns the int16 representation of the value associated with k,
+// or the default value v if k is undefined.
+func AsUint16Default(b Bucket, k string, v uint16) uint16 {
+	return uint16(asUintDefault(b, k, 16, uint64(v), 0, math.MaxUint16))
+}
+
+// AsUint16Between returns the int16 representation of the value associated with k
+// or panics if unable to do so.
+//
+// It panics if the value is not between min and max (inclusive).
+func AsUint16Between(b Bucket, k string, min, max int16) uint16 {
+	return uint16(asUint(b, k, 16, uint64(min), uint64(max)))
+}
+
+// AsUint16DefaultBetween returns the int16 representation of the value associated with
+// k, or the default value v if k is undefined.
+//
+// It panics if the value is not between min and max (inclusive).
+func AsUint16DefaultBetween(b Bucket, k string, v, min, max int16) uint16 {
+	return uint16(asUintDefault(b, k, 16, uint64(v), uint64(min), uint64(max)))
+}
+
+// AsUint32 returns the int32 representation of the value associated with k or
+// panics if unable to do so.
+func AsUint32(b Bucket, k string) uint32 {
+	return uint32(asUint(b, k, 32, 0, math.MaxUint32))
+}
+
+// AsUint32Default returns the int32 representation of the value associated with k,
+// or the default value v if k is undefined.
+func AsUint32Default(b Bucket, k string, v uint32) uint32 {
+	return uint32(asUintDefault(b, k, 32, uint64(v), 0, math.MaxUint32))
+}
+
+// AsUint32Between returns the int32 representation of the value associated with k
+// or panics if unable to do so.
+//
+// It panics if the value is not between min and max (inclusive).
+func AsUint32Between(b Bucket, k string, min, max int32) uint32 {
+	return uint32(asUint(b, k, 32, uint64(min), uint64(max)))
+}
+
+// AsUint32DefaultBetween returns the int32 representation of the value associated with
+// k, or the default value v if k is undefined.
+//
+// It panics if the value is not between min and max (inclusive).
+func AsUint32DefaultBetween(b Bucket, k string, v, min, max int32) uint32 {
+	return uint32(asUintDefault(b, k, 32, uint64(v), uint64(min), uint64(max)))
+}
+
+// AsUint64 returns the int64 representation of the value associated with k or
+// panics if unable to do so.
+func AsUint64(b Bucket, k string) uint64 {
+	return asUint(b, k, 64, 0, math.MaxUint64)
+}
+
+// AsUint64Default returns the int64 representation of the value associated with k,
+// or the default value v if k is undefined.
+func AsUint64Default(b Bucket, k string, v uint64) uint64 {
+	return asUintDefault(b, k, 64, v, 0, math.MaxUint64)
+}
+
+// AsUint64Between returns the int64 representation of the value associated with k
+// or panics if unable to do so.
+//
+// It panics if the value is not between min and max (inclusive).
+func AsUint64Between(b Bucket, k string, min, max uint64) uint64 {
+	return asUint(b, k, 64, min, max)
+}
+
+// AsUint64DefaultBetween returns the int64 representation of the value associated with
+// k, or the default value v if k is undefined.
+//
+// It panics if the value is not between min and max (inclusive).
+func AsUint64DefaultBetween(b Bucket, k string, v, min, max uint64) uint64 {
+	return asUintDefault(b, k, 64, v, min, max)
+}
+
+func tryAsUint(
+	b Bucket,
+	k string,
+	bitSize int,
+	min, max uint64,
+) (uint64, bool) {
 	x := b.Get(k)
 
 	if x.IsZero() {
-		return 0, false, nil
+		return 0, false
 	}
 
 	s, err := x.AsString()
 	if err != nil {
-		return 0, false, err
+		panic(fmt.Sprintf("cannot read %s: %s", k, err))
 	}
 
 	v, err := strconv.ParseUint(s, 10, bitSize)
 	if err != nil {
 		if bitSize == 0 {
-			return 0, false, fmt.Errorf(
-				`%s is not a valid unsigned integer: %w`,
+			panic(fmt.Sprintf(
+				`expected %s to be an unsigned integer: %s`,
 				k,
 				err,
-			)
+			))
 		}
 
-		return 0, false, fmt.Errorf(
-			`%s is not a valid unsigned %d-bit integer: %w`,
+		panic(fmt.Sprintf(
+			`expected %s to be an unsigned %d-bit integer: %s`,
 			k,
 			bitSize,
 			err,
-		)
+		))
 	}
 
-	return v, true, err
+	if min > v || v > max {
+		panic(fmt.Sprintf(
+			`expected %s to be between %d and %d (inclusive), got %d`,
+			k,
+			min,
+			max,
+			v,
+		))
+	}
+
+	return v, true
+}
+
+func asUint(
+	b Bucket,
+	k string,
+	bitSize int,
+	min, max uint64,
+) uint64 {
+	if v, ok := tryAsUint(b, k, bitSize, min, max); ok {
+		return v
+	}
+
+	panic(fmt.Sprintf("%s is not defined", k))
+}
+
+func asUintDefault(
+	b Bucket,
+	k string,
+	bitSize int,
+	d, min, max uint64,
+) uint64 {
+	if min > d || d > max {
+		panic(fmt.Sprintf(
+			`expected the default value for %s to be between %d and %d (inclusive), got %d`,
+			k,
+			min,
+			max,
+			d,
+		))
+	}
+
+	if v, ok := tryAsUint(b, k, bitSize, min, max); ok {
+		return v
+	}
+
+	return d
 }
