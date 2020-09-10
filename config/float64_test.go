@@ -7,7 +7,7 @@ import (
 )
 
 var _ = Describe("func AsFloat64()", func() {
-	It("returns an float64 value", func() {
+	It("returns a float64 value", func() {
 		b := Map{"<key>": String("-50.5")}
 
 		v := AsFloat64(b, "<key>")
@@ -32,7 +32,7 @@ var _ = Describe("func AsFloat64()", func() {
 })
 
 var _ = Describe("func AsFloat64Default()", func() {
-	It("returns an float64 value", func() {
+	It("returns a float64 value", func() {
 		b := Map{"<key>": String("-50")}
 
 		v := AsFloat64Default(b, "<key>", 50)
@@ -56,7 +56,7 @@ var _ = Describe("func AsFloat64Default()", func() {
 })
 
 var _ = Describe("func AsFloat64Between()", func() {
-	It("returns an float64 value", func() {
+	It("returns a float64 value", func() {
 		b := Map{"<key>": String("50")}
 
 		v := AsFloat64Between(b, "<key>", -100, 100)
@@ -97,7 +97,7 @@ var _ = Describe("func AsFloat64Between()", func() {
 })
 
 var _ = Describe("func AsFloat64DefaultBetween()", func() {
-	It("returns an float64 value", func() {
+	It("returns a float64 value", func() {
 		b := Map{"<key>": String("50")}
 
 		v := AsFloat64DefaultBetween(b, "<key>", 50, -100, 100)

@@ -7,7 +7,7 @@ import (
 )
 
 var _ = Describe("func AsFloat32()", func() {
-	It("returns an float32 value", func() {
+	It("returns a float32 value", func() {
 		b := Map{"<key>": String("-50.5")}
 
 		v := AsFloat32(b, "<key>")
@@ -32,7 +32,7 @@ var _ = Describe("func AsFloat32()", func() {
 })
 
 var _ = Describe("func AsFloat32Default()", func() {
-	It("returns an float32 value", func() {
+	It("returns a float32 value", func() {
 		b := Map{"<key>": String("-50")}
 
 		v := AsFloat32Default(b, "<key>", 50)
@@ -56,7 +56,7 @@ var _ = Describe("func AsFloat32Default()", func() {
 })
 
 var _ = Describe("func AsFloat32Between()", func() {
-	It("returns an float32 value", func() {
+	It("returns a float32 value", func() {
 		b := Map{"<key>": String("50")}
 
 		v := AsFloat32Between(b, "<key>", -100, 100)
@@ -97,7 +97,7 @@ var _ = Describe("func AsFloat32Between()", func() {
 })
 
 var _ = Describe("func AsFloat32DefaultBetween()", func() {
-	It("returns an float32 value", func() {
+	It("returns a float32 value", func() {
 		b := Map{"<key>": String("50")}
 
 		v := AsFloat32DefaultBetween(b, "<key>", 50, -100, 100)
