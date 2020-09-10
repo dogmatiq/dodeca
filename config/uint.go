@@ -13,27 +13,27 @@ const (
 	uintBitSize = 32 << (^uint(0) >> 32 & 1) // 32 or 64
 )
 
-// AsUint returns the int representation of the value associated with k or panics
-// if unable to do so.
+// AsUint returns the uint representation of the value associated with k or
+// panics if unable to do so.
 func AsUint(b Bucket, k string) uint {
 	return uint(asUint(b, k, 0, 0, MaxUint))
 }
 
-// AsUintDefault returns the int representation of the value associated with k,
+// AsUintDefault returns the uint representation of the value associated with k,
 // or the default value v if k is undefined.
 func AsUintDefault(b Bucket, k string, v uint) uint {
 	return uint(asUintDefault(b, k, 0, uint64(v), 0, MaxUint))
 }
 
-// AsUintBetween returns the int representation of the value associated with k or
-// panics if unable to do so.
+// AsUintBetween returns the uint representation of the value associated with k
+// or panics if unable to do so.
 //
 // It panics if the value is not between min and max (inclusive).
 func AsUintBetween(b Bucket, k string, min, max int) uint {
 	return uint(asUint(b, k, 0, uint64(min), uint64(max)))
 }
 
-// AsUintDefaultBetween returns the int representation of the value associated
+// AsUintDefaultBetween returns the uint representation of the value associated
 // with k, or the default value v if k is undefined.
 //
 // It panics if the value is not between min and max (inclusive).
@@ -41,112 +41,112 @@ func AsUintDefaultBetween(b Bucket, k string, v, min, max int) uint {
 	return uint(asUintDefault(b, k, 0, uint64(v), uint64(min), uint64(max)))
 }
 
-// AsUint8 returns the int8 representation of the value associated with k or
+// AsUint8 returns the uint8 representation of the value associated with k or
 // panics if unable to do so.
 func AsUint8(b Bucket, k string) uint8 {
 	return uint8(asUint(b, k, 8, 0, math.MaxUint8))
 }
 
-// AsUint8Default returns the int8 representation of the value associated with k,
-// or the default value v if k is undefined.
+// AsUint8Default returns the uint8 representation of the value associated with
+// k, or the default value v if k is undefined.
 func AsUint8Default(b Bucket, k string, v uint8) uint8 {
 	return uint8(asUintDefault(b, k, 8, uint64(v), 0, math.MaxUint8))
 }
 
-// AsUint8Between returns the int8 representation of the value associated with k
-// or panics if unable to do so.
+// AsUint8Between returns the uint8 representation of the value associated with
+// k or panics if unable to do so.
 //
 // It panics if the value is not between min and max (inclusive).
 func AsUint8Between(b Bucket, k string, min, max int8) uint8 {
 	return uint8(asUint(b, k, 8, uint64(min), uint64(max)))
 }
 
-// AsUint8DefaultBetween returns the int8 representation of the value associated with
-// k, or the default value v if k is undefined.
+// AsUint8DefaultBetween returns the uint8 representation of the value
+// associated with k, or the default value v if k is undefined.
 //
 // It panics if the value is not between min and max (inclusive).
 func AsUint8DefaultBetween(b Bucket, k string, v, min, max int8) uint8 {
 	return uint8(asUintDefault(b, k, 8, uint64(v), uint64(min), uint64(max)))
 }
 
-// AsUint16 returns the int16 representation of the value associated with k or
+// AsUint16 returns the uint16 representation of the value associated with k or
 // panics if unable to do so.
 func AsUint16(b Bucket, k string) uint16 {
 	return uint16(asUint(b, k, 16, 0, math.MaxUint16))
 }
 
-// AsUint16Default returns the int16 representation of the value associated with k,
-// or the default value v if k is undefined.
+// AsUint16Default returns the uint16 representation of the value associated
+// with k, or the default value v if k is undefined.
 func AsUint16Default(b Bucket, k string, v uint16) uint16 {
 	return uint16(asUintDefault(b, k, 16, uint64(v), 0, math.MaxUint16))
 }
 
-// AsUint16Between returns the int16 representation of the value associated with k
-// or panics if unable to do so.
+// AsUint16Between returns the uint16 representation of the value associated
+// with k or panics if unable to do so.
 //
 // It panics if the value is not between min and max (inclusive).
 func AsUint16Between(b Bucket, k string, min, max int16) uint16 {
 	return uint16(asUint(b, k, 16, uint64(min), uint64(max)))
 }
 
-// AsUint16DefaultBetween returns the int16 representation of the value associated with
-// k, or the default value v if k is undefined.
+// AsUint16DefaultBetween returns the uint16 representation of the value
+// associated with k, or the default value v if k is undefined.
 //
 // It panics if the value is not between min and max (inclusive).
 func AsUint16DefaultBetween(b Bucket, k string, v, min, max int16) uint16 {
 	return uint16(asUintDefault(b, k, 16, uint64(v), uint64(min), uint64(max)))
 }
 
-// AsUint32 returns the int32 representation of the value associated with k or
+// AsUint32 returns the uint32 representation of the value associated with k or
 // panics if unable to do so.
 func AsUint32(b Bucket, k string) uint32 {
 	return uint32(asUint(b, k, 32, 0, math.MaxUint32))
 }
 
-// AsUint32Default returns the int32 representation of the value associated with k,
-// or the default value v if k is undefined.
+// AsUint32Default returns the uint32 representation of the value associated
+// with k, or the default value v if k is undefined.
 func AsUint32Default(b Bucket, k string, v uint32) uint32 {
 	return uint32(asUintDefault(b, k, 32, uint64(v), 0, math.MaxUint32))
 }
 
-// AsUint32Between returns the int32 representation of the value associated with k
-// or panics if unable to do so.
+// AsUint32Between returns the uint32 representation of the value associated
+// with k or panics if unable to do so.
 //
 // It panics if the value is not between min and max (inclusive).
 func AsUint32Between(b Bucket, k string, min, max int32) uint32 {
 	return uint32(asUint(b, k, 32, uint64(min), uint64(max)))
 }
 
-// AsUint32DefaultBetween returns the int32 representation of the value associated with
-// k, or the default value v if k is undefined.
+// AsUint32DefaultBetween returns the uint32 representation of the value
+// associated with k, or the default value v if k is undefined.
 //
 // It panics if the value is not between min and max (inclusive).
 func AsUint32DefaultBetween(b Bucket, k string, v, min, max int32) uint32 {
 	return uint32(asUintDefault(b, k, 32, uint64(v), uint64(min), uint64(max)))
 }
 
-// AsUint64 returns the int64 representation of the value associated with k or
+// AsUint64 returns the uint64 representation of the value associated with k or
 // panics if unable to do so.
 func AsUint64(b Bucket, k string) uint64 {
 	return asUint(b, k, 64, 0, math.MaxUint64)
 }
 
-// AsUint64Default returns the int64 representation of the value associated with k,
-// or the default value v if k is undefined.
+// AsUint64Default returns the uint64 representation of the value associated
+// with k, or the default value v if k is undefined.
 func AsUint64Default(b Bucket, k string, v uint64) uint64 {
 	return asUintDefault(b, k, 64, v, 0, math.MaxUint64)
 }
 
-// AsUint64Between returns the int64 representation of the value associated with k
-// or panics if unable to do so.
+// AsUint64Between returns the uint64 representation of the value associated
+// with k or panics if unable to do so.
 //
 // It panics if the value is not between min and max (inclusive).
 func AsUint64Between(b Bucket, k string, min, max uint64) uint64 {
 	return asUint(b, k, 64, min, max)
 }
 
-// AsUint64DefaultBetween returns the int64 representation of the value associated with
-// k, or the default value v if k is undefined.
+// AsUint64DefaultBetween returns the uint64 representation of the value
+// associated with k, or the default value v if k is undefined.
 //
 // It panics if the value is not between min and max (inclusive).
 func AsUint64DefaultBetween(b Bucket, k string, v, min, max uint64) uint64 {
