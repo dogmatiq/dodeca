@@ -7,7 +7,7 @@ import (
 )
 
 var _ = Describe("func AsInt64()", func() {
-	It("returns an int value", func() {
+	It("returns an int64 value", func() {
 		b := Map{"<key>": String("-123")}
 
 		v := AsInt64(b, "<key>")
@@ -32,7 +32,7 @@ var _ = Describe("func AsInt64()", func() {
 })
 
 var _ = Describe("func AsInt64Default()", func() {
-	It("returns an int value", func() {
+	It("returns an int64 value", func() {
 		b := Map{"<key>": String("-123")}
 
 		v := AsInt64Default(b, "<key>", 123)
@@ -56,7 +56,7 @@ var _ = Describe("func AsInt64Default()", func() {
 })
 
 var _ = Describe("func AsInt64P()", func() {
-	It("returns an int value", func() {
+	It("returns an int64 value", func() {
 		b := Map{"<key>": String("123")}
 
 		v := AsInt64P(b, "<key>")
@@ -97,7 +97,7 @@ var _ = Describe("func AsInt64P()", func() {
 })
 
 var _ = Describe("func AsInt64PDefault()", func() {
-	It("returns an int value", func() {
+	It("returns an int64 value", func() {
 		b := Map{"<key>": String("123")}
 
 		v := AsInt64PDefault(b, "<key>", 123)

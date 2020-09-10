@@ -7,7 +7,7 @@ import (
 )
 
 var _ = Describe("func AsInt16()", func() {
-	It("returns an int value", func() {
+	It("returns an int16 value", func() {
 		b := Map{"<key>": String("-123")}
 
 		v := AsInt16(b, "<key>")
@@ -32,7 +32,7 @@ var _ = Describe("func AsInt16()", func() {
 })
 
 var _ = Describe("func AsInt16Default()", func() {
-	It("returns an int value", func() {
+	It("returns an int16 value", func() {
 		b := Map{"<key>": String("-123")}
 
 		v := AsInt16Default(b, "<key>", 123)
@@ -55,7 +55,7 @@ var _ = Describe("func AsInt16Default()", func() {
 	})
 })
 var _ = Describe("func AsInt16P()", func() {
-	It("returns an int value", func() {
+	It("returns an int16 value", func() {
 		b := Map{"<key>": String("123")}
 
 		v := AsInt16P(b, "<key>")
@@ -96,7 +96,7 @@ var _ = Describe("func AsInt16P()", func() {
 })
 
 var _ = Describe("func AsInt16PDefault()", func() {
-	It("returns an int value", func() {
+	It("returns an int16 value", func() {
 		b := Map{"<key>": String("123")}
 
 		v := AsInt16PDefault(b, "<key>", 123)

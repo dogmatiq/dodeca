@@ -7,7 +7,7 @@ import (
 )
 
 var _ = Describe("func AsInt32()", func() {
-	It("returns an int value", func() {
+	It("returns an int32 value", func() {
 		b := Map{"<key>": String("-123")}
 
 		v := AsInt32(b, "<key>")
@@ -32,7 +32,7 @@ var _ = Describe("func AsInt32()", func() {
 })
 
 var _ = Describe("func AsInt32Default()", func() {
-	It("returns an int value", func() {
+	It("returns an int32 value", func() {
 		b := Map{"<key>": String("-123")}
 
 		v := AsInt32Default(b, "<key>", 123)
@@ -56,7 +56,7 @@ var _ = Describe("func AsInt32Default()", func() {
 })
 
 var _ = Describe("func AsInt32P()", func() {
-	It("returns an int value", func() {
+	It("returns an int32 value", func() {
 		b := Map{"<key>": String("123")}
 
 		v := AsInt32P(b, "<key>")
@@ -97,7 +97,7 @@ var _ = Describe("func AsInt32P()", func() {
 })
 
 var _ = Describe("func AsInt32PDefault()", func() {
-	It("returns an int value", func() {
+	It("returns an int32 value", func() {
 		b := Map{"<key>": String("123")}
 
 		v := AsInt32PDefault(b, "<key>", 123)

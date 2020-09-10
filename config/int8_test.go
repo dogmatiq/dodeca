@@ -7,7 +7,7 @@ import (
 )
 
 var _ = Describe("func AsInt8()", func() {
-	It("returns an int value", func() {
+	It("returns an int8 value", func() {
 		b := Map{"<key>": String("-123")}
 
 		v := AsInt8(b, "<key>")
@@ -32,7 +32,7 @@ var _ = Describe("func AsInt8()", func() {
 })
 
 var _ = Describe("func AsInt8Default()", func() {
-	It("returns an int value", func() {
+	It("returns an int8 value", func() {
 		b := Map{"<key>": String("-123")}
 
 		v := AsInt8Default(b, "<key>", 123)
@@ -56,7 +56,7 @@ var _ = Describe("func AsInt8Default()", func() {
 })
 
 var _ = Describe("func AsInt8P()", func() {
-	It("returns an int value", func() {
+	It("returns an int8 value", func() {
 		b := Map{"<key>": String("123")}
 
 		v := AsInt8P(b, "<key>")
@@ -97,7 +97,7 @@ var _ = Describe("func AsInt8P()", func() {
 })
 
 var _ = Describe("func AsInt8PDefault()", func() {
-	It("returns an int value", func() {
+	It("returns an int8 value", func() {
 		b := Map{"<key>": String("123")}
 
 		v := AsInt8PDefault(b, "<key>", 123)
