@@ -71,7 +71,7 @@ var _ = Describe("func AsUint64Between()", func() {
 		}).To(PanicWith(`<key> is not defined`))
 	})
 
-	It("panics if the value lower than the minimum", func() {
+	It("panics if the value is lower than the minimum", func() {
 		b := Map{"<key>": String("5")}
 
 		Expect(func() {
@@ -111,7 +111,7 @@ var _ = Describe("func AsUint64DefaultBetween()", func() {
 		Expect(v).To(BeNumerically("==", 50))
 	})
 
-	It("panics if the value lower than the minimum", func() {
+	It("panics if the value is lower than the minimum", func() {
 		b := Map{"<key>": String("5")}
 
 		Expect(func() {
@@ -127,7 +127,7 @@ var _ = Describe("func AsUint64DefaultBetween()", func() {
 		}).To(PanicWith(`expected <key> to be between 10 and 100 (inclusive), got 120`))
 	})
 
-	It("panics if the default lower than the minimum", func() {
+	It("panics if the default is lower than the minimum", func() {
 		b := Map{"<key>": String("50")}
 
 		Expect(func() {

@@ -2,89 +2,114 @@ package config
 
 import (
 	"fmt"
+	"math"
 	"time"
 )
 
-// GetDuration returns the time.Duration representation of the value associated
-// with k.
+// AsDuration returns the time.Duration representation of the value associated
+// with k or panics if unable to do so.
+//
+// Durations are specified using the syntax supported by time.ParseDuration.
+func AsDuration(b Bucket, k string) time.Duration {
+	return asDuration(b, k, math.MinInt64, math.MaxInt64)
+}
+
+// AsDurationDefault returns the time.Duration representation of the value
+// associated with k, or the default value v if k is undefined.
+//
+// Durations are specified using the syntax supported by time.ParseDuration.
+func AsDurationDefault(b Bucket, k string, v time.Duration) time.Duration {
+	return asDurationDefault(b, k, v, math.MinInt64, math.MaxInt64)
+}
+
+// AsDurationBetween returns the time.Duration representation of the value
+// associated with k or panics if unable to do so.
 //
 // Durations are specified using the syntax supported by time.ParseDuration.
 //
-// If k is undefined, ok is false and err is nil.
+// It panics if the value is not between min and max (inclusive).
+func AsDurationBetween(b Bucket, k string, min, max time.Duration) time.Duration {
+	return asDuration(b, k, min, max)
+}
+
+// AsDurationDefaultBetween returns the time.Duration representation of the
+// value associated with k, or the default value v if k is undefined.
 //
-// If k is defined but its value cannot be parsed as a duration, err is a
-// non-nil error describing the invalid value.
-func GetDuration(b Bucket, k string) (v time.Duration, ok bool, err error) {
+// Durations are specified using the syntax supported by time.ParseDuration.
+//
+// It panics if the value is not between min and max (inclusive).
+func AsDurationDefaultBetween(b Bucket, k string, v, min, max time.Duration) time.Duration {
+	return asDurationDefault(b, k, v, min, max)
+}
+
+func tryAsDuration(
+	b Bucket,
+	k string,
+	min, max time.Duration,
+) (time.Duration, bool) {
 	x := b.Get(k)
 
 	if x.IsZero() {
-		return 0, false, nil
+		return 0, false
 	}
 
 	s, err := x.AsString()
 	if err != nil {
-		return 0, false, err
+		panic(fmt.Sprintf("cannot read %s: %s", k, err))
 	}
 
-	v, err = time.ParseDuration(s)
+	v, err := time.ParseDuration(s)
 	if err != nil {
-		return 0, false, fmt.Errorf(
-			`%s is not a valid duration: %w`,
+		panic(fmt.Sprintf(
+			`expected %s to be a duration: %s`,
 			k,
 			err,
-		)
+		))
 	}
 
-	return v, true, nil
+	if min > v || v > max {
+		panic(fmt.Sprintf(
+			`expected %s to be between %s and %s (inclusive), got %s`,
+			k,
+			min,
+			max,
+			v,
+		))
+	}
+
+	return v, true
 }
 
-// GetDurationDefault returns the time.Duration representation of the value
-// associated with k, or the default value v if k is undefined.
-//
-// Durations are specified using the syntax supported by time.ParseDuration.
-//
-// If k is defined but its value cannot be parsed as a duration, it returns an
-// error describing the invalid value.
-func GetDurationDefault(b Bucket, k string, v time.Duration) (time.Duration, error) {
-	x, ok, err := GetDuration(b, k)
-	if err != nil {
-		return 0, err
+func asDuration(
+	b Bucket,
+	k string,
+	min, max time.Duration,
+) time.Duration {
+	if v, ok := tryAsDuration(b, k, min, max); ok {
+		return v
 	}
 
-	if ok {
-		return x, nil
-	}
-
-	return v, nil
+	panic(fmt.Sprintf("%s is not defined", k))
 }
 
-// MustGetDuration returns the time.Duration representation of the value
-// associated with k.
-//
-// Durations are specified using the syntax supported by time.ParseDuration.
-//
-// If k is undefined, ok is false and err is nil.
-//
-// It panics if k is defined but its value cannot be parsed as a duration.
-func MustGetDuration(b Bucket, k string) (time.Duration, bool) {
-	v, ok, err := GetDuration(b, k)
-	if err != nil {
-		panic(err)
+func asDurationDefault(
+	b Bucket,
+	k string,
+	d, min, max time.Duration,
+) time.Duration {
+	if min > d || d > max {
+		panic(fmt.Sprintf(
+			`expected the default value for %s to be between %s and %s (inclusive), got %s`,
+			k,
+			min,
+			max,
+			d,
+		))
 	}
 
-	return v, ok
-}
-
-// MustGetDurationDefault returns the time.Duration representation of the value
-// associated with k, or the default value v if k is undefined.
-//
-// Durations are specified using the syntax supported by time.ParseDuration.
-//
-// It panics if k is defined but its value cannot be parsed as a duration.
-func MustGetDurationDefault(b Bucket, k string, v time.Duration) time.Duration {
-	if x, ok := MustGetDuration(b, k); ok {
-		return x
+	if v, ok := tryAsDuration(b, k, min, max); ok {
+		return v
 	}
 
-	return v
+	return d
 }
