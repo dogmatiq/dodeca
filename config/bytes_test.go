@@ -10,6 +10,26 @@ import (
 	. "github.com/onsi/gomega"
 )
 
+func ExampleAsBytes() {
+	os.Setenv("FOO", "<value>")
+
+	v := config.AsBytes(config.Environment(), "FOO")
+
+	fmt.Printf("the value is %s!\n", v)
+
+	// Output: the value is <value>!
+}
+
+func ExampleAsBytesDefault() {
+	os.Setenv("FOO", "")
+
+	v := config.AsBytesDefault(config.Environment(), "FOO", []byte("<default>"))
+
+	fmt.Printf("the value is %s!\n", v)
+
+	// Output: the value is <default>!
+}
+
 var _ = Describe("func AsBytes()", func() {
 	It("returns a byte-slice value", func() {
 		b := Map{"<key>": String("<value>")}
@@ -27,16 +47,6 @@ var _ = Describe("func AsBytes()", func() {
 	})
 })
 
-func ExampleAsBytes() {
-	os.Setenv("FOO", "<value>")
-
-	v := config.AsBytes(config.Environment(), "FOO")
-
-	fmt.Printf("the value is %s!\n", v)
-
-	// Output: the value is <value>!
-}
-
 var _ = Describe("func AsBytesDefault()", func() {
 	It("returns a byte-slice value", func() {
 		b := Map{"<key>": String("<value>")}
@@ -52,13 +62,3 @@ var _ = Describe("func AsBytesDefault()", func() {
 		Expect(v).To(Equal([]byte("<default>")))
 	})
 })
-
-func ExampleAsBytesDefault() {
-	os.Setenv("FOO", "")
-
-	v := config.AsBytesDefault(config.Environment(), "FOO", []byte("<default>"))
-
-	fmt.Printf("the value is %s!\n", v)
-
-	// Output: the value is <default>!
-}

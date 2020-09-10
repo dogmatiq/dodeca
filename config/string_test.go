@@ -152,6 +152,26 @@ func ExampleValue_AsBytes_specifiedAsString() {
 	// Output: <the configuration value>
 }
 
+func ExampleAsString() {
+	os.Setenv("FOO", "<value>")
+
+	v := config.AsString(config.Environment(), "FOO")
+
+	fmt.Printf("the value is %s!\n", v)
+
+	// Output: the value is <value>!
+}
+
+func ExampleAsStringDefault() {
+	os.Setenv("FOO", "")
+
+	v := config.AsStringDefault(config.Environment(), "FOO", "<default>")
+
+	fmt.Printf("the value is %s!\n", v)
+
+	// Output: the value is <default>!
+}
+
 var _ = Describe("func AsString()", func() {
 	It("returns a string value", func() {
 		b := Map{"<key>": String("<value>")}
@@ -169,16 +189,6 @@ var _ = Describe("func AsString()", func() {
 	})
 })
 
-func ExampleAsString() {
-	os.Setenv("FOO", "<value>")
-
-	v := config.AsString(config.Environment(), "FOO")
-
-	fmt.Printf("the value is %s!\n", v)
-
-	// Output: the value is <value>!
-}
-
 var _ = Describe("func AsStringDefault()", func() {
 	It("returns a string value", func() {
 		b := Map{"<key>": String("<value>")}
@@ -194,13 +204,3 @@ var _ = Describe("func AsStringDefault()", func() {
 		Expect(v).To(Equal("<default>"))
 	})
 })
-
-func ExampleAsStringDefault() {
-	os.Setenv("FOO", "")
-
-	v := config.AsStringDefault(config.Environment(), "FOO", "<default>")
-
-	fmt.Printf("the value is %s!\n", v)
-
-	// Output: the value is <default>!
-}

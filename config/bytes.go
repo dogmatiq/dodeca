@@ -76,7 +76,7 @@ func asBytes(b Bucket, k string) ([]byte, bool) {
 
 	s, err := x.AsBytes()
 	if err != nil {
-		panic(fmt.Sprintf("%s can not be converted to a byte-slice: %s", k, err))
+		panic(fmt.Sprintf("cannot read %s: %s", k, err))
 	}
 
 	return s, true

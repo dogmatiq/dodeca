@@ -6,138 +6,131 @@ import (
 	. "github.com/onsi/gomega"
 )
 
-var _ = Describe("func GetInt16()", func() {
-	It("returns a positive integer value", func() {
-		b := Map{"<key>": String("123")}
-
-		v, ok, err := GetInt16(b, "<key>")
-		Expect(err).ShouldNot(HaveOccurred())
-		Expect(v).To(BeEquivalentTo(123))
-		Expect(ok).To(BeTrue())
-	})
-
-	It("returns a negative integer value", func() {
+var _ = Describe("func AsInt16()", func() {
+	It("returns an int value", func() {
 		b := Map{"<key>": String("-123")}
 
-		v, ok, err := GetInt16(b, "<key>")
-		Expect(err).ShouldNot(HaveOccurred())
-		Expect(v).To(BeEquivalentTo(-123))
-		Expect(ok).To(BeTrue())
+		v := AsInt16(b, "<key>")
+		Expect(v).To(BeNumerically("==", -123))
 	})
 
-	It("sets ok to false if the key is not defined", func() {
+	It("panics if the key is not defined", func() {
 		b := Map{}
 
-		_, ok, err := GetInt16(b, "<key>")
-		Expect(err).ShouldNot(HaveOccurred())
-		Expect(ok).To(BeFalse())
-	})
-
-	It("returns an error if the value cannot be parsed", func() {
-		b := Map{"<key>": String("<invalid>")}
-
-		_, _, err := GetInt16(b, "<key>")
-		Expect(err).To(MatchError(`<key> is not a valid signed 16-bit integer: strconv.ParseInt: parsing "<invalid>": invalid syntax`))
-	})
-})
-
-var _ = Describe("func GetInt16Default()", func() {
-	It("returns a positive integer value", func() {
-		b := Map{"<key>": String("123")}
-
-		v, err := GetInt16Default(b, "<key>", -10)
-		Expect(err).ShouldNot(HaveOccurred())
-		Expect(v).To(BeEquivalentTo(123))
-	})
-
-	It("returns a negative integer value", func() {
-		b := Map{"<key>": String("-123")}
-
-		v, err := GetInt16Default(b, "<key>", -10)
-		Expect(err).ShouldNot(HaveOccurred())
-		Expect(v).To(BeEquivalentTo(-123))
-	})
-
-	It("returns the default value if the key is not defined", func() {
-		b := Map{}
-
-		v, err := GetInt16Default(b, "<key>", -10)
-		Expect(err).ShouldNot(HaveOccurred())
-		Expect(v).To(BeEquivalentTo(-10))
-	})
-
-	It("returns an error if the value cannot be parsed", func() {
-		b := Map{"<key>": String("<invalid>")}
-
-		_, err := GetInt16Default(b, "<key>", -10)
-		Expect(err).To(MatchError(`<key> is not a valid signed 16-bit integer: strconv.ParseInt: parsing "<invalid>": invalid syntax`))
-	})
-})
-
-var _ = Describe("func MustGetInt16()", func() {
-	It("returns a positive integer value", func() {
-		b := Map{"<key>": String("123")}
-
-		v, ok := MustGetInt16(b, "<key>")
-		Expect(v).To(BeEquivalentTo(123))
-		Expect(ok).To(BeTrue())
-	})
-
-	It("returns a negative integer value", func() {
-		b := Map{"<key>": String("-123")}
-
-		v, ok := MustGetInt16(b, "<key>")
-		Expect(v).To(BeEquivalentTo(-123))
-		Expect(ok).To(BeTrue())
-	})
-
-	It("sets ok to false if the key is not defined", func() {
-		b := Map{}
-
-		_, ok := MustGetInt16(b, "<key>")
-		Expect(ok).To(BeFalse())
+		Expect(func() {
+			AsInt16(b, "<key>")
+		}).To(PanicWith(`<key> is not defined`))
 	})
 
 	It("panics if the value cannot be parsed", func() {
 		b := Map{"<key>": String("<invalid>")}
 
 		Expect(func() {
-			MustGetInt16(b, "<key>")
-		}).To(PanicWith(
-			MatchError(`<key> is not a valid signed 16-bit integer: strconv.ParseInt: parsing "<invalid>": invalid syntax`),
-		))
+			AsInt16(b, "<key>")
+		}).To(PanicWith(`expected <key> to be a signed 16-bit integer: strconv.ParseInt: parsing "<invalid>": invalid syntax`))
 	})
 })
 
-var _ = Describe("func MustGetInt16Default()", func() {
-	It("returns a positive integer value", func() {
-		b := Map{"<key>": String("123")}
-
-		v := MustGetInt16Default(b, "<key>", -10)
-		Expect(v).To(BeEquivalentTo(123))
-	})
-
-	It("returns a negative integer value", func() {
+var _ = Describe("func AsInt16Default()", func() {
+	It("returns an int value", func() {
 		b := Map{"<key>": String("-123")}
 
-		v := MustGetInt16Default(b, "<key>", -10)
-		Expect(v).To(BeEquivalentTo(-123))
+		v := AsInt16Default(b, "<key>", 123)
+		Expect(v).To(BeNumerically("==", -123))
 	})
 
 	It("returns the default value if the key is not defined", func() {
 		b := Map{}
 
-		v := MustGetInt16Default(b, "<key>", -10)
-		Expect(v).To(BeEquivalentTo(-10))
+		v := AsInt16Default(b, "<key>", 123)
+		Expect(v).To(BeNumerically("==", 123))
 	})
 
 	It("panics if the value cannot be parsed", func() {
 		b := Map{"<key>": String("<invalid>")}
 
 		Expect(func() {
-			MustGetInt16Default(b, "<key>", -10)
-		}).To(PanicWith(
-			MatchError(`<key> is not a valid signed 16-bit integer: strconv.ParseInt: parsing "<invalid>": invalid syntax`),
-		))
+			AsInt16Default(b, "<key>", 123)
+		}).To(PanicWith(`expected <key> to be a signed 16-bit integer: strconv.ParseInt: parsing "<invalid>": invalid syntax`))
+	})
+})
+var _ = Describe("func AsInt16P()", func() {
+	It("returns an int value", func() {
+		b := Map{"<key>": String("123")}
+
+		v := AsInt16P(b, "<key>")
+		Expect(v).To(BeNumerically("==", 123))
+	})
+
+	It("panics if the key is not defined", func() {
+		b := Map{}
+
+		Expect(func() {
+			AsInt16P(b, "<key>")
+		}).To(PanicWith(`<key> is not defined`))
+	})
+
+	It("panics if the value is zero", func() {
+		b := Map{"<key>": String("0")}
+
+		Expect(func() {
+			AsInt16P(b, "<key>")
+		}).To(PanicWith(`expected <key> to be positive, got 0`))
+	})
+
+	It("panics if the value is negative", func() {
+		b := Map{"<key>": String("-123")}
+
+		Expect(func() {
+			AsInt16P(b, "<key>")
+		}).To(PanicWith(`expected <key> to be positive, got -123`))
+	})
+
+	It("panics if the value cannot be parsed", func() {
+		b := Map{"<key>": String("<invalid>")}
+
+		Expect(func() {
+			AsInt16P(b, "<key>")
+		}).To(PanicWith(`expected <key> to be a signed 16-bit integer: strconv.ParseInt: parsing "<invalid>": invalid syntax`))
+	})
+})
+
+var _ = Describe("func AsInt16PDefault()", func() {
+	It("returns an int value", func() {
+		b := Map{"<key>": String("123")}
+
+		v := AsInt16PDefault(b, "<key>", 123)
+		Expect(v).To(BeNumerically("==", 123))
+	})
+
+	It("returns the default value if the key is not defined", func() {
+		b := Map{}
+
+		v := AsInt16PDefault(b, "<key>", 123)
+		Expect(v).To(BeNumerically("==", 123))
+	})
+
+	It("panics if the value is zero", func() {
+		b := Map{"<key>": String("0")}
+
+		Expect(func() {
+			AsInt16PDefault(b, "<key>", 123)
+		}).To(PanicWith(`expected <key> to be positive, got 0`))
+	})
+
+	It("panics if the value is negative", func() {
+		b := Map{"<key>": String("-123")}
+
+		Expect(func() {
+			AsInt16PDefault(b, "<key>", 123)
+		}).To(PanicWith(`expected <key> to be positive, got -123`))
+	})
+
+	It("panics if the value cannot be parsed", func() {
+		b := Map{"<key>": String("<invalid>")}
+
+		Expect(func() {
+			AsInt16PDefault(b, "<key>", 123)
+		}).To(PanicWith(`expected <key> to be a signed 16-bit integer: strconv.ParseInt: parsing "<invalid>": invalid syntax`))
 	})
 })
