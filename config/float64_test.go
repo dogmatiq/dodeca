@@ -6,138 +6,148 @@ import (
 	. "github.com/onsi/gomega"
 )
 
-var _ = Describe("func GetFloat64()", func() {
-	It("returns a positive float value", func() {
-		b := Map{"<key>": String("123.45")}
+var _ = Describe("func AsFloat64()", func() {
+	It("returns an float64 value", func() {
+		b := Map{"<key>": String("-50.5")}
 
-		v, ok, err := GetFloat64(b, "<key>")
-		Expect(err).ShouldNot(HaveOccurred())
-		Expect(v).To(BeNumerically("~", 123.45))
-		Expect(ok).To(BeTrue())
+		v := AsFloat64(b, "<key>")
+		Expect(v).To(BeNumerically("==", -50.5))
 	})
 
-	It("returns a negative float value", func() {
-		b := Map{"<key>": String("-123.45")}
-
-		v, ok, err := GetFloat64(b, "<key>")
-		Expect(err).ShouldNot(HaveOccurred())
-		Expect(v).To(BeNumerically("~", -123.45))
-		Expect(ok).To(BeTrue())
-	})
-
-	It("sets ok to false if the key is not defined", func() {
+	It("panics if the key is not defined", func() {
 		b := Map{}
 
-		_, ok, err := GetFloat64(b, "<key>")
-		Expect(err).ShouldNot(HaveOccurred())
-		Expect(ok).To(BeFalse())
-	})
-
-	It("returns an error if the value cannot be parsed", func() {
-		b := Map{"<key>": String("<invalid>")}
-
-		_, _, err := GetFloat64(b, "<key>")
-		Expect(err).To(MatchError(`<key> is not a valid 64-bit float: strconv.ParseFloat: parsing "<invalid>": invalid syntax`))
-	})
-})
-
-var _ = Describe("func GetFloat64Default()", func() {
-	It("returns a positive float value", func() {
-		b := Map{"<key>": String("123.45")}
-
-		v, err := GetFloat64Default(b, "<key>", 456.78)
-		Expect(err).ShouldNot(HaveOccurred())
-		Expect(v).To(BeNumerically("~", 123.45))
-	})
-
-	It("returns a negative float value", func() {
-		b := Map{"<key>": String("-123.45")}
-
-		v, err := GetFloat64Default(b, "<key>", 456.78)
-		Expect(err).ShouldNot(HaveOccurred())
-		Expect(v).To(BeNumerically("~", -123.45))
-	})
-
-	It("returns the default value if the key is not defined", func() {
-		b := Map{}
-
-		v, err := GetFloat64Default(b, "<key>", 456.78)
-		Expect(err).ShouldNot(HaveOccurred())
-		Expect(v).To(BeNumerically("~", 456.78))
-	})
-
-	It("returns an error if the value cannot be parsed", func() {
-		b := Map{"<key>": String("<invalid>")}
-
-		_, err := GetFloat64Default(b, "<key>", 456.78)
-		Expect(err).To(MatchError(`<key> is not a valid 64-bit float: strconv.ParseFloat: parsing "<invalid>": invalid syntax`))
-	})
-})
-
-var _ = Describe("func MustGetFloat64()", func() {
-	It("returns a positive float value", func() {
-		b := Map{"<key>": String("123.45")}
-
-		v, ok := MustGetFloat64(b, "<key>")
-		Expect(v).To(BeNumerically("~", 123.45))
-		Expect(ok).To(BeTrue())
-	})
-
-	It("returns a negative float value", func() {
-		b := Map{"<key>": String("-123.45")}
-
-		v, ok := MustGetFloat64(b, "<key>")
-		Expect(v).To(BeNumerically("~", -123.45))
-		Expect(ok).To(BeTrue())
-	})
-
-	It("sets ok to false if the key is not defined", func() {
-		b := Map{}
-
-		_, ok := MustGetFloat64(b, "<key>")
-		Expect(ok).To(BeFalse())
+		Expect(func() {
+			AsFloat64(b, "<key>")
+		}).To(PanicWith(`<key> is not defined`))
 	})
 
 	It("panics if the value cannot be parsed", func() {
 		b := Map{"<key>": String("<invalid>")}
 
 		Expect(func() {
-			MustGetFloat64(b, "<key>")
-		}).To(PanicWith(
-			MatchError(`<key> is not a valid 64-bit float: strconv.ParseFloat: parsing "<invalid>": invalid syntax`),
-		))
+			AsFloat64(b, "<key>")
+		}).To(PanicWith(`expected <key> to be a 64-bit floating-point number: strconv.ParseFloat: parsing "<invalid>": invalid syntax`))
 	})
 })
 
-var _ = Describe("func MustGetFloat64Default()", func() {
-	It("returns a positive float value", func() {
-		b := Map{"<key>": String("123.45")}
+var _ = Describe("func AsFloat64Default()", func() {
+	It("returns an float64 value", func() {
+		b := Map{"<key>": String("-50")}
 
-		v := MustGetFloat64Default(b, "<key>", 456.78)
-		Expect(v).To(BeNumerically("~", 123.45))
-	})
-
-	It("returns a negative float value", func() {
-		b := Map{"<key>": String("-123.45")}
-
-		v := MustGetFloat64Default(b, "<key>", 456.78)
-		Expect(v).To(BeNumerically("~", -123.45))
+		v := AsFloat64Default(b, "<key>", 50)
+		Expect(v).To(BeNumerically("==", -50))
 	})
 
 	It("returns the default value if the key is not defined", func() {
 		b := Map{}
 
-		v := MustGetFloat64Default(b, "<key>", 456.78)
-		Expect(v).To(BeNumerically("~", 456.78))
+		v := AsFloat64Default(b, "<key>", 50)
+		Expect(v).To(BeNumerically("==", 50))
 	})
 
 	It("panics if the value cannot be parsed", func() {
 		b := Map{"<key>": String("<invalid>")}
 
 		Expect(func() {
-			MustGetFloat64Default(b, "<key>", 456.78)
-		}).To(PanicWith(
-			MatchError(`<key> is not a valid 64-bit float: strconv.ParseFloat: parsing "<invalid>": invalid syntax`),
-		))
+			AsFloat64Default(b, "<key>", 50)
+		}).To(PanicWith(`expected <key> to be a 64-bit floating-point number: strconv.ParseFloat: parsing "<invalid>": invalid syntax`))
+	})
+})
+
+var _ = Describe("func AsFloat64Between()", func() {
+	It("returns an float64 value", func() {
+		b := Map{"<key>": String("50")}
+
+		v := AsFloat64Between(b, "<key>", -100, 100)
+		Expect(v).To(BeNumerically("==", 50))
+	})
+
+	It("panics if the key is not defined", func() {
+		b := Map{}
+
+		Expect(func() {
+			AsFloat64Between(b, "<key>", -100, 100)
+		}).To(PanicWith(`<key> is not defined`))
+	})
+
+	It("panics if the value lower than the minimum", func() {
+		b := Map{"<key>": String("-120")}
+
+		Expect(func() {
+			AsFloat64Between(b, "<key>", -100, 100)
+		}).To(PanicWith(`expected <key> to be between -100.000000 and 100.000000 (inclusive), got -120.000000`))
+	})
+
+	It("panics if the value is greater than the maximum", func() {
+		b := Map{"<key>": String("120")}
+
+		Expect(func() {
+			AsFloat64Between(b, "<key>", -100, 100)
+		}).To(PanicWith(`expected <key> to be between -100.000000 and 100.000000 (inclusive), got 120.000000`))
+	})
+
+	It("panics if the value cannot be parsed", func() {
+		b := Map{"<key>": String("<invalid>")}
+
+		Expect(func() {
+			AsFloat64Between(b, "<key>", -100, 100)
+		}).To(PanicWith(`expected <key> to be a 64-bit floating-point number: strconv.ParseFloat: parsing "<invalid>": invalid syntax`))
+	})
+})
+
+var _ = Describe("func AsFloat64DefaultBetween()", func() {
+	It("returns an float64 value", func() {
+		b := Map{"<key>": String("50")}
+
+		v := AsFloat64DefaultBetween(b, "<key>", 50, -100, 100)
+		Expect(v).To(BeNumerically("==", 50))
+	})
+
+	It("returns the default value if the key is not defined", func() {
+		b := Map{}
+
+		v := AsFloat64DefaultBetween(b, "<key>", 50, -100, 100)
+		Expect(v).To(BeNumerically("==", 50))
+	})
+
+	It("panics if the value lower than the minimum", func() {
+		b := Map{"<key>": String("-120")}
+
+		Expect(func() {
+			AsFloat64DefaultBetween(b, "<key>", 50, -100, 100)
+		}).To(PanicWith(`expected <key> to be between -100.000000 and 100.000000 (inclusive), got -120.000000`))
+	})
+
+	It("panics if the value is greater than the maximum", func() {
+		b := Map{"<key>": String("120")}
+
+		Expect(func() {
+			AsFloat64DefaultBetween(b, "<key>", 50, -100, 100)
+		}).To(PanicWith(`expected <key> to be between -100.000000 and 100.000000 (inclusive), got 120.000000`))
+	})
+
+	It("panics if the default lower than the minimum", func() {
+		b := Map{"<key>": String("50")}
+
+		Expect(func() {
+			AsFloat64DefaultBetween(b, "<key>", -120, -100, 100)
+		}).To(PanicWith(`expected the default value for <key> to be between -100.000000 and 100.000000 (inclusive), got -120.000000`))
+	})
+
+	It("panics if the default is greater than the maximum", func() {
+		b := Map{"<key>": String("120")}
+
+		Expect(func() {
+			AsFloat64DefaultBetween(b, "<key>", 120, -100, 100)
+		}).To(PanicWith(`expected the default value for <key> to be between -100.000000 and 100.000000 (inclusive), got 120.000000`))
+	})
+
+	It("panics if the value cannot be parsed", func() {
+		b := Map{"<key>": String("<invalid>")}
+
+		Expect(func() {
+			AsFloat64DefaultBetween(b, "<key>", 50, -100, 100)
+		}).To(PanicWith(`expected <key> to be a 64-bit floating-point number: strconv.ParseFloat: parsing "<invalid>": invalid syntax`))
 	})
 })
