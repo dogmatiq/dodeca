@@ -57,10 +57,10 @@ var _ = Describe("func AsInt8Default()", func() {
 
 var _ = Describe("func AsInt8Between()", func() {
 	It("returns an int8 value", func() {
-		b := Map{"<key>": String("50")}
+		b := Map{"<key>": String("-50")}
 
 		v := AsInt8Between(b, "<key>", -100, 100)
-		Expect(v).To(BeNumerically("==", 50))
+		Expect(v).To(BeNumerically("==", -50))
 	})
 
 	It("panics if the key is not defined", func() {
@@ -98,10 +98,10 @@ var _ = Describe("func AsInt8Between()", func() {
 
 var _ = Describe("func AsInt8DefaultBetween()", func() {
 	It("returns an int8 value", func() {
-		b := Map{"<key>": String("50")}
+		b := Map{"<key>": String("-50")}
 
 		v := AsInt8DefaultBetween(b, "<key>", 50, -100, 100)
-		Expect(v).To(BeNumerically("==", 50))
+		Expect(v).To(BeNumerically("==", -50))
 	})
 
 	It("returns the default value if the key is not defined", func() {

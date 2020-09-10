@@ -57,10 +57,10 @@ var _ = Describe("func AsInt64Default()", func() {
 
 var _ = Describe("func AsInt64Between()", func() {
 	It("returns an int64 value", func() {
-		b := Map{"<key>": String("50")}
+		b := Map{"<key>": String("-50")}
 
 		v := AsInt64Between(b, "<key>", -100, 100)
-		Expect(v).To(BeNumerically("==", 50))
+		Expect(v).To(BeNumerically("==", -50))
 	})
 
 	It("panics if the key is not defined", func() {
@@ -98,10 +98,10 @@ var _ = Describe("func AsInt64Between()", func() {
 
 var _ = Describe("func AsInt64DefaultBetween()", func() {
 	It("returns an int64 value", func() {
-		b := Map{"<key>": String("50")}
+		b := Map{"<key>": String("-50")}
 
 		v := AsInt64DefaultBetween(b, "<key>", 50, -100, 100)
-		Expect(v).To(BeNumerically("==", 50))
+		Expect(v).To(BeNumerically("==", -50))
 	})
 
 	It("returns the default value if the key is not defined", func() {
