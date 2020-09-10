@@ -14,10 +14,7 @@ The format is based on [Keep a Changelog], and this project adheres to
 ### Added
 
 - Add `Map`, an in-memory implementation of `Bucket`
-- Add `GetBool()` and its variants for reading boolean configuration values
-- Add `GetInt()` and its variants for reading integer configuration values
-- Add `GetFloat[32|64]()` and their variants for reading floating-point configuration values
-- Add `GetDuration()` and its variants for reading time duration configuration values
+- Add `As[Type]()` and `As[Type]Default()` convenience functions
 
 ## [0.2.2] - 2020-09-04
 

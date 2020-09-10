@@ -6,140 +6,148 @@ import (
 	. "github.com/onsi/gomega"
 )
 
-var _ = Describe("func GetUint16()", func() {
-	It("returns a positive integer value", func() {
-		b := Map{"<key>": String("123")}
+var _ = Describe("func AsUint16()", func() {
+	It("returns a uint value", func() {
+		b := Map{"<key>": String("50")}
 
-		v, ok, err := GetUint16(b, "<key>")
-		Expect(err).ShouldNot(HaveOccurred())
-		Expect(v).To(BeEquivalentTo(123))
-		Expect(ok).To(BeTrue())
+		v := AsUint16(b, "<key>")
+		Expect(v).To(BeNumerically("==", 50))
 	})
 
-	It("sets ok to false if the key is not defined", func() {
+	It("panics if the key is not defined", func() {
 		b := Map{}
 
-		_, ok, err := GetUint16(b, "<key>")
-		Expect(err).ShouldNot(HaveOccurred())
-		Expect(ok).To(BeFalse())
-	})
-
-	It("returns an error if the value cannot be parsed", func() {
-		b := Map{"<key>": String("<invalid>")}
-
-		_, _, err := GetUint16(b, "<key>")
-		Expect(err).To(MatchError(`<key> is not a valid unsigned 16-bit integer: strconv.ParseUint: parsing "<invalid>": invalid syntax`))
-	})
-
-	It("returns an error if the value is negative", func() {
-		b := Map{"<key>": String("-123")}
-
-		_, _, err := GetUint16(b, "<key>")
-		Expect(err).To(MatchError(`<key> is not a valid unsigned 16-bit integer: strconv.ParseUint: parsing "-123": invalid syntax`))
-	})
-})
-
-var _ = Describe("func GetUint16Default()", func() {
-	It("returns a positive integer value", func() {
-		b := Map{"<key>": String("123")}
-
-		v, err := GetUint16Default(b, "<key>", 10)
-		Expect(err).ShouldNot(HaveOccurred())
-		Expect(v).To(BeEquivalentTo(123))
-	})
-
-	It("returns the default value if the key is not defined", func() {
-		b := Map{}
-
-		v, err := GetUint16Default(b, "<key>", 10)
-		Expect(err).ShouldNot(HaveOccurred())
-		Expect(v).To(BeEquivalentTo(10))
-	})
-
-	It("returns an error if the value cannot be parsed", func() {
-		b := Map{"<key>": String("<invalid>")}
-
-		_, err := GetUint16Default(b, "<key>", 10)
-		Expect(err).To(MatchError(`<key> is not a valid unsigned 16-bit integer: strconv.ParseUint: parsing "<invalid>": invalid syntax`))
-	})
-
-	It("returns an error if the value is negative", func() {
-		b := Map{"<key>": String("-123")}
-
-		_, err := GetUint16Default(b, "<key>", 10)
-		Expect(err).To(MatchError(`<key> is not a valid unsigned 16-bit integer: strconv.ParseUint: parsing "-123": invalid syntax`))
-	})
-})
-
-var _ = Describe("func MustGetUint16()", func() {
-	It("returns a positive integer value", func() {
-		b := Map{"<key>": String("123")}
-
-		v, ok := MustGetUint16(b, "<key>")
-		Expect(v).To(BeEquivalentTo(123))
-		Expect(ok).To(BeTrue())
-	})
-
-	It("sets ok to false if the key is not defined", func() {
-		b := Map{}
-
-		_, ok := MustGetUint16(b, "<key>")
-		Expect(ok).To(BeFalse())
+		Expect(func() {
+			AsUint16(b, "<key>")
+		}).To(PanicWith(`<key> is not defined`))
 	})
 
 	It("panics if the value cannot be parsed", func() {
 		b := Map{"<key>": String("<invalid>")}
 
 		Expect(func() {
-			MustGetUint16(b, "<key>")
-		}).To(PanicWith(
-			MatchError(`<key> is not a valid unsigned 16-bit integer: strconv.ParseUint: parsing "<invalid>": invalid syntax`),
-		))
-	})
-
-	It("panics if the value is negative", func() {
-		b := Map{"<key>": String("-123")}
-
-		Expect(func() {
-			MustGetUint16(b, "<key>")
-		}).To(PanicWith(
-			MatchError(`<key> is not a valid unsigned 16-bit integer: strconv.ParseUint: parsing "-123": invalid syntax`),
-		))
+			AsUint16(b, "<key>")
+		}).To(PanicWith(`expected <key> to be an unsigned 16-bit integer: strconv.ParseUint: parsing "<invalid>": invalid syntax`))
 	})
 })
 
-var _ = Describe("func MustGetUint16Default()", func() {
-	It("returns a positive integer value", func() {
-		b := Map{"<key>": String("123")}
+var _ = Describe("func AsUint16Default()", func() {
+	It("returns a uint value", func() {
+		b := Map{"<key>": String("50")}
 
-		v := MustGetUint16Default(b, "<key>", 10)
-		Expect(v).To(BeEquivalentTo(123))
+		v := AsUint16Default(b, "<key>", 50)
+		Expect(v).To(BeNumerically("==", 50))
 	})
 
 	It("returns the default value if the key is not defined", func() {
 		b := Map{}
 
-		v := MustGetUint16Default(b, "<key>", 10)
-		Expect(v).To(BeEquivalentTo(10))
+		v := AsUint16Default(b, "<key>", 50)
+		Expect(v).To(BeNumerically("==", 50))
 	})
 
 	It("panics if the value cannot be parsed", func() {
 		b := Map{"<key>": String("<invalid>")}
 
 		Expect(func() {
-			MustGetUint16Default(b, "<key>", 10)
-		}).To(PanicWith(
-			MatchError(`<key> is not a valid unsigned 16-bit integer: strconv.ParseUint: parsing "<invalid>": invalid syntax`),
-		))
+			AsUint16Default(b, "<key>", 50)
+		}).To(PanicWith(`expected <key> to be an unsigned 16-bit integer: strconv.ParseUint: parsing "<invalid>": invalid syntax`))
+	})
+})
+
+var _ = Describe("func AsUint16Between()", func() {
+	It("returns a uint value", func() {
+		b := Map{"<key>": String("50")}
+
+		v := AsUint16Between(b, "<key>", 10, 100)
+		Expect(v).To(BeNumerically("==", 50))
 	})
 
-	It("panics if the value is negative", func() {
-		b := Map{"<key>": String("-123")}
+	It("panics if the key is not defined", func() {
+		b := Map{}
 
 		Expect(func() {
-			MustGetUint16Default(b, "<key>", 10)
-		}).To(PanicWith(
-			MatchError(`<key> is not a valid unsigned 16-bit integer: strconv.ParseUint: parsing "-123": invalid syntax`),
-		))
+			AsUint16Between(b, "<key>", 10, 100)
+		}).To(PanicWith(`<key> is not defined`))
+	})
+
+	It("panics if the value is lower than the minimum", func() {
+		b := Map{"<key>": String("5")}
+
+		Expect(func() {
+			AsUint16Between(b, "<key>", 10, 100)
+		}).To(PanicWith(`expected <key> to be between 10 and 100 (inclusive), got 5`))
+	})
+
+	It("panics if the value is greater than the maximum", func() {
+		b := Map{"<key>": String("120")}
+
+		Expect(func() {
+			AsUint16Between(b, "<key>", 10, 100)
+		}).To(PanicWith(`expected <key> to be between 10 and 100 (inclusive), got 120`))
+	})
+
+	It("panics if the value cannot be parsed", func() {
+		b := Map{"<key>": String("<invalid>")}
+
+		Expect(func() {
+			AsUint16Between(b, "<key>", 10, 100)
+		}).To(PanicWith(`expected <key> to be an unsigned 16-bit integer: strconv.ParseUint: parsing "<invalid>": invalid syntax`))
+	})
+})
+
+var _ = Describe("func AsUint16DefaultBetween()", func() {
+	It("returns a uint value", func() {
+		b := Map{"<key>": String("50")}
+
+		v := AsUint16DefaultBetween(b, "<key>", 50, 10, 100)
+		Expect(v).To(BeNumerically("==", 50))
+	})
+
+	It("returns the default value if the key is not defined", func() {
+		b := Map{}
+
+		v := AsUint16DefaultBetween(b, "<key>", 50, 10, 100)
+		Expect(v).To(BeNumerically("==", 50))
+	})
+
+	It("panics if the value is lower than the minimum", func() {
+		b := Map{"<key>": String("5")}
+
+		Expect(func() {
+			AsUint16DefaultBetween(b, "<key>", 50, 10, 100)
+		}).To(PanicWith(`expected <key> to be between 10 and 100 (inclusive), got 5`))
+	})
+
+	It("panics if the value is greater than the maximum", func() {
+		b := Map{"<key>": String("120")}
+
+		Expect(func() {
+			AsUint16DefaultBetween(b, "<key>", 50, 10, 100)
+		}).To(PanicWith(`expected <key> to be between 10 and 100 (inclusive), got 120`))
+	})
+
+	It("panics if the default is lower than the minimum", func() {
+		b := Map{"<key>": String("50")}
+
+		Expect(func() {
+			AsUint16DefaultBetween(b, "<key>", 5, 10, 100)
+		}).To(PanicWith(`expected the default value for <key> to be between 10 and 100 (inclusive), got 5`))
+	})
+
+	It("panics if the default is greater than the maximum", func() {
+		b := Map{"<key>": String("120")}
+
+		Expect(func() {
+			AsUint16DefaultBetween(b, "<key>", 120, 10, 100)
+		}).To(PanicWith(`expected the default value for <key> to be between 10 and 100 (inclusive), got 120`))
+	})
+
+	It("panics if the value cannot be parsed", func() {
+		b := Map{"<key>": String("<invalid>")}
+
+		Expect(func() {
+			AsUint16DefaultBetween(b, "<key>", 50, 10, 100)
+		}).To(PanicWith(`expected <key> to be an unsigned 16-bit integer: strconv.ParseUint: parsing "<invalid>": invalid syntax`))
 	})
 })

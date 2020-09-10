@@ -1,6 +1,7 @@
 package config
 
 import (
+	"fmt"
 	"io"
 	"io/ioutil"
 	"strings"
@@ -44,4 +45,43 @@ func (s *stringSource) AsString() (string, error) {
 
 func (s *stringSource) AsBytes() ([]byte, error) {
 	return []byte(s.value), nil
+}
+
+// AsString returns the string representation of the value associated with k or
+// panics if unable to do so.
+func AsString(b Bucket, k string) string {
+	if v, ok := asString(b, k); ok {
+		return v
+	}
+
+	panic(fmt.Sprintf("%s is not defined", k))
+}
+
+// AsStringDefault returns the string representation of the value associated
+// with k, or the default value v if k is undefined.
+func AsStringDefault(b Bucket, k string, v string) string {
+	if x, ok := asString(b, k); ok {
+		return x
+	}
+
+	return v
+}
+
+func asString(b Bucket, k string) (string, bool) {
+	x := b.Get(k)
+
+	if x.IsZero() {
+		return "", false
+	}
+
+	return mustAsString(k, x), true
+}
+
+func mustAsString(k string, v Value) string {
+	s, err := v.AsString()
+	if err != nil {
+		panic(fmt.Sprintf("cannot read %s: %s", k, err))
+	}
+
+	return s
 }

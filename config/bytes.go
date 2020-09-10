@@ -2,6 +2,7 @@ package config
 
 import (
 	"bytes"
+	"fmt"
 	"io"
 	"io/ioutil"
 )
@@ -44,4 +45,39 @@ func (s *bytesSource) AsString() (string, error) {
 
 func (s *bytesSource) AsBytes() ([]byte, error) {
 	return s.value, nil
+}
+
+// AsBytes returns the byte-slice representation of the value associated with k
+// or panics if unable to do so.
+func AsBytes(b Bucket, k string) []byte {
+	if v, ok := asBytes(b, k); ok {
+		return v
+	}
+
+	panic(fmt.Sprintf("%s is not defined", k))
+}
+
+// AsBytesDefault returns the byte-slice representation of the value associated
+// with k, or the default value v if k is undefined.
+func AsBytesDefault(b Bucket, k string, v []byte) []byte {
+	if x, ok := asBytes(b, k); ok {
+		return x
+	}
+
+	return v
+}
+
+func asBytes(b Bucket, k string) ([]byte, bool) {
+	x := b.Get(k)
+
+	if x.IsZero() {
+		return nil, false
+	}
+
+	s, err := x.AsBytes()
+	if err != nil {
+		panic(fmt.Sprintf("cannot read %s: %s", k, err))
+	}
+
+	return s, true
 }
