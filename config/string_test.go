@@ -197,7 +197,7 @@ var _ = Describe("func AsStringDefault()", func() {
 		Expect(v).To(Equal("<value>"))
 	})
 
-	It("returns the default value key is not defined", func() {
+	It("returns the default value if the key is not defined", func() {
 		b := Map{}
 
 		v := AsStringDefault(b, "<key>", "<default>")

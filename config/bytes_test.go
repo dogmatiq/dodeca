@@ -55,7 +55,7 @@ var _ = Describe("func AsBytesDefault()", func() {
 		Expect(v).To(Equal([]byte("<value>")))
 	})
 
-	It("returns the default value key is not defined", func() {
+	It("returns the default value if the key is not defined", func() {
 		b := Map{}
 
 		v := AsBytesDefault(b, "<key>", []byte("<default>"))
