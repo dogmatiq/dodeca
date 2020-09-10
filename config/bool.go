@@ -56,10 +56,7 @@ func asBool(b Bucket, k string) (bool, bool) {
 		return false, false
 	}
 
-	s, err := x.AsString()
-	if err != nil {
-		panic(fmt.Sprintf("cannot read %s: %s", k, err))
-	}
+	s := mustAsString(k, x)
 
 	switch strings.ToLower(s) {
 	case "true", "yes", "on":

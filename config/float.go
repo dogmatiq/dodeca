@@ -74,12 +74,10 @@ func tryAsFloat(
 		return 0, false
 	}
 
-	s, err := x.AsString()
-	if err != nil {
-		panic(fmt.Sprintf("cannot read %s: %s", k, err))
-	}
-
-	v, err := strconv.ParseFloat(s, bitSize)
+	v, err := strconv.ParseFloat(
+		mustAsString(k, x),
+		bitSize,
+	)
 	if err != nil {
 		panic(fmt.Sprintf(
 			`expected %s to be a %d-bit floating-point number: %s`,

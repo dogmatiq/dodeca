@@ -53,12 +53,7 @@ func tryAsDuration(
 		return 0, false
 	}
 
-	s, err := x.AsString()
-	if err != nil {
-		panic(fmt.Sprintf("cannot read %s: %s", k, err))
-	}
-
-	v, err := time.ParseDuration(s)
+	v, err := time.ParseDuration(mustAsString(k, x))
 	if err != nil {
 		panic(fmt.Sprintf(
 			`expected %s to be a duration: %s`,

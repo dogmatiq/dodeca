@@ -165,12 +165,11 @@ func tryAsUint(
 		return 0, false
 	}
 
-	s, err := x.AsString()
-	if err != nil {
-		panic(fmt.Sprintf("cannot read %s: %s", k, err))
-	}
-
-	v, err := strconv.ParseUint(s, 10, bitSize)
+	v, err := strconv.ParseUint(
+		mustAsString(k, x),
+		10,
+		bitSize,
+	)
 	if err != nil {
 		if bitSize == 0 {
 			panic(fmt.Sprintf(

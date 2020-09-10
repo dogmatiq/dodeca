@@ -74,10 +74,14 @@ func asString(b Bucket, k string) (string, bool) {
 		return "", false
 	}
 
-	s, err := x.AsString()
+	return mustAsString(k, x), true
+}
+
+func mustAsString(k string, v Value) string {
+	s, err := v.AsString()
 	if err != nil {
 		panic(fmt.Sprintf("cannot read %s: %s", k, err))
 	}
 
-	return s, true
+	return s
 }
