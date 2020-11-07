@@ -6,149 +6,109 @@ import (
 	. "github.com/onsi/gomega"
 )
 
-var _ = Describe("NewWriter", func() {
-	It("returns a writer that produces regular log messages", func() {
-		logger := &BufferedLogger{}
-		writer := NewWriter(logger)
+var _ = Describe("type StreamWriter", func() {
+	var (
+		logger *BufferedLogger
+		writer *StreamWriter
+	)
 
-		m := []byte("<message1>\n<message2>\n<message3>")
-		n, err := writer.Write(m)
-		Expect(err).ShouldNot(HaveOccurred())
-		Expect(n).To(BeNumerically("==", len(m)))
-
-		Expect(logger.Messages()).To(ConsistOf(
-			BufferedLogMessage{
-				Message: "<message1>",
-				IsDebug: false,
-			},
-			BufferedLogMessage{
-				Message: "<message2>",
-				IsDebug: false,
-			},
-		))
-
-		logger.Reset()
-
-		m = []byte("<message4>\n<message5>\n")
-		n, err = writer.Write(m)
-		Expect(err).ShouldNot(HaveOccurred())
-		Expect(n).To(BeNumerically("==", len(m)))
-
-		Expect(logger.Messages()).To(ConsistOf(
-			BufferedLogMessage{
-				Message: "<message3><message4>",
-				IsDebug: false,
-			},
-			BufferedLogMessage{
-				Message: "<message5>",
-				IsDebug: false,
-			},
-		))
+	BeforeEach(func() {
+		logger = &BufferedLogger{}
+		writer = &StreamWriter{Target: logger}
 	})
 
-	It("writes the remaining buffered content when Close() is called", func() {
-		logger := &BufferedLogger{}
-		writer := NewWriter(logger)
+	Describe("func Write()", func() {
+		It("writes each line as a separate log message", func() {
+			m := []byte("<message1>\n<message2>\n<message3>")
+			n, err := writer.Write(m)
+			Expect(err).ShouldNot(HaveOccurred())
+			Expect(n).To(BeNumerically("==", len(m)))
 
-		m := []byte("<message1>\n<message2>\n<message3>")
-		n, err := writer.Write(m)
-		Expect(err).ShouldNot(HaveOccurred())
-		Expect(n).To(BeNumerically("==", len(m)))
+			Expect(logger.Messages()).To(ConsistOf(
+				BufferedLogMessage{
+					Message: "<message1>",
+					IsDebug: false,
+				},
+				BufferedLogMessage{
+					Message: "<message2>",
+					IsDebug: false,
+				},
+			))
 
-		Expect(logger.Messages()).To(ConsistOf(
-			BufferedLogMessage{
-				Message: "<message1>",
-				IsDebug: false,
-			},
-			BufferedLogMessage{
-				Message: "<message2>",
-				IsDebug: false,
-			},
-		))
+			logger.Reset()
 
-		logger.Reset()
+			m = []byte("<message4>\n<message5>\n")
+			n, err = writer.Write(m)
+			Expect(err).ShouldNot(HaveOccurred())
+			Expect(n).To(BeNumerically("==", len(m)))
 
-		err = writer.Close()
-		Expect(err).ShouldNot(HaveOccurred())
+			Expect(logger.Messages()).To(ConsistOf(
+				BufferedLogMessage{
+					Message: "<message3><message4>",
+					IsDebug: false,
+				},
+				BufferedLogMessage{
+					Message: "<message5>",
+					IsDebug: false,
+				},
+			))
+		})
+	})
 
-		Expect(logger.Messages()).To(ConsistOf(
-			BufferedLogMessage{
-				Message: "<message3>",
-				IsDebug: false,
-			},
-		))
+	Describe("func Close()", func() {
+		It("writes the remaining buffered content when Close() is called", func() {
+			m := []byte("<message1>\n<message2>\n<message3>")
+			n, err := writer.Write(m)
+			Expect(err).ShouldNot(HaveOccurred())
+			Expect(n).To(BeNumerically("==", len(m)))
+
+			Expect(logger.Messages()).To(ConsistOf(
+				BufferedLogMessage{
+					Message: "<message1>",
+					IsDebug: false,
+				},
+				BufferedLogMessage{
+					Message: "<message2>",
+					IsDebug: false,
+				},
+			))
+
+			logger.Reset()
+
+			err = writer.Close()
+			Expect(err).ShouldNot(HaveOccurred())
+
+			Expect(logger.Messages()).To(ConsistOf(
+				BufferedLogMessage{
+					Message: "<message3>",
+					IsDebug: false,
+				},
+			))
+		})
 	})
 })
 
-var _ = Describe("NewDebugWriter", func() {
-	It("returns a writer that produces debug log messages", func() {
-		logger := &BufferedLogger{CaptureDebug: true}
-		writer := NewDebugWriter(logger)
+var _ = Describe("type LineWriter", func() {
+	var (
+		logger *BufferedLogger
+		writer *LineWriter
+	)
 
-		m := []byte("<message1>\n<message2>\n<message3>")
-		n, err := writer.Write(m)
-		Expect(err).ShouldNot(HaveOccurred())
-		Expect(n).To(BeNumerically("==", len(m)))
-
-		Expect(logger.Messages()).To(ConsistOf(
-			BufferedLogMessage{
-				Message: "<message1>",
-				IsDebug: true,
-			},
-			BufferedLogMessage{
-				Message: "<message2>",
-				IsDebug: true,
-			},
-		))
-
-		logger.Reset()
-
-		m = []byte("<message4>\n<message5>\n")
-		n, err = writer.Write(m)
-		Expect(err).ShouldNot(HaveOccurred())
-		Expect(n).To(BeNumerically("==", len(m)))
-
-		Expect(logger.Messages()).To(ConsistOf(
-			BufferedLogMessage{
-				Message: "<message3><message4>",
-				IsDebug: true,
-			},
-			BufferedLogMessage{
-				Message: "<message5>",
-				IsDebug: true,
-			},
-		))
+	BeforeEach(func() {
+		logger = &BufferedLogger{}
+		writer = &LineWriter{Target: logger}
 	})
 
-	It("writes the remaining buffered content when Close() is called", func() {
-		logger := &BufferedLogger{CaptureDebug: true}
-		writer := NewDebugWriter(logger)
-
-		m := []byte("<message1>\n<message2>\n<message3>")
+	It("writes a single log message", func() {
+		m := []byte("<message>")
 		n, err := writer.Write(m)
 		Expect(err).ShouldNot(HaveOccurred())
 		Expect(n).To(BeNumerically("==", len(m)))
 
 		Expect(logger.Messages()).To(ConsistOf(
 			BufferedLogMessage{
-				Message: "<message1>",
-				IsDebug: true,
-			},
-			BufferedLogMessage{
-				Message: "<message2>",
-				IsDebug: true,
-			},
-		))
-
-		logger.Reset()
-
-		err = writer.Close()
-		Expect(err).ShouldNot(HaveOccurred())
-
-		Expect(logger.Messages()).To(ConsistOf(
-			BufferedLogMessage{
-				Message: "<message3>",
-				IsDebug: true,
+				Message: "<message>",
+				IsDebug: false,
 			},
 		))
 	})

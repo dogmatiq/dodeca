@@ -9,6 +9,18 @@ The format is based on [Keep a Changelog], and this project adheres to
 [Keep a Changelog]: https://keepachangelog.com/en/1.0.0/
 [Semantic Versioning]: https://semver.org/spec/v2.0.0.html
 
+## [Unreleased]
+
+### Added
+
+- Add `StreamWriter`, which logs each line of text in a stream as a log message
+- Add `LineWriter`, which logs each call to `Write()` as a log message
+
+### Removed
+
+- **[BC]** Remove `NewWriter()`, use a `StreamWriter` instead
+- **[BC]** Remove `NewDebugWriter()`, use a `StreamWriter` with `Demote()` instead
+
 ## [1.0.0-rc.0] - 2020-09-10
 
 ### Added
