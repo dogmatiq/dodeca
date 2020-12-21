@@ -55,12 +55,15 @@ If `K__DATASOURCE` is:
 
 #### Consuming configuration
 
-There are two primary ways to consume configuration. The preferred way is via
-the `config.Bucket` type, which provides methods for obtaining a `config.Value`,
-which in turn has methods for representing that value as a `string`, `[]byte`,
-`io.ReadCloser`, or as a path to a real file on disk.
+There are three primary approaches to consuming configuration. The preferred way
+is to use once of the "typed" functions, such as `AsBool()`, `AsInt()`, etc.
 
-The other way is via the `config.GetEnv()` function, which is a drop-in
-replacement for `os.Getenv()`. However, it should be noted that when there is a
-problem loading a configuration value, such as when a non-existent file is
-specified this function simply returns an empty string.
+These accept a `config.Bucket ` type. The second approach is to use the bucket
+directly, which gives access to `config.Value` which in turn has methods for
+representing that value as a `string`, `[]byte`, `io.ReadCloser`, or as a path
+to a real file on disk.
+
+Finally, the `config.GetEnv()` function can be used as a drop-in replacement for
+`os.Getenv()`. However, it should be noted that when there is a problem loading
+a configuration value, such as when a non-existent file is specified this
+function simply returns an empty string.
