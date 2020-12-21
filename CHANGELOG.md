@@ -9,6 +9,11 @@ The format is based on [Keep a Changelog], and this project adheres to
 [Keep a Changelog]: https://keepachangelog.com/en/1.0.0/
 [Semantic Versioning]: https://semver.org/spec/v2.0.0.html
 
+## [1.0.0] - 2020-12-21
+
+This is the first stable release. There have been no changes to the API since
+the `1.0.0-rec.1` release.
+
 ## [1.0.0-rc.1] - 2020-11-07
 
 ### Added
@@ -81,6 +86,7 @@ The format is based on [Keep a Changelog], and this project adheres to
 [0.2.2]: https://github.com/dogmatiq/dogma/releases/tag/v0.2.2
 [1.0.0-rc.0]: https://github.com/dogmatiq/dogma/releases/tag/v1.0.0-rc.0
 [1.0.0-rc.1]: https://github.com/dogmatiq/dogma/releases/tag/v1.0.0-rc.1
+[1.0.0]: https://github.com/dogmatiq/dogma/releases/tag/v1.0.0
 
 <!-- version template
 ## [0.0.1] - YYYY-MM-DD
