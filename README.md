@@ -58,7 +58,7 @@ If `K__DATASOURCE` is:
 There are three primary approaches to consuming configuration. The preferred way
 is to use once of the "typed" functions, such as `AsBool()`, `AsInt()`, etc.
 
-These accept a `config.Bucket ` type. The second approach is to use the bucket
+These accept a `config.Bucket` type. The second approach is to use the bucket
 directly, which gives access to `config.Value` which in turn has methods for
 representing that value as a `string`, `[]byte`, `io.ReadCloser`, or as a path
 to a real file on disk.
