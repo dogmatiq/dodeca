@@ -24,11 +24,14 @@ func AsURLDefault(b Bucket, k, v string) *url.URL {
 
 	u, err := url.Parse(v)
 	if err != nil {
-		panic(fmt.Sprintf(
-			`expected the default value for %s to be a URL: %s`,
+		panic(InvalidDefaultValue{
 			k,
-			err,
-		))
+			v,
+			fmt.Sprintf(
+				`expected a URL (%s)`,
+				err.(*url.Error).Unwrap(),
+			),
+		})
 	}
 
 	return u
@@ -44,13 +47,17 @@ func tryAsURL(
 		return nil, false
 	}
 
-	v, err := url.Parse(mustAsString(k, x))
+	s := mustAsString(k, x)
+	v, err := url.Parse(s)
 	if err != nil {
-		panic(fmt.Sprintf(
-			`expected %s to be a URL: %s`,
+		panic(InvalidValue{
 			k,
-			err,
-		))
+			s,
+			fmt.Sprintf(
+				`expected a URL (%s)`,
+				err.(*url.Error).Unwrap(),
+			),
+		})
 	}
 
 	return v, true
