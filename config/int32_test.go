@@ -19,7 +19,7 @@ var _ = Describe("func AsInt32()", func() {
 
 		Expect(func() {
 			AsInt32(b, "<key>")
-		}).To(PanicWith(`<key> is not defined`))
+		}).To(PanicWith(NotDefined{Key: "<key>"}))
 	})
 
 	It("panics if the value cannot be parsed", func() {
@@ -27,7 +27,11 @@ var _ = Describe("func AsInt32()", func() {
 
 		Expect(func() {
 			AsInt32(b, "<key>")
-		}).To(PanicWith(`expected <key> to be a signed 32-bit integer: strconv.ParseInt: parsing "<invalid>": invalid syntax`))
+		}).To(PanicWith(InvalidValue{
+			Key:         "<key>",
+			Value:       "<invalid>",
+			Explanation: `expected an integer between -2147483648 and 2147483647 (inclusive)`,
+		}))
 	})
 })
 
@@ -51,7 +55,11 @@ var _ = Describe("func AsInt32Default()", func() {
 
 		Expect(func() {
 			AsInt32Default(b, "<key>", 50)
-		}).To(PanicWith(`expected <key> to be a signed 32-bit integer: strconv.ParseInt: parsing "<invalid>": invalid syntax`))
+		}).To(PanicWith(InvalidValue{
+			Key:         "<key>",
+			Value:       "<invalid>",
+			Explanation: `expected an integer between -2147483648 and 2147483647 (inclusive)`,
+		}))
 	})
 })
 
@@ -68,7 +76,7 @@ var _ = Describe("func AsInt32Between()", func() {
 
 		Expect(func() {
 			AsInt32Between(b, "<key>", -100, 100)
-		}).To(PanicWith(`<key> is not defined`))
+		}).To(PanicWith(NotDefined{Key: "<key>"}))
 	})
 
 	It("panics if the value is lower than the minimum", func() {
@@ -76,7 +84,11 @@ var _ = Describe("func AsInt32Between()", func() {
 
 		Expect(func() {
 			AsInt32Between(b, "<key>", -100, 100)
-		}).To(PanicWith(`expected <key> to be between -100 and 100 (inclusive), got -120`))
+		}).To(PanicWith(InvalidValue{
+			Key:         "<key>",
+			Value:       "-120",
+			Explanation: `expected an integer between -100 and 100 (inclusive)`,
+		}))
 	})
 
 	It("panics if the value is greater than the maximum", func() {
@@ -84,7 +96,11 @@ var _ = Describe("func AsInt32Between()", func() {
 
 		Expect(func() {
 			AsInt32Between(b, "<key>", -100, 100)
-		}).To(PanicWith(`expected <key> to be between -100 and 100 (inclusive), got 120`))
+		}).To(PanicWith(InvalidValue{
+			Key:         "<key>",
+			Value:       "120",
+			Explanation: `expected an integer between -100 and 100 (inclusive)`,
+		}))
 	})
 
 	It("panics if the value cannot be parsed", func() {
@@ -92,7 +108,11 @@ var _ = Describe("func AsInt32Between()", func() {
 
 		Expect(func() {
 			AsInt32Between(b, "<key>", -100, 100)
-		}).To(PanicWith(`expected <key> to be a signed 32-bit integer: strconv.ParseInt: parsing "<invalid>": invalid syntax`))
+		}).To(PanicWith(InvalidValue{
+			Key:         "<key>",
+			Value:       "<invalid>",
+			Explanation: `expected an integer between -100 and 100 (inclusive)`,
+		}))
 	})
 })
 
@@ -116,7 +136,11 @@ var _ = Describe("func AsInt32DefaultBetween()", func() {
 
 		Expect(func() {
 			AsInt32DefaultBetween(b, "<key>", 50, -100, 100)
-		}).To(PanicWith(`expected <key> to be between -100 and 100 (inclusive), got -120`))
+		}).To(PanicWith(InvalidValue{
+			Key:         "<key>",
+			Value:       "-120",
+			Explanation: `expected an integer between -100 and 100 (inclusive)`,
+		}))
 	})
 
 	It("panics if the value is greater than the maximum", func() {
@@ -124,7 +148,11 @@ var _ = Describe("func AsInt32DefaultBetween()", func() {
 
 		Expect(func() {
 			AsInt32DefaultBetween(b, "<key>", 50, -100, 100)
-		}).To(PanicWith(`expected <key> to be between -100 and 100 (inclusive), got 120`))
+		}).To(PanicWith(InvalidValue{
+			Key:         "<key>",
+			Value:       "120",
+			Explanation: `expected an integer between -100 and 100 (inclusive)`,
+		}))
 	})
 
 	It("panics if the default is lower than the minimum", func() {
@@ -132,7 +160,11 @@ var _ = Describe("func AsInt32DefaultBetween()", func() {
 
 		Expect(func() {
 			AsInt32DefaultBetween(b, "<key>", -120, -100, 100)
-		}).To(PanicWith(`expected the default value for <key> to be between -100 and 100 (inclusive), got -120`))
+		}).To(PanicWith(InvalidDefaultValue{
+			Key:          "<key>",
+			DefaultValue: "-120",
+			Explanation:  `expected an integer between -100 and 100 (inclusive)`,
+		}))
 	})
 
 	It("panics if the default is greater than the maximum", func() {
@@ -140,7 +172,11 @@ var _ = Describe("func AsInt32DefaultBetween()", func() {
 
 		Expect(func() {
 			AsInt32DefaultBetween(b, "<key>", 120, -100, 100)
-		}).To(PanicWith(`expected the default value for <key> to be between -100 and 100 (inclusive), got 120`))
+		}).To(PanicWith(InvalidDefaultValue{
+			Key:          "<key>",
+			DefaultValue: "120",
+			Explanation:  `expected an integer between -100 and 100 (inclusive)`,
+		}))
 	})
 
 	It("panics if the value cannot be parsed", func() {
@@ -148,6 +184,10 @@ var _ = Describe("func AsInt32DefaultBetween()", func() {
 
 		Expect(func() {
 			AsInt32DefaultBetween(b, "<key>", 50, -100, 100)
-		}).To(PanicWith(`expected <key> to be a signed 32-bit integer: strconv.ParseInt: parsing "<invalid>": invalid syntax`))
+		}).To(PanicWith(InvalidValue{
+			Key:         "<key>",
+			Value:       "<invalid>",
+			Explanation: `expected an integer between -100 and 100 (inclusive)`,
+		}))
 	})
 })

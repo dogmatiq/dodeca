@@ -21,7 +21,7 @@ var _ = Describe("func AsDuration()", func() {
 
 		Expect(func() {
 			AsDuration(b, "<key>")
-		}).To(PanicWith(`<key> is not defined`))
+		}).To(PanicWith(NotDefined{Key: "<key>"}))
 	})
 
 	It("panics if the value cannot be parsed", func() {
@@ -29,7 +29,11 @@ var _ = Describe("func AsDuration()", func() {
 
 		Expect(func() {
 			AsDuration(b, "<key>")
-		}).To(PanicWith(`expected <key> to be a duration: time: invalid duration "<invalid>"`))
+		}).To(PanicWith(InvalidValue{
+			Key:         "<key>",
+			Value:       "<invalid>",
+			Explanation: `expected a duration`,
+		}))
 	})
 })
 
@@ -53,7 +57,11 @@ var _ = Describe("func AsDurationDefault()", func() {
 
 		Expect(func() {
 			AsDurationDefault(b, "<key>", 50*time.Millisecond)
-		}).To(PanicWith(`expected <key> to be a duration: time: invalid duration "<invalid>"`))
+		}).To(PanicWith(InvalidValue{
+			Key:         "<key>",
+			Value:       "<invalid>",
+			Explanation: `expected a duration`,
+		}))
 	})
 })
 
@@ -70,7 +78,7 @@ var _ = Describe("func AsDurationBetween()", func() {
 
 		Expect(func() {
 			AsDurationBetween(b, "<key>", -100*time.Millisecond, 100*time.Millisecond)
-		}).To(PanicWith(`<key> is not defined`))
+		}).To(PanicWith(NotDefined{Key: "<key>"}))
 	})
 
 	It("panics if the value is lower than the minimum", func() {
@@ -78,7 +86,11 @@ var _ = Describe("func AsDurationBetween()", func() {
 
 		Expect(func() {
 			AsDurationBetween(b, "<key>", -100*time.Millisecond, 100*time.Millisecond)
-		}).To(PanicWith(`expected <key> to be between -100ms and 100ms (inclusive), got -120ms`))
+		}).To(PanicWith(InvalidValue{
+			Key:         "<key>",
+			Value:       "-120ms",
+			Explanation: `expected a duration between -100ms and 100ms (inclusive)`,
+		}))
 	})
 
 	It("panics if the value is greater than the maximum", func() {
@@ -86,7 +98,11 @@ var _ = Describe("func AsDurationBetween()", func() {
 
 		Expect(func() {
 			AsDurationBetween(b, "<key>", -100*time.Millisecond, 100*time.Millisecond)
-		}).To(PanicWith(`expected <key> to be between -100ms and 100ms (inclusive), got 120ms`))
+		}).To(PanicWith(InvalidValue{
+			Key:         "<key>",
+			Value:       "120ms",
+			Explanation: `expected a duration between -100ms and 100ms (inclusive)`,
+		}))
 	})
 
 	It("panics if the value cannot be parsed", func() {
@@ -94,7 +110,11 @@ var _ = Describe("func AsDurationBetween()", func() {
 
 		Expect(func() {
 			AsDurationBetween(b, "<key>", -100*time.Millisecond, 100*time.Millisecond)
-		}).To(PanicWith(`expected <key> to be a duration: time: invalid duration "<invalid>"`))
+		}).To(PanicWith(InvalidValue{
+			Key:         "<key>",
+			Value:       "<invalid>",
+			Explanation: `expected a duration`,
+		}))
 	})
 })
 
@@ -118,7 +138,11 @@ var _ = Describe("func AsDurationDefaultBetween()", func() {
 
 		Expect(func() {
 			AsDurationDefaultBetween(b, "<key>", 50*time.Millisecond, -100*time.Millisecond, 100*time.Millisecond)
-		}).To(PanicWith(`expected <key> to be between -100ms and 100ms (inclusive), got -120ms`))
+		}).To(PanicWith(InvalidValue{
+			Key:         "<key>",
+			Value:       "-120ms",
+			Explanation: `expected a duration between -100ms and 100ms (inclusive)`,
+		}))
 	})
 
 	It("panics if the value is greater than the maximum", func() {
@@ -126,7 +150,11 @@ var _ = Describe("func AsDurationDefaultBetween()", func() {
 
 		Expect(func() {
 			AsDurationDefaultBetween(b, "<key>", 50*time.Millisecond, -100*time.Millisecond, 100*time.Millisecond)
-		}).To(PanicWith(`expected <key> to be between -100ms and 100ms (inclusive), got 120ms`))
+		}).To(PanicWith(InvalidValue{
+			Key:         "<key>",
+			Value:       "120ms",
+			Explanation: `expected a duration between -100ms and 100ms (inclusive)`,
+		}))
 	})
 
 	It("panics if the default is lower than the minimum", func() {
@@ -134,7 +162,11 @@ var _ = Describe("func AsDurationDefaultBetween()", func() {
 
 		Expect(func() {
 			AsDurationDefaultBetween(b, "<key>", -120*time.Millisecond, -100*time.Millisecond, 100*time.Millisecond)
-		}).To(PanicWith(`expected the default value for <key> to be between -100ms and 100ms (inclusive), got -120ms`))
+		}).To(PanicWith(InvalidDefaultValue{
+			Key:          "<key>",
+			DefaultValue: "-120ms",
+			Explanation:  `expected a duration between -100ms and 100ms (inclusive)`,
+		}))
 	})
 
 	It("panics if the default is greater than the maximum", func() {
@@ -142,7 +174,11 @@ var _ = Describe("func AsDurationDefaultBetween()", func() {
 
 		Expect(func() {
 			AsDurationDefaultBetween(b, "<key>", 120*time.Millisecond, -100*time.Millisecond, 100*time.Millisecond)
-		}).To(PanicWith(`expected the default value for <key> to be between -100ms and 100ms (inclusive), got 120ms`))
+		}).To(PanicWith(InvalidDefaultValue{
+			Key:          "<key>",
+			DefaultValue: "120ms",
+			Explanation:  `expected a duration between -100ms and 100ms (inclusive)`,
+		}))
 	})
 
 	It("panics if the value cannot be parsed", func() {
@@ -150,6 +186,10 @@ var _ = Describe("func AsDurationDefaultBetween()", func() {
 
 		Expect(func() {
 			AsDurationDefaultBetween(b, "<key>", 50*time.Millisecond, -100*time.Millisecond, 100*time.Millisecond)
-		}).To(PanicWith(`expected <key> to be a duration: time: invalid duration "<invalid>"`))
+		}).To(PanicWith(InvalidValue{
+			Key:         "<key>",
+			Value:       "<invalid>",
+			Explanation: `expected a duration`,
+		}))
 	})
 })

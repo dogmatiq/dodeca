@@ -34,7 +34,7 @@ var _ = Describe("func AsBool()", func() {
 
 		Expect(func() {
 			AsBool(b, "<key>")
-		}).To(PanicWith(`<key> is not defined`))
+		}).To(PanicWith(NotDefined{Key: "<key>"}))
 	})
 
 	It("panics if the value is not one of the accepted values", func() {
@@ -42,7 +42,11 @@ var _ = Describe("func AsBool()", func() {
 
 		Expect(func() {
 			AsBool(b, "<key>")
-		}).To(PanicWith(`expected <key> to be a boolean ("true", "false", "yes", "no", "on" or "off"), got "<invalid>"`))
+		}).To(PanicWith(InvalidValue{
+			Key:         "<key>",
+			Value:       "<invalid>",
+			Explanation: `expected a boolean ("true", "false", "yes", "no", "on" or "off")`,
+		}))
 	})
 })
 
@@ -70,7 +74,11 @@ var _ = Describe("func AsBoolF()", func() {
 
 		Expect(func() {
 			AsBoolT(b, "<key>")
-		}).To(PanicWith(`expected <key> to be a boolean ("true", "false", "yes", "no", "on" or "off"), got "<invalid>"`))
+		}).To(PanicWith(InvalidValue{
+			Key:         "<key>",
+			Value:       "<invalid>",
+			Explanation: `expected a boolean ("true", "false", "yes", "no", "on" or "off")`,
+		}))
 	})
 })
 
@@ -98,7 +106,11 @@ var _ = Describe("func AsBoolF()", func() {
 
 		Expect(func() {
 			AsBoolF(b, "<key>")
-		}).To(PanicWith(`expected <key> to be a boolean ("true", "false", "yes", "no", "on" or "off"), got "<invalid>"`))
+		}).To(PanicWith(InvalidValue{
+			Key:         "<key>",
+			Value:       "<invalid>",
+			Explanation: `expected a boolean ("true", "false", "yes", "no", "on" or "off")`,
+		}))
 	})
 })
 
@@ -126,6 +138,10 @@ var _ = Describe("func AsBoolDefault()", func() {
 
 		Expect(func() {
 			AsBoolDefault(b, "<key>", true)
-		}).To(PanicWith(`expected <key> to be a boolean ("true", "false", "yes", "no", "on" or "off"), got "<invalid>"`))
+		}).To(PanicWith(InvalidValue{
+			Key:         "<key>",
+			Value:       "<invalid>",
+			Explanation: `expected a boolean ("true", "false", "yes", "no", "on" or "off")`,
+		}))
 	})
 })

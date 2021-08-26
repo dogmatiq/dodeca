@@ -19,7 +19,7 @@ var _ = Describe("func AsURL()", func() {
 
 		Expect(func() {
 			AsURL(b, "<key>")
-		}).To(PanicWith(`<key> is not defined`))
+		}).To(PanicWith(NotDefined{Key: "<key>"}))
 	})
 
 	It("panics if the value cannot be parsed", func() {
@@ -27,7 +27,11 @@ var _ = Describe("func AsURL()", func() {
 
 		Expect(func() {
 			AsURL(b, "<key>")
-		}).To(PanicWith(`expected <key> to be a URL: parse ":": missing protocol scheme`))
+		}).To(PanicWith(InvalidValue{
+			Key:         "<key>",
+			Value:       ":",
+			Explanation: `expected a URL (missing protocol scheme)`,
+		}))
 	})
 })
 
@@ -51,7 +55,11 @@ var _ = Describe("func AsURLDefault()", func() {
 
 		Expect(func() {
 			AsURLDefault(b, "<key>", "http://www.example.org/default")
-		}).To(PanicWith(`expected <key> to be a URL: parse ":": missing protocol scheme`))
+		}).To(PanicWith(InvalidValue{
+			Key:         "<key>",
+			Value:       ":",
+			Explanation: `expected a URL (missing protocol scheme)`,
+		}))
 	})
 
 	It("panics if the default value cannot be parsed", func() {
@@ -59,6 +67,10 @@ var _ = Describe("func AsURLDefault()", func() {
 
 		Expect(func() {
 			AsURLDefault(b, "<key>", ":")
-		}).To(PanicWith(`expected the default value for <key> to be a URL: parse ":": missing protocol scheme`))
+		}).To(PanicWith(InvalidDefaultValue{
+			Key:          "<key>",
+			DefaultValue: ":",
+			Explanation:  `expected a URL (missing protocol scheme)`,
+		}))
 	})
 })

@@ -19,7 +19,7 @@ var _ = Describe("func AsBytes()", func() {
 
 		Expect(func() {
 			AsBytes(b, "<key>")
-		}).To(PanicWith(`<key> is not defined`))
+		}).To(PanicWith(NotDefined{Key: "<key>"}))
 	})
 })
 

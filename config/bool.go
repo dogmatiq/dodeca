@@ -1,7 +1,6 @@
 package config
 
 import (
-	"fmt"
 	"strings"
 )
 
@@ -15,7 +14,7 @@ func AsBool(b Bucket, k string) bool {
 		return v
 	}
 
-	panic(fmt.Sprintf("%s is not defined", k))
+	panic(NotDefined{k})
 }
 
 // AsBoolT returns the boolean representation of the value associated with k, or
@@ -64,10 +63,10 @@ func asBool(b Bucket, k string) (bool, bool) {
 	case "false", "no", "off":
 		return false, true
 	default:
-		panic(fmt.Sprintf(
-			`expected %s to be a boolean ("true", "false", "yes", "no", "on" or "off"), got %#v`,
+		panic(InvalidValue{
 			k,
 			s,
-		))
+			`expected a boolean ("true", "false", "yes", "no", "on" or "off")`,
+		})
 	}
 }
