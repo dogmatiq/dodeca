@@ -166,39 +166,24 @@ func tryAsInt(
 		return 0, false
 	}
 
+	s := mustAsString(k, x)
 	v, err := strconv.ParseInt(
-		mustAsString(k, x),
+		s,
 		10,
 		bitSize,
 	)
-	if err != nil {
-		if bitSize == 0 {
-			panic(fmt.Sprintf(
-				`expected %s to be a signed integer: %s`,
-				k,
-				err,
-			))
-		}
-
-		panic(fmt.Sprintf(
-			`expected %s to be a signed %d-bit integer: %s`,
-			k,
-			bitSize,
-			err,
-		))
+	if err == nil && min <= v && v <= max {
+		return v, true
 	}
 
-	if min > v || v > max {
-		panic(fmt.Sprintf(
-			`expected %s to be between %d and %d (inclusive), got %d`,
-			k,
+	panic(InvalidValue{
+		k,
+		s,
+		fmt.Sprintf(`expected an integer between %d and %d (inclusive)`,
 			min,
 			max,
-			v,
-		))
-	}
-
-	return v, true
+		),
+	})
 }
 
 func asInt(
@@ -221,13 +206,15 @@ func asIntDefault(
 	d, min, max int64,
 ) int64 {
 	if min > d || d > max {
-		panic(fmt.Sprintf(
-			`expected the default value for %s to be between %d and %d (inclusive), got %d`,
+		panic(InvalidDefaultValue{
 			k,
-			min,
-			max,
-			d,
-		))
+			fmt.Sprintf(`%d`, d),
+			fmt.Sprintf(
+				`expected an integer between %d and %d (inclusive)`,
+				min,
+				max,
+			),
+		})
 	}
 
 	if v, ok := tryAsInt(b, k, bitSize, min, max); ok {
