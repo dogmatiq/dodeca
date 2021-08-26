@@ -53,23 +53,26 @@ func tryAsDuration(
 		return 0, false
 	}
 
-	v, err := time.ParseDuration(mustAsString(k, x))
+	s := mustAsString(k, x)
+	v, err := time.ParseDuration(s)
 	if err != nil {
-		panic(fmt.Sprintf(
-			`expected %s to be a duration: %s`,
+		panic(InvalidValue{
 			k,
-			err,
-		))
+			s,
+			`expected a duration`,
+		})
 	}
 
 	if min > v || v > max {
-		panic(fmt.Sprintf(
-			`expected %s to be between %s and %s (inclusive), got %s`,
+		panic(InvalidValue{
 			k,
-			min,
-			max,
-			v,
-		))
+			s,
+			fmt.Sprintf(
+				`expected a duration between %s and %s (inclusive)`,
+				min,
+				max,
+			),
+		})
 	}
 
 	return v, true
@@ -93,13 +96,15 @@ func asDurationDefault(
 	d, min, max time.Duration,
 ) time.Duration {
 	if min > d || d > max {
-		panic(fmt.Sprintf(
-			`expected the default value for %s to be between %s and %s (inclusive), got %s`,
+		panic(InvalidDefaultValue{
 			k,
-			min,
-			max,
 			d,
-		))
+			fmt.Sprintf(
+				`expected a duration between %s and %s (inclusive)`,
+				min,
+				max,
+			),
+		})
 	}
 
 	if v, ok := tryAsDuration(b, k, min, max); ok {
