@@ -7,8 +7,8 @@ import (
 )
 
 var _ = DescribeTable(
-	"error types",
-	func(message string, err Error) {
+	"KeyError implementations",
+	func(message string, err KeyError) {
 		Expect(err.ConfigKey()).To(Equal("<key>"))
 		Expect(err.Error()).To(Equal(message))
 	},

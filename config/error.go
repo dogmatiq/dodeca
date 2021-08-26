@@ -2,8 +2,9 @@ package config
 
 import "fmt"
 
-// Error is an interface implemented by errors produced by this package.
-type Error interface {
+// KeyError is an error that indicates a problem with the value associated with
+// a specific key.
+type KeyError interface {
 	error
 
 	// ConfigKey returns the config key that the error relates to.
@@ -51,7 +52,7 @@ func (e InvalidValue) Error() string {
 // associated with a key is not well-formed or is otherwise invalid.
 type InvalidDefaultValue struct {
 	Key          string
-	DefaultValue interface{}
+	DefaultValue string
 	Explanation  string
 }
 

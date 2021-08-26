@@ -74,27 +74,26 @@ func tryAsFloat(
 		return 0, false
 	}
 
-	v, err := strconv.ParseFloat(
-		mustAsString(k, x),
-		bitSize,
-	)
+	s := mustAsString(k, x)
+	v, err := strconv.ParseFloat(s, bitSize)
 	if err != nil {
-		panic(fmt.Sprintf(
-			`expected %s to be a %d-bit floating-point number: %s`,
+		panic(InvalidValue{
 			k,
-			bitSize,
-			err,
-		))
+			s,
+			fmt.Sprintf(`expected a %d-bit floating-point number`, bitSize),
+		})
 	}
 
 	if min > v || v > max {
-		panic(fmt.Sprintf(
-			`expected %s to be between %f and %f (inclusive), got %f`,
+		panic(InvalidValue{
 			k,
-			min,
-			max,
-			v,
-		))
+			s,
+			fmt.Sprintf(
+				`expected a number between %f and %f (inclusive)`,
+				min,
+				max,
+			),
+		})
 	}
 
 	return v, true
@@ -120,13 +119,15 @@ func asFloatDefault(
 	d, min, max float64,
 ) float64 {
 	if min > d || d > max {
-		panic(fmt.Sprintf(
-			`expected the default value for %s to be between %f and %f (inclusive), got %f`,
+		panic(InvalidDefaultValue{
 			k,
-			min,
-			max,
-			d,
-		))
+			fmt.Sprintf(`%f`, d),
+			fmt.Sprintf(
+				`expected a number between %f and %f (inclusive)`,
+				min,
+				max,
+			),
+		})
 	}
 
 	if v, ok := tryAsFloat(b, k, bitSize, min, max); ok {

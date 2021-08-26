@@ -98,7 +98,7 @@ func asDurationDefault(
 	if min > d || d > max {
 		panic(InvalidDefaultValue{
 			k,
-			d,
+			d.String(),
 			fmt.Sprintf(
 				`expected a duration between %s and %s (inclusive)`,
 				min,

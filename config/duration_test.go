@@ -164,7 +164,7 @@ var _ = Describe("func AsDurationDefaultBetween()", func() {
 			AsDurationDefaultBetween(b, "<key>", -120*time.Millisecond, -100*time.Millisecond, 100*time.Millisecond)
 		}).To(PanicWith(InvalidDefaultValue{
 			Key:          "<key>",
-			DefaultValue: -120 * time.Millisecond,
+			DefaultValue: "-120ms",
 			Explanation:  `expected a duration between -100ms and 100ms (inclusive)`,
 		}))
 	})
@@ -176,7 +176,7 @@ var _ = Describe("func AsDurationDefaultBetween()", func() {
 			AsDurationDefaultBetween(b, "<key>", 120*time.Millisecond, -100*time.Millisecond, 100*time.Millisecond)
 		}).To(PanicWith(InvalidDefaultValue{
 			Key:          "<key>",
-			DefaultValue: 120 * time.Millisecond,
+			DefaultValue: "120ms",
 			Explanation:  `expected a duration between -100ms and 100ms (inclusive)`,
 		}))
 	})
