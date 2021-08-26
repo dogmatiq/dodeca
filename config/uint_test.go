@@ -1,6 +1,8 @@
 package config_test
 
 import (
+	"fmt"
+
 	. "github.com/dogmatiq/dodeca/config"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
@@ -27,7 +29,14 @@ var _ = Describe("func AsUint()", func() {
 
 		Expect(func() {
 			AsUint(b, "<key>")
-		}).To(PanicWith(`expected <key> to be an unsigned integer: strconv.ParseUint: parsing "<invalid>": invalid syntax`))
+		}).To(PanicWith(InvalidValue{
+			Key:   "<key>",
+			Value: "<invalid>",
+			Explanation: fmt.Sprintf(
+				`expected an integer between 0 and %d (inclusive)`,
+				uint(MaxUint),
+			),
+		}))
 	})
 })
 
@@ -51,7 +60,14 @@ var _ = Describe("func AsUintDefault()", func() {
 
 		Expect(func() {
 			AsUintDefault(b, "<key>", 50)
-		}).To(PanicWith(`expected <key> to be an unsigned integer: strconv.ParseUint: parsing "<invalid>": invalid syntax`))
+		}).To(PanicWith(InvalidValue{
+			Key:   "<key>",
+			Value: "<invalid>",
+			Explanation: fmt.Sprintf(
+				`expected an integer between 0 and %d (inclusive)`,
+				uint(MaxUint),
+			),
+		}))
 	})
 })
 
@@ -76,7 +92,11 @@ var _ = Describe("func AsUintBetween()", func() {
 
 		Expect(func() {
 			AsUintBetween(b, "<key>", 10, 100)
-		}).To(PanicWith(`expected <key> to be between 10 and 100 (inclusive), got 5`))
+		}).To(PanicWith(InvalidValue{
+			Key:         "<key>",
+			Value:       "5",
+			Explanation: `expected an integer between 10 and 100 (inclusive)`,
+		}))
 	})
 
 	It("panics if the value is greater than the maximum", func() {
@@ -84,7 +104,11 @@ var _ = Describe("func AsUintBetween()", func() {
 
 		Expect(func() {
 			AsUintBetween(b, "<key>", 10, 100)
-		}).To(PanicWith(`expected <key> to be between 10 and 100 (inclusive), got 120`))
+		}).To(PanicWith(InvalidValue{
+			Key:         "<key>",
+			Value:       "120",
+			Explanation: `expected an integer between 10 and 100 (inclusive)`,
+		}))
 	})
 
 	It("panics if the value cannot be parsed", func() {
@@ -92,7 +116,11 @@ var _ = Describe("func AsUintBetween()", func() {
 
 		Expect(func() {
 			AsUintBetween(b, "<key>", 10, 100)
-		}).To(PanicWith(`expected <key> to be an unsigned integer: strconv.ParseUint: parsing "<invalid>": invalid syntax`))
+		}).To(PanicWith(InvalidValue{
+			Key:         "<key>",
+			Value:       "<invalid>",
+			Explanation: `expected an integer between 10 and 100 (inclusive)`,
+		}))
 	})
 })
 
@@ -116,7 +144,11 @@ var _ = Describe("func AsUintDefaultBetween()", func() {
 
 		Expect(func() {
 			AsUintDefaultBetween(b, "<key>", 50, 10, 100)
-		}).To(PanicWith(`expected <key> to be between 10 and 100 (inclusive), got 5`))
+		}).To(PanicWith(InvalidValue{
+			Key:         "<key>",
+			Value:       "5",
+			Explanation: `expected an integer between 10 and 100 (inclusive)`,
+		}))
 	})
 
 	It("panics if the value is greater than the maximum", func() {
@@ -124,7 +156,11 @@ var _ = Describe("func AsUintDefaultBetween()", func() {
 
 		Expect(func() {
 			AsUintDefaultBetween(b, "<key>", 50, 10, 100)
-		}).To(PanicWith(`expected <key> to be between 10 and 100 (inclusive), got 120`))
+		}).To(PanicWith(InvalidValue{
+			Key:         "<key>",
+			Value:       "120",
+			Explanation: `expected an integer between 10 and 100 (inclusive)`,
+		}))
 	})
 
 	It("panics if the default is lower than the minimum", func() {
@@ -132,7 +168,11 @@ var _ = Describe("func AsUintDefaultBetween()", func() {
 
 		Expect(func() {
 			AsUintDefaultBetween(b, "<key>", 5, 10, 100)
-		}).To(PanicWith(`expected the default value for <key> to be between 10 and 100 (inclusive), got 5`))
+		}).To(PanicWith(InvalidDefaultValue{
+			Key:          "<key>",
+			DefaultValue: "5",
+			Explanation:  `expected an integer between 10 and 100 (inclusive)`,
+		}))
 	})
 
 	It("panics if the default is greater than the maximum", func() {
@@ -140,7 +180,11 @@ var _ = Describe("func AsUintDefaultBetween()", func() {
 
 		Expect(func() {
 			AsUintDefaultBetween(b, "<key>", 120, 10, 100)
-		}).To(PanicWith(`expected the default value for <key> to be between 10 and 100 (inclusive), got 120`))
+		}).To(PanicWith(InvalidDefaultValue{
+			Key:          "<key>",
+			DefaultValue: "120",
+			Explanation:  `expected an integer between 10 and 100 (inclusive)`,
+		}))
 	})
 
 	It("panics if the value cannot be parsed", func() {
@@ -148,6 +192,10 @@ var _ = Describe("func AsUintDefaultBetween()", func() {
 
 		Expect(func() {
 			AsUintDefaultBetween(b, "<key>", 50, 10, 100)
-		}).To(PanicWith(`expected <key> to be an unsigned integer: strconv.ParseUint: parsing "<invalid>": invalid syntax`))
+		}).To(PanicWith(InvalidValue{
+			Key:         "<key>",
+			Value:       "<invalid>",
+			Explanation: `expected an integer between 10 and 100 (inclusive)`,
+		}))
 	})
 })
