@@ -165,7 +165,7 @@ var _ = Describe("func AsString()", func() {
 
 		Expect(func() {
 			AsString(b, "<key>")
-		}).To(PanicWith(`<key> is not defined`))
+		}).To(PanicWith(NotDefined{Key: "<key>"}))
 	})
 })
 

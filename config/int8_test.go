@@ -19,7 +19,7 @@ var _ = Describe("func AsInt8()", func() {
 
 		Expect(func() {
 			AsInt8(b, "<key>")
-		}).To(PanicWith(`<key> is not defined`))
+		}).To(PanicWith(NotDefined{Key: "<key>"}))
 	})
 
 	It("panics if the value cannot be parsed", func() {
@@ -68,7 +68,7 @@ var _ = Describe("func AsInt8Between()", func() {
 
 		Expect(func() {
 			AsInt8Between(b, "<key>", -100, 100)
-		}).To(PanicWith(`<key> is not defined`))
+		}).To(PanicWith(NotDefined{Key: "<key>"}))
 	})
 
 	It("panics if the value is lower than the minimum", func() {

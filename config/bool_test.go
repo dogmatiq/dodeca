@@ -34,7 +34,7 @@ var _ = Describe("func AsBool()", func() {
 
 		Expect(func() {
 			AsBool(b, "<key>")
-		}).To(PanicWith(`<key> is not defined`))
+		}).To(PanicWith(NotDefined{Key: "<key>"}))
 	})
 
 	It("panics if the value is not one of the accepted values", func() {

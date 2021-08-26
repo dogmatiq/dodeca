@@ -84,7 +84,7 @@ func asDuration(
 		return v
 	}
 
-	panic(fmt.Sprintf("%s is not defined", k))
+	panic(NotDefined{k})
 }
 
 func asDurationDefault(

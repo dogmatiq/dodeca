@@ -12,7 +12,7 @@ func AsURL(b Bucket, k string) *url.URL {
 		return v
 	}
 
-	panic(fmt.Sprintf("%s is not defined", k))
+	panic(NotDefined{k})
 }
 
 // AsURLDefault returns the url.URL representation of the value associated with

@@ -54,7 +54,7 @@ func AsBytes(b Bucket, k string) []byte {
 		return v
 	}
 
-	panic(fmt.Sprintf("%s is not defined", k))
+	panic(NotDefined{k})
 }
 
 // AsBytesDefault returns the byte-slice representation of the value associated

@@ -54,7 +54,7 @@ func AsString(b Bucket, k string) string {
 		return v
 	}
 
-	panic(fmt.Sprintf("%s is not defined", k))
+	panic(NotDefined{k})
 }
 
 // AsStringDefault returns the string representation of the value associated

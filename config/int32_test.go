@@ -19,7 +19,7 @@ var _ = Describe("func AsInt32()", func() {
 
 		Expect(func() {
 			AsInt32(b, "<key>")
-		}).To(PanicWith(`<key> is not defined`))
+		}).To(PanicWith(NotDefined{Key: "<key>"}))
 	})
 
 	It("panics if the value cannot be parsed", func() {
@@ -68,7 +68,7 @@ var _ = Describe("func AsInt32Between()", func() {
 
 		Expect(func() {
 			AsInt32Between(b, "<key>", -100, 100)
-		}).To(PanicWith(`<key> is not defined`))
+		}).To(PanicWith(NotDefined{Key: "<key>"}))
 	})
 
 	It("panics if the value is lower than the minimum", func() {

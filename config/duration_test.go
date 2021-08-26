@@ -21,7 +21,7 @@ var _ = Describe("func AsDuration()", func() {
 
 		Expect(func() {
 			AsDuration(b, "<key>")
-		}).To(PanicWith(`<key> is not defined`))
+		}).To(PanicWith(NotDefined{Key: "<key>"}))
 	})
 
 	It("panics if the value cannot be parsed", func() {
@@ -70,7 +70,7 @@ var _ = Describe("func AsDurationBetween()", func() {
 
 		Expect(func() {
 			AsDurationBetween(b, "<key>", -100*time.Millisecond, 100*time.Millisecond)
-		}).To(PanicWith(`<key> is not defined`))
+		}).To(PanicWith(NotDefined{Key: "<key>"}))
 	})
 
 	It("panics if the value is lower than the minimum", func() {

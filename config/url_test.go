@@ -19,7 +19,7 @@ var _ = Describe("func AsURL()", func() {
 
 		Expect(func() {
 			AsURL(b, "<key>")
-		}).To(PanicWith(`<key> is not defined`))
+		}).To(PanicWith(NotDefined{Key: "<key>"}))
 	})
 
 	It("panics if the value cannot be parsed", func() {

@@ -15,7 +15,7 @@ func AsBool(b Bucket, k string) bool {
 		return v
 	}
 
-	panic(fmt.Sprintf("%s is not defined", k))
+	panic(NotDefined{k})
 }
 
 // AsBoolT returns the boolean representation of the value associated with k, or
