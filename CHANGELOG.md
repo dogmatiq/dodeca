@@ -10,6 +10,12 @@ The format is based on [Keep a Changelog], and this project adheres to
 [keep a changelog]: https://keepachangelog.com/en/1.0.0/
 [semantic versioning]: https://semver.org/spec/v2.0.0.html
 
+## [Unreleased]
+
+### Added
+
+- Add `logging.Tee()`, which returns a logger that dispatches all messages to multiple other loggers
+
 ## [1.2.0] - 2021-08-26
 
 ### Added
