@@ -3,6 +3,7 @@ package logging_test
 import (
 	. "github.com/dogmatiq/dodeca/logging"
 	. "github.com/onsi/ginkgo"
+	. "github.com/onsi/ginkgo/extensions/table"
 	. "github.com/onsi/gomega"
 )
 
@@ -18,11 +19,55 @@ var _ = Describe("type StreamWriter", func() {
 	})
 
 	Describe("func Write()", func() {
-		It("writes each line as a separate log message", func() {
-			m := []byte("<message1>\n<message2>\n<message3>")
-			n, err := writer.Write(m)
+		DescribeTable(
+			"writes each line of text as a separate log message",
+			func(sep string) {
+				m := []byte("<message1>" + sep + "<message2>" + sep + "<message3>")
+				n, err := writer.Write(m)
+				Expect(err).ShouldNot(HaveOccurred())
+				Expect(n).To(BeNumerically("==", len(m)))
+
+				Expect(logger.Messages()).To(ConsistOf(
+					BufferedLogMessage{
+						Message: "<message1>",
+						IsDebug: false,
+					},
+					BufferedLogMessage{
+						Message: "<message2>",
+						IsDebug: false,
+					},
+				))
+
+				logger.Reset()
+
+				// Note: no new line between messages 3 and 4.
+				m = []byte("<message4>" + sep + "<message5>" + sep)
+				n, err = writer.Write(m)
+				Expect(err).ShouldNot(HaveOccurred())
+				Expect(n).To(BeNumerically("==", len(m)))
+
+				Expect(logger.Messages()).To(ConsistOf(
+					BufferedLogMessage{
+						Message: "<message3><message4>",
+						IsDebug: false,
+					},
+					BufferedLogMessage{
+						Message: "<message5>",
+						IsDebug: false,
+					},
+				))
+			},
+			Entry("LF", "\n"),
+			Entry("CR", "\r"),
+			Entry("CRLF", "\r\n"),
+		)
+
+		It("handles CRLF split across separate calls to Write()", func() {
+			_, err := writer.Write([]byte("<message1>\r"))
 			Expect(err).ShouldNot(HaveOccurred())
-			Expect(n).To(BeNumerically("==", len(m)))
+
+			_, err = writer.Write([]byte("\n<message2>\r\n"))
+			Expect(err).ShouldNot(HaveOccurred())
 
 			Expect(logger.Messages()).To(ConsistOf(
 				BufferedLogMessage{
@@ -31,24 +76,6 @@ var _ = Describe("type StreamWriter", func() {
 				},
 				BufferedLogMessage{
 					Message: "<message2>",
-					IsDebug: false,
-				},
-			))
-
-			logger.Reset()
-
-			m = []byte("<message4>\n<message5>\n")
-			n, err = writer.Write(m)
-			Expect(err).ShouldNot(HaveOccurred())
-			Expect(n).To(BeNumerically("==", len(m)))
-
-			Expect(logger.Messages()).To(ConsistOf(
-				BufferedLogMessage{
-					Message: "<message3><message4>",
-					IsDebug: false,
-				},
-				BufferedLogMessage{
-					Message: "<message5>",
 					IsDebug: false,
 				},
 			))
@@ -56,31 +83,20 @@ var _ = Describe("type StreamWriter", func() {
 	})
 
 	Describe("func Close()", func() {
-		It("writes the remaining buffered content when Close() is called", func() {
-			m := []byte("<message1>\n<message2>\n<message3>")
+		It("writes unterminated lines when Close() is called", func() {
+			m := []byte("<message>")
 			n, err := writer.Write(m)
 			Expect(err).ShouldNot(HaveOccurred())
 			Expect(n).To(BeNumerically("==", len(m)))
 
-			Expect(logger.Messages()).To(ConsistOf(
-				BufferedLogMessage{
-					Message: "<message1>",
-					IsDebug: false,
-				},
-				BufferedLogMessage{
-					Message: "<message2>",
-					IsDebug: false,
-				},
-			))
-
-			logger.Reset()
+			Expect(logger.Messages()).To(BeEmpty())
 
 			err = writer.Close()
 			Expect(err).ShouldNot(HaveOccurred())
 
 			Expect(logger.Messages()).To(ConsistOf(
 				BufferedLogMessage{
-					Message: "<message3>",
+					Message: "<message>",
 					IsDebug: false,
 				},
 			))
