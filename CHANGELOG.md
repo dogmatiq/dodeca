@@ -10,7 +10,7 @@ The format is based on [Keep a Changelog], and this project adheres to
 [keep a changelog]: https://keepachangelog.com/en/1.0.0/
 [semantic versioning]: https://semver.org/spec/v2.0.0.html
 
-## [Unreleased]
+## [1.3.1] - 2022-01-11
 
 ### Fixed
 
@@ -121,6 +121,7 @@ the `1.0.0-rc.1` release.
 [1.1.0]: https://github.com/dogmatiq/dogma/releases/tag/v1.1.0
 [1.2.0]: https://github.com/dogmatiq/dogma/releases/tag/v1.2.0
 [1.3.0]: https://github.com/dogmatiq/dogma/releases/tag/v1.3.0
+[1.3.1]: https://github.com/dogmatiq/dogma/releases/tag/v1.3.1
 
 <!-- version template
 ## [0.0.1] - YYYY-MM-DD
