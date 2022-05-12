@@ -109,19 +109,19 @@ the `1.0.0-rc.1` release.
 <!-- references -->
 
 [unreleased]: https://github.com/dogmatiq/dogma
-[0.1.0]: https://github.com/dogmatiq/dogma/releases/tag/v0.1.0
-[0.1.1]: https://github.com/dogmatiq/dogma/releases/tag/v0.1.1
-[0.1.2]: https://github.com/dogmatiq/dogma/releases/tag/v0.1.2
-[0.2.0]: https://github.com/dogmatiq/dogma/releases/tag/v0.2.0
-[0.2.1]: https://github.com/dogmatiq/dogma/releases/tag/v0.2.1
-[0.2.2]: https://github.com/dogmatiq/dogma/releases/tag/v0.2.2
-[1.0.0-rc.0]: https://github.com/dogmatiq/dogma/releases/tag/v1.0.0-rc.0
-[1.0.0-rc.1]: https://github.com/dogmatiq/dogma/releases/tag/v1.0.0-rc.1
-[1.0.0]: https://github.com/dogmatiq/dogma/releases/tag/v1.0.0
-[1.1.0]: https://github.com/dogmatiq/dogma/releases/tag/v1.1.0
-[1.2.0]: https://github.com/dogmatiq/dogma/releases/tag/v1.2.0
-[1.3.0]: https://github.com/dogmatiq/dogma/releases/tag/v1.3.0
-[1.3.1]: https://github.com/dogmatiq/dogma/releases/tag/v1.3.1
+[0.1.0]: https://github.com/dogmatiq/dodeca/releases/tag/v0.1.0
+[0.1.1]: https://github.com/dogmatiq/dodeca/releases/tag/v0.1.1
+[0.1.2]: https://github.com/dogmatiq/dodeca/releases/tag/v0.1.2
+[0.2.0]: https://github.com/dogmatiq/dodeca/releases/tag/v0.2.0
+[0.2.1]: https://github.com/dogmatiq/dodeca/releases/tag/v0.2.1
+[0.2.2]: https://github.com/dogmatiq/dodeca/releases/tag/v0.2.2
+[1.0.0-rc.0]: https://github.com/dogmatiq/dodeca/releases/tag/v1.0.0-rc.0
+[1.0.0-rc.1]: https://github.com/dogmatiq/dodeca/releases/tag/v1.0.0-rc.1
+[1.0.0]: https://github.com/dogmatiq/dodeca/releases/tag/v1.0.0
+[1.1.0]: https://github.com/dogmatiq/dodeca/releases/tag/v1.1.0
+[1.2.0]: https://github.com/dogmatiq/dodeca/releases/tag/v1.2.0
+[1.3.0]: https://github.com/dogmatiq/dodeca/releases/tag/v1.3.0
+[1.3.1]: https://github.com/dogmatiq/dodeca/releases/tag/v1.3.1
 
 <!-- version template
 ## [0.0.1] - YYYY-MM-DD
