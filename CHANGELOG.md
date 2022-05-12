@@ -108,7 +108,7 @@ the `1.0.0-rc.1` release.
 
 <!-- references -->
 
-[unreleased]: https://github.com/dogmatiq/dogma
+[unreleased]: https://github.com/dogmatiq/dodeca
 [0.1.0]: https://github.com/dogmatiq/dodeca/releases/tag/v0.1.0
 [0.1.1]: https://github.com/dogmatiq/dodeca/releases/tag/v0.1.1
 [0.1.2]: https://github.com/dogmatiq/dodeca/releases/tag/v0.1.2
