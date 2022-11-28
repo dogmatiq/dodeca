@@ -1,3 +1,5 @@
+// Deprecated: The config package has been superceded by github.com/dogmatiq/ferrite.
+// Dogmatiq projects will transition to use go.uber.org/zap for logging.
 module github.com/dogmatiq/dodeca
 
 go 1.17
