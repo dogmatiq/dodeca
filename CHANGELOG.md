@@ -10,6 +10,22 @@ The format is based on [Keep a Changelog], and this project adheres to
 [keep a changelog]: https://keepachangelog.com/en/1.0.0/
 [semantic versioning]: https://semver.org/spec/v2.0.0.html
 
+## [1.4.0] - 2022-11-29
+
+> **The Dodeca project is deprecated as of this version.**
+>
+> - All Dogmatiq projects that use the Dodeca `logging` package are transitioning
+>   to use [`go.uber.org/zap`](https://github.com/uber-go/zap) instead.
+> - The Dodeca `config` package has been superceded by
+>   [`dogmatiq/ferrite`](https://github.com/dogmatiq/ferrite).
+>
+> This repository will be archived once it is no longer used by other Dogmatiq
+> projects.
+
+### Added
+
+- Add `logging.Zap()` to adapt an Uber Zap logger to a `logging.Logger`
+
 ## [1.3.1] - 2022-01-11
 
 ### Fixed
@@ -122,6 +138,7 @@ the `1.0.0-rc.1` release.
 [1.2.0]: https://github.com/dogmatiq/dodeca/releases/tag/v1.2.0
 [1.3.0]: https://github.com/dogmatiq/dodeca/releases/tag/v1.3.0
 [1.3.1]: https://github.com/dogmatiq/dodeca/releases/tag/v1.3.1
+[1.4.0]: https://github.com/dogmatiq/dodeca/releases/tag/v1.4.0
 
 <!-- version template
 ## [0.0.1] - YYYY-MM-DD

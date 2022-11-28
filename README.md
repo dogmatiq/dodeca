@@ -8,12 +8,15 @@
 
 Dodeca provides utilities for developers of [12-Factor](http://12factor.net) applications.
 
-> **THIS MODULE IS DEPRECATED**
+> **This project is deprecated.**
 >
-> Dogmatiq projects are transitioning to use
-> [`go.uber.org/zap`](https://github.com/uber-go/zap) for logging. The
-> configuration package has been superceded by
-> [`dogmatiq/ferrite`](https://github.com/dogmatiq/ferrite).
+> - All Dogmatiq projects that use the Dodeca `logging` package are transitioning
+>   to use [`go.uber.org/zap`](https://github.com/uber-go/zap) instead.
+> - The Dodeca `config` package has been superceded by
+>   [`dogmatiq/ferrite`](https://github.com/dogmatiq/ferrite).
+>
+> This repository will be archived once it is no longer used by other Dogmatiq
+> projects.
 
 ## Logging
 
