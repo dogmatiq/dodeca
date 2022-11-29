@@ -60,64 +60,64 @@ of the `AsXXX()` functions in Dodeca's `config` package.
 | [`AsBoolDefault()`]            | [`ferrite.Bool()`]     | [Bool (Default)]      |
 | [`AsBoolF()`]                  | [`ferrite.Bool()`]     | [Bool (Default)]      |
 | [`AsBoolT()`]                  | [`ferrite.Bool()`]     | [Bool (Default)]      |
-| [`AsBytes()`]                  | Proposed in [#22]      |
-| [`AsBytesDefault()`]           | Proposed in [#22]      |
+| [`AsBytes()`]                  | Pending [#22]          |
+| [`AsBytesDefault()`]           | Pending [#22]          |
 | [`AsDuration()`]               | [`ferrite.Duration()`] | [Duration (Required)] |
-| [`AsDurationBetween()`]        | Proposed in [#23]      |
+| [`AsDurationBetween()`]        | Pending [#23]          |
 | [`AsDurationDefault()`]        | [`ferrite.Duration()`] | [Duration (Default)]  |
-| [`AsDurationDefaultBetween()`] | Proposed in [#23]      |
-| [`AsFloat32()`]                | Proposed in [#24]      |
-| [`AsFloat32Between()`]         | Proposed in [#24]      |
-| [`AsFloat32Default()`]         | Proposed in [#24]      |
-| [`AsFloat32DefaultBetween()`]  | Proposed in [#24]      |
-| [`AsFloat64()`]                | Proposed in [#24]      |
-| [`AsFloat64Between()`]         | Proposed in [#24]      |
-| [`AsFloat64Default()`]         | Proposed in [#24]      |
-| [`AsFloat64DefaultBetween()`]  | Proposed in [#24]      |
+| [`AsDurationDefaultBetween()`] | Pending [#23]          |
+| [`AsFloat32()`]                | Pending [#24]          |
+| [`AsFloat32Between()`]         | Pending [#24]          |
+| [`AsFloat32Default()`]         | Pending [#24]          |
+| [`AsFloat32DefaultBetween()`]  | Pending [#24]          |
+| [`AsFloat64()`]                | Pending [#24]          |
+| [`AsFloat64Between()`]         | Pending [#24]          |
+| [`AsFloat64Default()`]         | Pending [#24]          |
+| [`AsFloat64DefaultBetween()`]  | Pending [#24]          |
 | [`AsInt()`]                    | [`ferrite.Signed()`]   | [Signed (Required)]   |
 | [`AsInt16()`]                  | [`ferrite.Signed()`]   | [Signed (Required)]   |
-| [`AsInt16Between()`]           | Proposed in [#25]      |
+| [`AsInt16Between()`]           | Pending [#25]          |
 | [`AsInt16Default()`]           | [`ferrite.Signed()`]   | [Signed (Default)]    |
-| [`AsInt16DefaultBetween()`]    | Proposed in [#25]      |
+| [`AsInt16DefaultBetween()`]    | Pending [#25]          |
 | [`AsInt32()`]                  | [`ferrite.Signed()`]   | [Signed (Required)]   |
-| [`AsInt32Between()`]           | Proposed in [#25]      |
+| [`AsInt32Between()`]           | Pending [#25]          |
 | [`AsInt32Default()`]           | [`ferrite.Signed()`]   | [Signed (Default)]    |
-| [`AsInt32DefaultBetween()`]    | Proposed in [#25]      |
+| [`AsInt32DefaultBetween()`]    | Pending [#25]          |
 | [`AsInt64()`]                  | [`ferrite.Signed()`]   | [Signed (Required)]   |
-| [`AsInt64Between()`]           | Proposed in [#25]      |
+| [`AsInt64Between()`]           | Pending [#25]          |
 | [`AsInt64Default()`]           | [`ferrite.Signed()`]   | [Signed (Default)]    |
-| [`AsInt64DefaultBetween()`]    | Proposed in [#25]      |
+| [`AsInt64DefaultBetween()`]    | Pending [#25]          |
 | [`AsInt8()`]                   | [`ferrite.Signed()`]   | [Signed (Required)]   |
-| [`AsInt8Between()`]            | Proposed in [#25]      |
+| [`AsInt8Between()`]            | Pending [#25]          |
 | [`AsInt8Default()`]            | [`ferrite.Signed()`]   | [Signed (Default)]    |
-| [`AsInt8DefaultBetween()`]     | Proposed in [#25]      |
-| [`AsIntBetween()`]             | Proposed in [#25]      |
+| [`AsInt8DefaultBetween()`]     | Pending [#25]          |
+| [`AsIntBetween()`]             | Pending [#25]          |
 | [`AsIntDefault()`]             | [`ferrite.Signed()`]   | [Signed (Default)]    |
-| [`AsIntDefaultBetween()`]      | Proposed in [#25]      |
+| [`AsIntDefaultBetween()`]      | Pending [#25]          |
 | [`AsString()`]                 | [`ferrite.String()`]   | [String (Required)]   |
 | [`AsStringDefault()`]          | [`ferrite.String()`]   | [String (Default)]    |
-| [`AsURL()`]                    | Proposed in [#27]      |
-| [`AsURLDefault()`]             | Proposed in [#27]      |
+| [`AsURL()`]                    | Pending [#27]          |
+| [`AsURLDefault()`]             | Pending [#27]          |
 | [`AsUint()`]                   | [`ferrite.Unsigned()`] | [Unsigned (Required)] |
 | [`AsUint16()`]                 | [`ferrite.Unsigned()`] | [Unsigned (Required)] |
-| [`AsUint16Between()`]          | Proposed in [#26]      |
+| [`AsUint16Between()`]          | Pending [#26]          |
 | [`AsUint16Default()`]          | [`ferrite.Unsigned()`] | [Unsigned (Default)]  |
-| [`AsUint16DefaultBetween()`]   | Proposed in [#26]      |
+| [`AsUint16DefaultBetween()`]   | Pending [#26]          |
 | [`AsUint32()`]                 | [`ferrite.Unsigned()`] | [Unsigned (Required)] |
-| [`AsUint32Between()`]          | Proposed in [#26]      |
+| [`AsUint32Between()`]          | Pending [#26]          |
 | [`AsUint32Default()`]          | [`ferrite.Unsigned()`] | [Unsigned (Default)]  |
-| [`AsUint32DefaultBetween()`]   | Proposed in [#26]      |
+| [`AsUint32DefaultBetween()`]   | Pending [#26]          |
 | [`AsUint64()`]                 | [`ferrite.Unsigned()`] | [Unsigned (Required)] |
-| [`AsUint64Between()`]          | Proposed in [#26]      |
+| [`AsUint64Between()`]          | Pending [#26]          |
 | [`AsUint64Default()`]          | [`ferrite.Unsigned()`] | [Unsigned (Default)]  |
-| [`AsUint64DefaultBetween()`]   | Proposed in [#26]      |
+| [`AsUint64DefaultBetween()`]   | Pending [#26]          |
 | [`AsUint8()`]                  | [`ferrite.Unsigned()`] | [Unsigned (Required)] |
-| [`AsUint8Between()`]           | Proposed in [#26]      |
+| [`AsUint8Between()`]           | Pending [#26]          |
 | [`AsUint8Default()`]           | [`ferrite.Unsigned()`] | [Unsigned (Default)]  |
-| [`AsUint8DefaultBetween()`]    | Proposed in [#26]      |
-| [`AsUintBetween()`]            | Proposed in [#26]      |
+| [`AsUint8DefaultBetween()`]    | Pending [#26]          |
+| [`AsUintBetween()`]            | Pending [#26]          |
 | [`AsUintDefault()`]            | [`ferrite.Unsigned()`] | [Unsigned (Default)]  |
-| [`AsUintDefaultBetween()`]     | Proposed in [#26]      |
+| [`AsUintDefaultBetween()`]     | Pending [#26]          |
 
 <!-- dodeca -->
 
@@ -200,6 +200,8 @@ of the `AsXXX()` functions in Dodeca's `config` package.
 [duration (default)]: https://pkg.go.dev/github.com/dogmatiq/ferrite#example-Duration-Default
 [signed (required)]: https://pkg.go.dev/github.com/dogmatiq/ferrite#example-Signed-Required
 [signed (default)]: https://pkg.go.dev/github.com/dogmatiq/ferrite#example-Signed-Default
+[string (required)]: https://pkg.go.dev/github.com/dogmatiq/ferrite#example-String-Required
+[string (default)]: https://pkg.go.dev/github.com/dogmatiq/ferrite#example-String-Default
 [unsigned (required)]: https://pkg.go.dev/github.com/dogmatiq/ferrite#example-Unsigned-Required
 [unsigned (default)]: https://pkg.go.dev/github.com/dogmatiq/ferrite#example-Unsigned-Default
 
