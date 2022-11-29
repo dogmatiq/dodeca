@@ -13,7 +13,8 @@ Dodeca provides utilities for developers of [12-Factor](http://12factor.net) app
 > - All Dogmatiq projects that use the Dodeca `logging` package are transitioning
 >   to use [`go.uber.org/zap`](https://github.com/uber-go/zap) instead.
 > - The Dodeca `config` package has been superceded by
->   [`dogmatiq/ferrite`](https://github.com/dogmatiq/ferrite).
+>   [`dogmatiq/ferrite`](https://github.com/dogmatiq/ferrite). Please see the
+>   [migration guide](docs/MIGRATING-FERRITE.md) for more information.
 >
 > This repository will be archived once it is no longer used by other Dogmatiq
 > projects.
