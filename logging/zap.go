@@ -6,13 +6,11 @@ import "go.uber.org/zap"
 func Zap(target *zap.Logger) Logger {
 	return zapAdaptor{
 		target.Sugar(),
-		target.Core().Enabled(zap.DebugLevel),
 	}
 }
 
 type zapAdaptor struct {
-	target       *zap.SugaredLogger
-	captureDebug bool
+	target *zap.SugaredLogger
 }
 
 func (a zapAdaptor) Log(f string, v ...interface{}) {
@@ -32,5 +30,5 @@ func (a zapAdaptor) DebugString(s string) {
 }
 
 func (a zapAdaptor) IsDebug() bool {
-	return a.captureDebug
+	return a.target.Level() <= zap.DebugLevel
 }
