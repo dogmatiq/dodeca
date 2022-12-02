@@ -10,6 +10,12 @@ The format is based on [Keep a Changelog], and this project adheres to
 [keep a changelog]: https://keepachangelog.com/en/1.0.0/
 [semantic versioning]: https://semver.org/spec/v2.0.0.html
 
+## [1.4.2] - 2022-12-02
+
+### Changed
+
+- Improved the mechanism used by to `Zap()` detect whether debug-level logging is enabled
+
 ## [1.4.1] - 2022-11-29
 
 This release simply removes the package-level deprecation notices, as they are
