@@ -13,8 +13,10 @@ Go utilities for developers of [12-Factor](http://12factor.net) applications.
 
 > **This project is deprecated.**
 >
-> - All Dogmatiq projects that use the Dodeca `logging` package are transitioning
->   to use [`go.uber.org/zap`](https://github.com/uber-go/zap) instead.
+> - All Dogmatiq projects that use the Dodeca `logging` package are
+>   transitioning to use [`slog`](https://pkg.go.dev/golang.org/x/exp/slog)
+>   instead, in anticipation of its inclusion in Go's standard library.
+>
 > - The Dodeca `config` package has been superceded by
 >   [`dogmatiq/ferrite`](https://github.com/dogmatiq/ferrite). Please see the
 >   [migration guide](docs/MIGRATING-FERRITE.md) for more information.
