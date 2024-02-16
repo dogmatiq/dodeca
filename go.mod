@@ -2,7 +2,7 @@
 // Dogmatiq projects will transition to use go.uber.org/zap for logging.
 module github.com/dogmatiq/dodeca
 
-go 1.19
+go 1.21
 
 require (
 	github.com/onsi/ginkgo v1.16.5
